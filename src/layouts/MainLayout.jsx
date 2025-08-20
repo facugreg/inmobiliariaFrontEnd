@@ -25,6 +25,8 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import Card from '../components/Card';
 import Item from '../components/ItemCarousel';
+import FormIniciarSesion from '../components/InicioSesion';
+
 const MainLayout = () => {
   return (
     <>

@@ -1,4 +1,5 @@
 import transparent2 from '../assets/transparent2.png';
+import { useNavigate } from 'react-router-dom';
 import {
   CContainer,
   CRow,
@@ -10,6 +11,7 @@ import {
   CNavLink,
 } from '@coreui/react';
 export default function Header() {
+  const navigate = useNavigate();
   return (
     <CContainer fluid className="p-3 bg-light">
       <CRow className="align-items-center">
@@ -39,7 +41,9 @@ export default function Header() {
           </CNav>
         </CCol>
         <CCol xs={3} className="d-flex justify-content-end">
-          <CButton color="primary">Iniciar sesion</CButton>
+          <CButton onClick={() => navigate('/login')} color="primary">
+            Iniciar sesion
+          </CButton>
         </CCol>
       </CRow>
     </CContainer>
