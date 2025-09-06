@@ -1,10 +1,8 @@
 import CIcon from '@coreui/icons-react';
-
-import { cilSearch } from '@coreui/icons';
 import '@coreui/coreui/dist/css/coreui.min.css';
 import im from '../assets/im.png';
 import agente from '../assets/agente.png';
-
+import { useState } from 'react';
 import {
   CContainer,
   CCarousel,
@@ -26,8 +24,22 @@ import Footer from '../components/Footer';
 import Card from '../components/Card';
 import Item from '../components/ItemCarousel';
 import FormIniciarSesion from '../components/InicioSesion';
+import { Buscador } from '../components/Buscador.jsx';
+
+  const opcionesInmueble = [
+    { value: 'Departamento', label: 'Departamento' },
+    { value: 'Casa', label: 'Casa' },
+    { value: 'Cochera', label: 'Cochera' },
+    { value: 'Terreno', label: 'Terreno' },
+  ];
 
 const MainLayout = () => {
+  const [filtroBuscador, setFiltroBuscador] = useState('');
+
+  const handleFiltroBuscadorChange = (e) => {
+    setFiltroBuscador(e.target.value);
+    console.log('Filtro del buscador:', e.target.value);
+  };
   return (
     <>
       <CContainer fluid className="p-0">
@@ -54,28 +66,14 @@ const MainLayout = () => {
               <CButton color="light">Alquiler temporal</CButton>
             </CCol>
           </CRow>
-          <CRow className="mt-3 justify-content-center w-100 g-0">
-            <CCol lg={9}>
-              <CInputGroup>
-                <CFormInput
-                  type="text"
-                  name="buscar"
-                  placeholder="Ciudad, provincia, pais"
-                  className="w-50"
-                />
-                <CFormSelect className="w-30 d-none d-md-block">
-                  <option disabled hidden>
-                    Tipo de inmueble
-                  </option>
-                  <option value="Departamento">Departamento</option>
-                  <option value="Casa">Casa</option>
-                  <option value="Cochera">Cochera</option>
-                  <option value="Terreno">Terreno</option>
-                </CFormSelect>
-                <CButton type="button" color="primary" className="w-20">
-                  <CIcon icon={cilSearch} />
-                </CButton>
-              </CInputGroup>
+          <CRow className="mt-3 justify-content-center w-100">
+            <CCol lg={9} className="d-flex justify-content-center">
+              <Buscador onSearch={() => alert('Buscar inmueble')} 
+                        mostrarFiltro={true} 
+                        placeholder="Ciudad, provincia, país"  
+                        filtroOpciones={opcionesInmueble}
+                        filtroValue={filtroBuscador}
+                        filtroOnChange={handleFiltroBuscadorChange}/>
             </CCol>
           </CRow>
         </CContainer>
