@@ -5,6 +5,7 @@ import '@coreui/coreui/dist/css/coreui.min.css';
 import FormIniciarSesion from './components/InicioSesion';
 import FormSignIn from './components/Registro';
 import { ComprarAlquilar } from './layouts/ComprarAlquilar';
+import { Contacto } from './layouts/Contacto';
 //import PageRevealEvent from './components/page'
 function App() {
   return (
@@ -14,6 +15,8 @@ function App() {
         <Route path="/login" element={<FormIniciarSesion />} />
         <Route path="/signin" element={<FormSignIn />} />
         <Route path="/comprar" element={<ComprarAlquilar />} />
+        <Route path="/alquilar" element={<ComprarAlquilar />} />
+        <Route path="/contacto" element={<Contacto />} />
       </Routes>
     </Router>
   );
