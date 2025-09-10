@@ -25,13 +25,24 @@ import Card from '../components/Card';
 import Item from '../components/ItemCarousel';
 import FormIniciarSesion from '../components/InicioSesion';
 import { Buscador } from '../components/Buscador.jsx';
+const navItems = [
+  {
+    direccion: '#',
+    nombre: 'Comprar',
+  },
+  { direccion: '#', nombre: 'Alquilar' },
+  {
+    direccion: '#',
+    nombre: 'Contacto',
+  },
+];
 
-  const opcionesInmueble = [
-    { value: 'Departamento', label: 'Departamento' },
-    { value: 'Casa', label: 'Casa' },
-    { value: 'Cochera', label: 'Cochera' },
-    { value: 'Terreno', label: 'Terreno' },
-  ];
+const opcionesInmueble = [
+  { value: 'Departamento', label: 'Departamento' },
+  { value: 'Casa', label: 'Casa' },
+  { value: 'Cochera', label: 'Cochera' },
+  { value: 'Terreno', label: 'Terreno' },
+];
 
 const MainLayout = () => {
   const [filtroBuscador, setFiltroBuscador] = useState('');
@@ -43,7 +54,7 @@ const MainLayout = () => {
   return (
     <>
       <CContainer fluid className="p-0">
-        <Header />
+        <Header navItems={navItems} />
 
         <CContainer
           fluid
@@ -68,12 +79,14 @@ const MainLayout = () => {
           </CRow>
           <CRow className="mt-3 justify-content-center w-100">
             <CCol lg={9} className="d-flex justify-content-center">
-              <Buscador onSearch={() => alert('Buscar inmueble')} 
-                        mostrarFiltro={true} 
-                        placeholder="Ciudad, provincia, país"  
-                        filtroOpciones={opcionesInmueble}
-                        filtroValue={filtroBuscador}
-                        filtroOnChange={handleFiltroBuscadorChange}/>
+              <Buscador
+                onSearch={() => alert('Buscar inmueble')}
+                mostrarFiltro={true}
+                placeholder="Ciudad, provincia, país"
+                filtroOpciones={opcionesInmueble}
+                filtroValue={filtroBuscador}
+                filtroOnChange={handleFiltroBuscadorChange}
+              />
             </CCol>
           </CRow>
         </CContainer>

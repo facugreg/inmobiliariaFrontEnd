@@ -6,6 +6,7 @@ import FormIniciarSesion from './components/InicioSesion';
 import FormSignIn from './components/Registro';
 import { ComprarAlquilar } from './layouts/ComprarAlquilar';
 import { Contacto } from './layouts/Contacto';
+import Inmuebles from './layouts/Inmuebles';
 //import PageRevealEvent from './components/page'
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="/comprar" element={<ComprarAlquilar />} />
         <Route path="/alquilar" element={<ComprarAlquilar />} />
         <Route path="/contacto" element={<Contacto />} />
+        <Route path="/inmuebles" element={<Inmuebles />} />
       </Routes>
     </Router>
   );

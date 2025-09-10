@@ -1,21 +1,31 @@
-import { Buscador } from "../components/Buscador.jsx";
-import Card from "../components/Card.jsx";
-import { CardComprarAlquilar } from "../components/CardComprarAlquilar.jsx";
-import { Filtro } from "../components/Filtro.jsx";
-import Footer from "../components/Footer.jsx";
-import Header from "../components/Header.jsx";
-import { CCol, CContainer, CRow } from "@coreui/react";
-import { useState } from "react";
-import { Paginacion } from "../components/Paginacion.jsx";
+import { Buscador } from '../components/Buscador.jsx';
+import Card from '../components/Card.jsx';
+import { CardComprarAlquilar } from '../components/CardComprarAlquilar.jsx';
+import { Filtro } from '../components/Filtro.jsx';
+import Footer from '../components/Footer.jsx';
+import Header from '../components/Header.jsx';
+import { CCol, CContainer, CRow } from '@coreui/react';
+import { useState } from 'react';
+import { Paginacion } from '../components/Paginacion.jsx';
 
 export const ComprarAlquilar = () => {
-
   const [tipoInmueble, setTipoInmueble] = useState('');
   const [rangoPrecio, setRangoPrecio] = useState('');
   const [antiguedad, setAntiguedad] = useState('');
   const [paginaActual, setPaginaActual] = useState(1);
   const totalPaginas = 3;
 
+  const navItems = [
+    {
+      direccion: '#',
+      nombre: 'Comprar',
+    },
+    { direccion: '#', nombre: 'Alquilar' },
+    {
+      direccion: '#',
+      nombre: 'Contacto',
+    },
+  ];
   // Opciones para los filtros
   const opcionesInmueble = [
     { value: 'Departamento', label: 'Departamento' },
@@ -31,7 +41,7 @@ export const ComprarAlquilar = () => {
     { value: '200000+', label: 'Más de $200,000' },
   ];
 
-    const opcionesAntiguedad = [
+  const opcionesAntiguedad = [
     { value: '0-5', label: 'Hasta 5 años' },
     { value: '5-10', label: '5-10 años' },
     { value: '10-20', label: '10-20 años' },
@@ -64,55 +74,91 @@ export const ComprarAlquilar = () => {
   //const indiceInicio = (paginaActual - 1) * inmueblesPorPagina;
   return (
     <>
-    <CContainer fluid className= "p-0">
-      <Header />
-      <CContainer fluid className="d-flex flex-column justify-content-center align-items-center p-5">
-
-      <CRow className="align-items-center p-0">
-        <CCol lg={6} md={12}>
-        <Buscador onSearch={() => alert('Buscar inmueble')} />
-        </CCol>
-        <CCol lg={2} md={6}>
-        <Filtro
-          label="Tipo"
-          opciones={opcionesInmueble}
-          value={tipoInmueble}
-          onChange={handleTipoInmuebleChange}
-          className="me-2"
-        />
-        </CCol> {/* Espaciador */}
-        <CCol lg={2} md={6}>
-        <Filtro
-          label="Precio"
-          opciones={opcionesPrecio}
-          value={rangoPrecio}
-          onChange={handleRangoPrecioChange}
-        />
-        </CCol> {/* Espaciador */}
-        <CCol lg={2} md={6}>
-        <Filtro
-          label="Antigüedad"
-          opciones={opcionesAntiguedad}
-          value={antiguedad}
-          onChange={handleAntiguedadChange}
-        />
-        </CCol> {/* Espaciador */}
-      </CRow>
-      </CContainer>
-      <CContainer fluid className="d-flex flex-column justify-content-center align-items-center p-5">
-        <CardComprarAlquilar precio="$150.000" direccion="Calle Falsa 123" mts2="85" descripcion="Departamento luminoso con vista al parque" antiguedad="5 años" requisitos="Comprobante de ingresos y referencias" />
-        <CardComprarAlquilar precio="$200.000" direccion="Avenida Siempre Viva 742" mts2="120" descripcion="Casa familiar con jardín y piscina" antiguedad="10 años" requisitos="Comprobante de ingresos y referencias"/>
-        <CardComprarAlquilar precio="$100.000" direccion="Boulevard de los Sueños Rotos 456" mts2="60" descripcion="Departamento moderno en el centro de la ciudad" antiguedad="2 años" requisitos="Comprobante de ingresos y referencias"/>
-        <CardComprarAlquilar precio="$250.000" direccion="Calle del Sol 789" mts2="150" descripcion="Casa espaciosa con vista al mar" antiguedad="8 años" requisitos="Comprobante de ingresos y referencias"/>
-      </CContainer>
+      <CContainer fluid className="p-0">
+        <Header navItems={navItems} />
+        <CContainer
+          fluid
+          className="d-flex flex-column justify-content-center align-items-center p-5"
+        >
+          <CRow className="align-items-center p-0">
+            <CCol lg={6} md={12}>
+              <Buscador onSearch={() => alert('Buscar inmueble')} />
+            </CCol>
+            <CCol lg={2} md={6}>
+              <Filtro
+                label="Tipo"
+                opciones={opcionesInmueble}
+                value={tipoInmueble}
+                onChange={handleTipoInmuebleChange}
+                className="me-2"
+              />
+            </CCol>{' '}
+            {/* Espaciador */}
+            <CCol lg={2} md={6}>
+              <Filtro
+                label="Precio"
+                opciones={opcionesPrecio}
+                value={rangoPrecio}
+                onChange={handleRangoPrecioChange}
+              />
+            </CCol>{' '}
+            {/* Espaciador */}
+            <CCol lg={2} md={6}>
+              <Filtro
+                label="Antigüedad"
+                opciones={opcionesAntiguedad}
+                value={antiguedad}
+                onChange={handleAntiguedadChange}
+              />
+            </CCol>{' '}
+            {/* Espaciador */}
+          </CRow>
+        </CContainer>
+        <CContainer
+          fluid
+          className="d-flex flex-column justify-content-center align-items-center p-5"
+        >
+          <CardComprarAlquilar
+            precio="$150.000"
+            direccion="Calle Falsa 123"
+            mts2="85"
+            descripcion="Departamento luminoso con vista al parque"
+            antiguedad="5 años"
+            requisitos="Comprobante de ingresos y referencias"
+          />
+          <CardComprarAlquilar
+            precio="$200.000"
+            direccion="Avenida Siempre Viva 742"
+            mts2="120"
+            descripcion="Casa familiar con jardín y piscina"
+            antiguedad="10 años"
+            requisitos="Comprobante de ingresos y referencias"
+          />
+          <CardComprarAlquilar
+            precio="$100.000"
+            direccion="Boulevard de los Sueños Rotos 456"
+            mts2="60"
+            descripcion="Departamento moderno en el centro de la ciudad"
+            antiguedad="2 años"
+            requisitos="Comprobante de ingresos y referencias"
+          />
+          <CardComprarAlquilar
+            precio="$250.000"
+            direccion="Calle del Sol 789"
+            mts2="150"
+            descripcion="Casa espaciosa con vista al mar"
+            antiguedad="8 años"
+            requisitos="Comprobante de ingresos y referencias"
+          />
+        </CContainer>
         <Paginacion
           paginaActual={paginaActual}
           totalPaginas={totalPaginas}
           onCambiarPagina={handleCambiarPagina}
         />
 
-      <Footer />
-    </CContainer>
+        <Footer />
+      </CContainer>
     </>
-  )
+  );
 };

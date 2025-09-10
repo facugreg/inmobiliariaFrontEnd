@@ -10,7 +10,9 @@ import {
   CNavItem,
   CNavLink,
 } from '@coreui/react';
-export default function Header() {
+
+//el header tendria que cambiar segun el tipo de usuario, no segun los navItems que le pasemos 
+export default function Header({ navItems }) { 
   const navigate = useNavigate();
   return (
     <CContainer fluid className="p-3 bg-light">
@@ -29,15 +31,11 @@ export default function Header() {
         </CCol>
         <CCol xs={6}>
           <CNav className="justify-content-center">
-            <CNavItem>
-              <CNavLink href="#">Comprar</CNavLink>
-            </CNavItem>
-            <CNavItem>
-              <CNavLink href="#">Alquilar</CNavLink>
-            </CNavItem>
-            <CNavItem>
-              <CNavLink href="#">Contacto</CNavLink>
-            </CNavItem>
+            {navItems.map((item, index) => (
+              <CNavItem key={index} href={item.direccion}>
+                {item.nombre}
+              </CNavItem>
+            ))}
           </CNav>
         </CCol>
         <CCol xs={3} className="d-flex justify-content-end">
