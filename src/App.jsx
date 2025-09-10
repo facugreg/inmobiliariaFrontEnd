@@ -7,6 +7,7 @@ import FormSignIn from './components/Registro';
 import { ComprarAlquilar } from './layouts/ComprarAlquilar';
 import { Contacto } from './layouts/Contacto';
 import Inmuebles from './layouts/Inmuebles';
+import { MisVisitas } from './layouts/MisVisitas';
 //import PageRevealEvent from './components/page'
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route path="/alquilar" element={<ComprarAlquilar />} />
         <Route path="/contacto" element={<Contacto />} />
         <Route path="/inmuebles" element={<Inmuebles />} />
+        <Route path="/misvisitas" element={<MisVisitas />} />
       </Routes>
     </Router>
   );

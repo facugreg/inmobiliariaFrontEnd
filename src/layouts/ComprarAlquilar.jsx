@@ -78,13 +78,13 @@ export const ComprarAlquilar = () => {
         <Header navItems={navItems} />
         <CContainer
           fluid
-          className="d-flex flex-column justify-content-center align-items-center p-5"
+          className="d-flex flex-column justify-content-center align-items-center"
         >
-          <CRow className="align-items-center p-0">
+          <CRow className="mt-3  d-flex align-items-center">
             <CCol lg={6} md={12}>
               <Buscador onSearch={() => alert('Buscar inmueble')} />
             </CCol>
-            <CCol lg={2} md={6}>
+            <CCol lg={2} md={12} sm={12}>
               <Filtro
                 label="Tipo"
                 opciones={opcionesInmueble}
@@ -94,7 +94,7 @@ export const ComprarAlquilar = () => {
               />
             </CCol>{' '}
             {/* Espaciador */}
-            <CCol lg={2} md={6}>
+            <CCol lg={2} md={12} sm={12}>
               <Filtro
                 label="Precio"
                 opciones={opcionesPrecio}
@@ -103,7 +103,7 @@ export const ComprarAlquilar = () => {
               />
             </CCol>{' '}
             {/* Espaciador */}
-            <CCol lg={2} md={6}>
+            <CCol lg={2} md={12} sm={12}>
               <Filtro
                 label="Antigüedad"
                 opciones={opcionesAntiguedad}
@@ -118,6 +118,8 @@ export const ComprarAlquilar = () => {
           fluid
           className="d-flex flex-column justify-content-center align-items-center p-5"
         >
+          <CCol lg={12} md={12} sm={6} className="d-flex flex-wrap justify-content-center">
+
           <CardComprarAlquilar
             precio="$150.000"
             direccion="Calle Falsa 123"
@@ -150,6 +152,7 @@ export const ComprarAlquilar = () => {
             antiguedad="8 años"
             requisitos="Comprobante de ingresos y referencias"
           />
+          </CCol>
         </CContainer>
         <Paginacion
           paginaActual={paginaActual}
