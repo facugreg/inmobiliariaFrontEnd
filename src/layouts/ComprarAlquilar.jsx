@@ -1,5 +1,4 @@
 import { Buscador } from '../components/Buscador.jsx';
-import Card from '../components/Card.jsx';
 import { CardComprarAlquilar } from '../components/CardComprarAlquilar.jsx';
 import { Filtro } from '../components/Filtro.jsx';
 import Footer from '../components/Footer.jsx';

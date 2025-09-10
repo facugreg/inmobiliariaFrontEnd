@@ -7,14 +7,26 @@ import {
   CCardBody,
   CButton,
   CCardText,
+  CModalFooter, CModal, CModalHeader, CModalTitle, CModalBody
 } from '@coreui/react';
 import casa from '../assets/casa.jpg';
 import CIcon from '@coreui/icons-react';
 import { cilBorderOuter, cilCalendar, cilList } from '@coreui/icons';
+import { useState } from 'react';
+import { FormSolicitudVisita } from './FormSolicitudVisita';
 
 export function CardComprarAlquilar({ precio, direccion, mts2, descripcion, antiguedad, requisitos }) {
+    const [modalVisible, setModalVisible] = useState(false);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Here you can handle form submission, e.g., send data to an API
+    console.log('Form submitted');
+    setModalVisible(false); // Close modal after submission
+  };
   return (
-      <CCard className ="mb-3" style={{ width: '1000px' }}>
+    <>
+    <CCard className ="mb-3" style={{ width: '1000px' }}>
         <CRow className= "g-0">
           {/* Imagen a la izquierda */}
           <CCol md={4}>
@@ -40,10 +52,30 @@ export function CardComprarAlquilar({ precio, direccion, mts2, descripcion, anti
               <CIcon icon= {cilList} className="me-2 text-primary" ></CIcon>
               <strong>Requisitos:</strong> {requisitos}</small><br />
           </CCardText>
-            <CButton color="primary"> Solicitar visita </CButton>
+            <CButton color="primary" onClick={() => setModalVisible(true)}> Solicitar visita </CButton>
           </CCardBody>  
           </CCol>
         </CRow>
       </CCard>
+
+      {/* Modal with Form */}
+      <CModal visible={modalVisible} onClose={() => setModalVisible(false)}>
+        <CModalHeader>
+          <CModalTitle>Solicitar Visita</CModalTitle>
+        </CModalHeader>
+        <CModalBody>
+          <FormSolicitudVisita onSubmit = {handleSubmit}/>
+        </CModalBody>
+        <CModalFooter>
+          <CButton color="secondary" onClick={() => setModalVisible(false)}>
+            Cancelar
+          </CButton>
+          <CButton color="primary" type="submit" form="visita-form">
+            Enviar Solicitud
+          </CButton>
+        </CModalFooter>
+      </CModal>
+
+  </>
   );
 }
