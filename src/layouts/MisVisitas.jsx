@@ -5,12 +5,6 @@ import { Buscador } from "../components/Buscador.jsx";
 import { Filtro } from "../components/Filtro.jsx";
 import Lista from "../components/Lista.jsx";
 
-const navItems  = [
-  {nombre: 'Mis Visitas', direccion: '/misvisitas'},
-  {nombre: 'Comprar', direccion: '/comprar'},
-  {nombre: 'Alquilar', direccion: '/alquilar'},
-  {nombre: 'Contacto', direccion: '/contacto'},
-]
 const opcionesEstado = [
   { value: 'Pendiente', label: 'Pendiente' },
   { value: 'Confirmada', label: 'Confirmada' },
@@ -26,7 +20,7 @@ export function MisVisitas() {
   return (
     <>
     <CContainer fluid className="p-0">
-      <Header navItems={navItems}/>
+      <Header userType="user"/>
     </CContainer>
     <CContainer>
       <CRow className="mt-3  d-flex align-items-center">

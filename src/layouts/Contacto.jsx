@@ -7,7 +7,7 @@ import { FormContacto } from "../components/FormContacto.jsx";
 export const Contacto = () => {
   return (
   <CContainer fluid className="p-0">
-    <Header />
+    <Header userType="guest"/>
     <CContainer className="d-flex justify-content-center align-items-center p-5" style={{ minHeight: '80px' }}> 
     <h1>Contactate con nosotros</h1>
     </CContainer>

@@ -10,10 +10,12 @@ import {
   CNavItem,
   CNavLink,
 } from '@coreui/react';
+import { getNavigationItems, } from '../config/navigation';
 
 //el header tendria que cambiar segun el tipo de usuario, no segun los navItems que le pasemos 
-export default function Header({ navItems }) { 
+export default function Header({ userType = 'guest' }) { 
   const navigate = useNavigate();
+  const navItems = getNavigationItems(userType);
   return (
     <CContainer fluid className="p-3 bg-light">
       <CRow className="align-items-center">

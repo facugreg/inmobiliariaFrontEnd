@@ -25,17 +25,6 @@ import Card from '../components/Card';
 import Item from '../components/ItemCarousel';
 import FormIniciarSesion from '../components/InicioSesion';
 import { Buscador } from '../components/Buscador.jsx';
-const navItems = [
-  {
-    direccion: '#',
-    nombre: 'Comprar',
-  },
-  { direccion: '#', nombre: 'Alquilar' },
-  {
-    direccion: '#',
-    nombre: 'Contacto',
-  },
-];
 
 const opcionesInmueble = [
   { value: 'Departamento', label: 'Departamento' },
@@ -54,7 +43,7 @@ const MainLayout = () => {
   return (
     <>
       <CContainer fluid className="p-0">
-        <Header navItems={navItems} />
+        <Header userType='guest' />
 
         <CContainer
           fluid
