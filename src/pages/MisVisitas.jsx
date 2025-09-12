@@ -1,27 +1,23 @@
 import { CCol, CContainer, CRow } from "@coreui/react";
-import Header from "../components/Header.jsx";
-import Footer from "../components/Footer.jsx";
 import { Buscador } from "../components/Buscador.jsx";
 import { Filtro } from "../components/Filtro.jsx";
 import Lista from "../components/Lista.jsx";
+import { useState } from "react";
 
 const opcionesEstado = [
   { value: 'Pendiente', label: 'Pendiente' },
   { value: 'Confirmada', label: 'Confirmada' },
   { value: 'Cancelada', label: 'Cancelada' },
 ];
-const [valorEstado, setValorEstado] = ('');
-const handleEstadoChange = (e) => {
-  setValorEstado(e.target.value);
-  console.log('Filtro estado:', e.target.value);
-} 
 
 export function MisVisitas() {
+  const [valorEstado, setValorEstado] = useState('');
+  const handleEstadoChange = (e) => {
+    setValorEstado(e.target.value);
+    console.log('Filtro estado:', e.target.value);
+  } 
   return (
     <>
-    <CContainer fluid className="p-0">
-      <Header userType="user"/>
-    </CContainer>
     <CContainer>
       <CRow className="mt-3  d-flex align-items-center">
         <CCol lg={6} md={12}>
@@ -46,9 +42,6 @@ export function MisVisitas() {
 
         </CCol>
       </CRow>
-    </CContainer>
-    <CContainer fluid className="p-0">
-      <Footer />
     </CContainer>
     </>
   );

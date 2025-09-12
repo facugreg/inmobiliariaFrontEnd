@@ -19,10 +19,6 @@ const Inmuebles = () => {
     { value: 'Departamento', label: 'Departamento' },
     { value: 'Terreno', label: 'Terreno' },
   ];
-  /*const items = [
-    { direccion: 'Mendoza 1492', servicio: 'Alquiler', estado: 'Activo' },
-    { direccion: 'Mendoza 1492', servicio: 'Alquiler', estado: 'Activo' },
-  ];*/
 
   const [inmuebles, setInmuebles] = useState([]);
   const deleteInmueble = async (id) => {
@@ -41,8 +37,6 @@ const Inmuebles = () => {
 
   return (
     <>
-      <CContainer fluid className="p-0">
-        <Header userType='admin' />
         <CContainer>
           <CRow className="mt-3  d-flex justify-content-center align-items-center">
             <CCol lg={6} sm={12}>
@@ -66,7 +60,6 @@ const Inmuebles = () => {
             onEdit={updateInmueble}
           />
         </CContainer>
-      </CContainer>
     </>
   );
 };

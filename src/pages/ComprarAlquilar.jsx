@@ -62,8 +62,6 @@ export const ComprarAlquilar = () => {
   //const indiceInicio = (paginaActual - 1) * inmueblesPorPagina;
   return (
     <>
-      <CContainer fluid className="p-0">
-        <Header userType='guest' />
         <CContainer
           fluid
           className="d-flex flex-column justify-content-center align-items-center"
@@ -147,9 +145,6 @@ export const ComprarAlquilar = () => {
           totalPaginas={totalPaginas}
           onCambiarPagina={handleCambiarPagina}
         />
-
-        <Footer />
-      </CContainer>
     </>
   );
 };

@@ -19,8 +19,6 @@ import {
   CCardText,
   CImage,
 } from '@coreui/react';
-import Header from '../components/Header.jsx';
-import Footer from '../components/Footer.jsx';
 import Card from '../components/Card.jsx';
 import Item from '../components/ItemCarousel.jsx';
 import FormIniciarSesion from '../components/InicioSesion.jsx';
@@ -42,9 +40,6 @@ const Home = () => {
   };
   return (
     <>
-      <CContainer fluid className="p-0">
-        <Header userType='guest' />
-
         <CContainer
           fluid
           className="d-flex flex-column justify-content-center align-items-center p-5"
@@ -79,9 +74,7 @@ const Home = () => {
             </CCol>
           </CRow>
         </CContainer>
-        {/* <CRow style={{ backgroundColor: 'purple', minHeight: '50px' }}>
-        <CCol></CCol>
-      </CRow>*/}
+
         <CRow className=" mt-3 justify-content-center gx-0">
           <CCol lg={9} sm={9}>
             <CCard>
@@ -153,8 +146,6 @@ const Home = () => {
             button="Ver mapa"
           />
         </CRow>
-        <Footer />
-      </CContainer>
     </>
   );
 };
