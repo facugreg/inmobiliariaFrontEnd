@@ -7,21 +7,62 @@ import {
   CForm,
   CFormLabel,
   CFormCheck,
+  CAlert
 } from '@coreui/react';
 import { Link } from 'react-router-dom';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-function FormIniciarSesion() {
+
+function FormIniciarSesion({ onSuccess, onCancel }) {
   const emailInputRef = useRef(null);
   const passwordInputRef = useRef(null);
+  const [error, setError] = useState(''); // Para mostrar errores
+  const navigate = useNavigate(); // Si onCancel no lo usa, pero por si acaso
 
-  const navigate = useNavigate();
+  const handleSubmit = async (event) => {
+    event.preventDefault(); // Previene recarga
+    console.log('handleSubmit disparado'); // Depuración
+    const email = emailInputRef.current?.value.trim();
+    const password = passwordInputRef.current?.value.trim();
+    console.log('Email:', email, 'Password:', password); // Depuración
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    navigate('/');
+    if (!email || !password) {
+      setError('Email y contraseña requeridos');
+      console.log('Validación fallida: campos vacíos');
+      return;
+    }
+
+    setError(error); // Limpia error anterior
+
+    // Crea FormData con los valores
+    const formData = new FormData();
+    formData.append('email', email);
+    formData.append('password', password);
+
+    try {
+      // Simulación si no tenés backend (comenta esto y descomenta fetch abajo)
+      console.log('Simulando login...');
+      await new Promise(resolve => setTimeout(resolve, 1000)); // Simula delay
+      const user = { rol: email.includes('@admin') ? 'admin' : 'user' }; // Hardcodeado por email
+      console.log('Usuario simulado:', user);
+
+      // Real: Fetch a tu API
+      // const response = await fetch('/api/login', {
+      //   method: 'POST',
+      //   body: formData,
+      // });
+      // if (!response.ok) throw new Error('Credenciales inválidas');
+      // const user = await response.json();
+
+      onSuccess(user.rol || 'user'); // Actualiza estado global
+      console.log('onSuccess llamado con rol:', user.rol || 'user');
+      navigate('/'); // Redirige a home después de login
+      console.log('Navegando a /');
+    } catch (error) {
+      console.error('Error during login:', error);
+      setError(error.message || 'Error en el login');
+    }
   };
-  const handleCancel = () => navigate('/');
   return (
     <CContainer
       fluid
@@ -59,7 +100,7 @@ function FormIniciarSesion() {
             <CRow className=" justify-content-center  mt-3">
               <CCol lg={6}>
                 <CButton
-                  onClick={handleCancel}
+                  onClick={onCancel}
                   color="secondary"
                   className="w-100"
                 >
