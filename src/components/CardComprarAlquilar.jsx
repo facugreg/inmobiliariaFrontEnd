@@ -14,14 +14,22 @@ import CIcon from '@coreui/icons-react';
 import { cilBorderOuter, cilCalendar, cilList } from '@coreui/icons';
 import { useState } from 'react';
 import { FormSolicitudVisita } from './FormSolicitudVisita';
+import { useNavigate } from 'react-router-dom';
 
 export function CardComprarAlquilar({ precio, direccion, mts2, descripcion, antiguedad, requisitos }) {
-    const [modalVisible, setModalVisible] = useState(false);
+  //useStates  
+  const [modalVisible, setModalVisible] = useState(false);
+  const navigate = useNavigate();
 
+  //Handlers
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log('Form submitted');
     setModalVisible(false); 
+  };
+
+  const handleVerMas = () => {
+    navigate('/uninmueble');
   };
   return (
     <>
@@ -33,6 +41,7 @@ export function CardComprarAlquilar({ precio, direccion, mts2, descripcion, anti
               src={casa}
               className="w-100 h-100"
               style={{ objectFit: 'cover' }}
+              onClick={handleVerMas}
             />
           </CCol>
           {/* Contenido a la derecha */}
@@ -51,7 +60,14 @@ export function CardComprarAlquilar({ precio, direccion, mts2, descripcion, anti
               <CIcon icon= {cilList} className="me-2 text-primary" ></CIcon>
               <strong>Requisitos:</strong> {requisitos}</small><br />
           </CCardText>
-            <CButton color="primary" onClick={() => setModalVisible(true)}> Solicitar visita </CButton>
+            <CRow className="mb-3">
+              <CCol lg={6} className="d-flex justify-content-center">
+                <CButton color="primary" onClick={() => setModalVisible(true)} className="w-100 px-4" > Solicitar visita </CButton>
+              </CCol>
+              <CCol lg={6} className="d-flex justify-content-center">
+                <CButton color= "primary" className="w-100 px-4" onClick={handleVerMas}> Ver mas </CButton>
+              </CCol>
+            </CRow>
           </CCardBody>  
           </CCol>
         </CRow>
