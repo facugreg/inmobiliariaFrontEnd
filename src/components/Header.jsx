@@ -36,6 +36,7 @@ export default function Header({ userType = 'guest', onLogout }) {
                 alt="Logo inmobiliaria"
                 width="75"
                 height="75"
+                onClick={() => navigate('/')}
               />
             </CButton>
           </CHeaderBrand>
