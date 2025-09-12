@@ -1,8 +1,6 @@
 import { Buscador } from '../components/Buscador.jsx';
 import { CardComprarAlquilar } from '../components/CardComprarAlquilar.jsx';
 import { Filtro } from '../components/Filtro.jsx';
-import Footer from '../components/Footer.jsx';
-import Header from '../components/Header.jsx';
 import { CCol, CContainer, CRow } from '@coreui/react';
 import { useState } from 'react';
 import { Paginacion } from '../components/Paginacion.jsx';
@@ -63,7 +61,6 @@ export const ComprarAlquilar = () => {
   return (
     <>
         <CContainer
-          fluid
           className="d-flex flex-column justify-content-center align-items-center"
         >
           <CRow className="mt-3  d-flex align-items-center">
@@ -76,9 +73,9 @@ export const ComprarAlquilar = () => {
                 opciones={opcionesInmueble}
                 value={tipoInmueble}
                 onChange={handleTipoInmuebleChange}
-                className="me-2"
+                className="me-5"
               />
-            </CCol>{' '}
+            </CCol>
             {/* Espaciador */}
             <CCol lg={2} md={12} sm={12}>
               <Filtro
@@ -86,8 +83,9 @@ export const ComprarAlquilar = () => {
                 opciones={opcionesPrecio}
                 value={rangoPrecio}
                 onChange={handleRangoPrecioChange}
+                className="me-5"
               />
-            </CCol>{' '}
+            </CCol>
             {/* Espaciador */}
             <CCol lg={2} md={12} sm={12}>
               <Filtro
@@ -96,7 +94,7 @@ export const ComprarAlquilar = () => {
                 value={antiguedad}
                 onChange={handleAntiguedadChange}
               />
-            </CCol>{' '}
+            </CCol>
             {/* Espaciador */}
           </CRow>
         </CContainer>
@@ -104,7 +102,7 @@ export const ComprarAlquilar = () => {
           fluid
           className="d-flex flex-column justify-content-center align-items-center p-5"
         >
-          <CCol lg={12} md={12} sm={6} className="d-flex flex-wrap justify-content-center">
+          <CCol xs={12} sm={6} md={8} lg={8} className="d-flex flex-wrap align justify-content-center">
 
           <CardComprarAlquilar
             precio="$150.000"
@@ -140,11 +138,14 @@ export const ComprarAlquilar = () => {
           />
           </CCol>
         </CContainer>
+
+        <CContainer>
         <Paginacion
           paginaActual={paginaActual}
           totalPaginas={totalPaginas}
           onCambiarPagina={handleCambiarPagina}
         />
+        </CContainer>
     </>
   );
 };
