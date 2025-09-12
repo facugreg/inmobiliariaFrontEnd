@@ -13,9 +13,18 @@ import {
 import { getNavigationItems, } from '../config/navigation';
 
 //el header tendria que cambiar segun el tipo de usuario, no segun los navItems que le pasemos 
-export default function Header({ userType = 'guest' }) { 
+export default function Header({ userType = 'guest', onLogout }) { 
+
   const navigate = useNavigate();
   const navItems = getNavigationItems(userType);
+
+  const handleLogoutClick = () => {
+    onLogout(); // Llama al handler de App
+    navigate('/');
+  };
+
+  const isLoggedIn = userType !== 'guest';
+
   return (
     <CContainer fluid className="p-3 bg-light">
       <CRow className="align-items-center">
@@ -41,9 +50,15 @@ export default function Header({ userType = 'guest' }) {
           </CNav>
         </CCol>
         <CCol xs={3} className="d-flex justify-content-end">
-          <CButton onClick={() => navigate('/login')} color="primary">
-            Iniciar sesion
-          </CButton>
+          {isLoggedIn ? (
+            <CButton onClick={handleLogoutClick} color="secondary">
+              Cerrar sesión
+            </CButton>
+          ) : (
+            <CButton onClick={() => navigate('/login')} color="primary">
+              Iniciar sesión
+            </CButton>
+          )}
         </CCol>
       </CRow>
     </CContainer>
