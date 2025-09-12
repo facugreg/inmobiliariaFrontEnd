@@ -25,10 +25,10 @@ export function CardComprarAlquilar({ precio, direccion, mts2, descripcion, anti
   };
   return (
     <>
-    <CCard className ="mb-3" style={{ width: '1000px' }}>
+    <CCard className ="mb-3">
         <CRow className= "g-0">
           {/* Imagen a la izquierda */}
-          <CCol md={4}>
+          <CCol xs={12} md={4}>
             <CImage
               src={casa}
               className="w-100 h-100"
@@ -36,7 +36,7 @@ export function CardComprarAlquilar({ precio, direccion, mts2, descripcion, anti
             />
           </CCol>
           {/* Contenido a la derecha */}
-          <CCol md={8}>
+          <CCol xs={12} md={8}>
           <CCardBody className="d-flex flex-column justify-content-between text-center">
           <CCardText align="left">
             <h3 className="fw-bold" style={{ fontFamily: 'Poppins, sans-serif', fontSize: '24px' }}>{precio}</h3>
