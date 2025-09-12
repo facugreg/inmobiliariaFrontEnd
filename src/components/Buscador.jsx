@@ -18,7 +18,6 @@ export function Buscador({ onSearch, mostrarFiltro = false,
   placeholder = "Ciudad, provincia, país",
  }) {
   return (
-    <CCol lg={12} >
         <CInputGroup>
           {/* Campo de búsqueda */}
           <CFormInput
@@ -47,6 +46,5 @@ export function Buscador({ onSearch, mostrarFiltro = false,
             <CIcon icon={cilSearch} />
           </CButton>
         </CInputGroup>
-    </CCol>
   );
 }
