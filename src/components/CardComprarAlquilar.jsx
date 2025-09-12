@@ -20,9 +20,8 @@ export function CardComprarAlquilar({ precio, direccion, mts2, descripcion, anti
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Here you can handle form submission, e.g., send data to an API
     console.log('Form submitted');
-    setModalVisible(false); // Close modal after submission
+    setModalVisible(false); 
   };
   return (
     <>
@@ -38,7 +37,7 @@ export function CardComprarAlquilar({ precio, direccion, mts2, descripcion, anti
           </CCol>
           {/* Contenido a la derecha */}
           <CCol md={8}>
-           <CCardBody className="d-flex flex-column justify-content-between text-center">
+          <CCardBody className="d-flex flex-column justify-content-between text-center">
           <CCardText align="left">
             <h3 className="fw-bold" style={{ fontFamily: 'Poppins, sans-serif', fontSize: '24px' }}>{precio}</h3>
             <p className="mb-1" style={{ fontFamily: 'Poppins, sans-serif', fontSize: '18px' }}>{direccion}</p>

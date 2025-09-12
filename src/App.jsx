@@ -8,6 +8,7 @@ import { ComprarAlquilar } from './layouts/ComprarAlquilar';
 import { Contacto } from './layouts/Contacto';
 import Inmuebles from './layouts/Inmuebles';
 import { MisVisitas } from './layouts/MisVisitas';
+import { Uninmueble } from './layouts/Uninmueble';
 //import PageRevealEvent from './components/page'
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path="/contacto" element={<Contacto />} />
         <Route path="/inmuebles" element={<Inmuebles />} />
         <Route path="/misvisitas" element={<MisVisitas />} />
+        <Route path="/uninmueble" element={<Uninmueble />} />
       </Routes>
     </Router>
   );
