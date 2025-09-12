@@ -14,17 +14,6 @@ export const ComprarAlquilar = () => {
   const [paginaActual, setPaginaActual] = useState(1);
   const totalPaginas = 3;
 
-  const navItems = [
-    {
-      direccion: '#',
-      nombre: 'Comprar',
-    },
-    { direccion: '#', nombre: 'Alquilar' },
-    {
-      direccion: '#',
-      nombre: 'Contacto',
-    },
-  ];
   // Opciones para los filtros
   const opcionesInmueble = [
     { value: 'Departamento', label: 'Departamento' },
@@ -74,7 +63,7 @@ export const ComprarAlquilar = () => {
   return (
     <>
       <CContainer fluid className="p-0">
-        <Header navItems={navItems} />
+        <Header userType='guest' />
         <CContainer
           fluid
           className="d-flex flex-column justify-content-center align-items-center"

@@ -23,13 +23,6 @@ const Inmuebles = () => {
     { direccion: 'Mendoza 1492', servicio: 'Alquiler', estado: 'Activo' },
     { direccion: 'Mendoza 1492', servicio: 'Alquiler', estado: 'Activo' },
   ];*/
-  const navItems = [
-    {
-      direccion: '#',
-      nombre: 'Solicitudes de visitas',
-    },
-    { direccion: '#', nombre: 'Inmuebles' },
-  ];
 
   const [inmuebles, setInmuebles] = useState([]);
   const deleteInmueble = async (id) => {
@@ -49,7 +42,7 @@ const Inmuebles = () => {
   return (
     <>
       <CContainer fluid className="p-0">
-        <Header navItems={navItems} />
+        <Header userType='admin' />
         <CContainer>
           <CRow className="mt-3  d-flex justify-content-center align-items-center">
             <CCol lg={6} sm={12}>
