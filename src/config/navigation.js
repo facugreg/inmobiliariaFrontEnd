@@ -1,5 +1,5 @@
 export const guestItems = [
-  { direccion: '#', nombre: 'horarios' },
+  { direccion: '#', nombre: 'Horarios' },
   { direccion: '/comprar', nombre: 'Comprar' },
   { direccion: '/alquilar', nombre: 'Alquilar' },
   { direccion: '/contacto', nombre: 'Contacto' },
@@ -15,11 +15,11 @@ export const userItems = [
 
 // Navegación para administradores
 export const adminItems = [
-  { direccion: '#', nombre: 'solicitudes visitas' },
-  { direccion: '/inmuebles', nombre: 'inmuebles' },
-  { direccion: '#', nombre: 'tipos servicios' },
-  { direccion: '#', nombre: 'localidades' },
-  { direccion: '#', nombre: 'propietarios' },
+  { direccion: '#', nombre: 'Solicitudes visitas' },
+  { direccion: '/inmuebles', nombre: 'Inmuebles' },
+  { direccion: '#', nombre: 'Tipos servicios' },
+  { direccion: '#', nombre: 'Localidades' },
+  { direccion: '#', nombre: 'Propietarios' },
 ];
 
 // obtener la navegación según el tipo de usuario
