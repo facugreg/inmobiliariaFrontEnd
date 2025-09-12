@@ -19,11 +19,11 @@ import {
   CCardText,
   CImage,
 } from '@coreui/react';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
-import Card from '../components/Card';
-import Item from '../components/ItemCarousel';
-import FormIniciarSesion from '../components/InicioSesion';
+import Header from '../components/Header.jsx';
+import Footer from '../components/Footer.jsx';
+import Card from '../components/Card.jsx';
+import Item from '../components/ItemCarousel.jsx';
+import FormIniciarSesion from '../components/InicioSesion.jsx';
 import { Buscador } from '../components/Buscador.jsx';
 
 const opcionesInmueble = [
@@ -33,7 +33,7 @@ const opcionesInmueble = [
   { value: 'Terreno', label: 'Terreno' },
 ];
 
-const MainLayout = () => {
+const Home = () => {
   const [filtroBuscador, setFiltroBuscador] = useState('');
 
   const handleFiltroBuscadorChange = (e) => {
@@ -159,4 +159,4 @@ const MainLayout = () => {
   );
 };
 
-export default MainLayout;
+export default Home;

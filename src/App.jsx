@@ -1,20 +1,20 @@
 //import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import MainLayout from './layouts/MainLayout';
 import '@coreui/coreui/dist/css/coreui.min.css';
 import FormIniciarSesion from './components/InicioSesion';
 import FormSignIn from './components/Registro';
-import { ComprarAlquilar } from './layouts/ComprarAlquilar';
-import { Contacto } from './layouts/Contacto';
-import Inmuebles from './layouts/Inmuebles';
-import { MisVisitas } from './layouts/MisVisitas';
-import { Uninmueble } from './layouts/Uninmueble';
-//import PageRevealEvent from './components/page'
+import { ComprarAlquilar } from './pages/ComprarAlquilar';
+import { Contacto } from './pages/Contacto';
+import Inmuebles from './pages/Inmuebles';
+import { MisVisitas } from './pages/MisVisitas';
+import { Uninmueble } from './pages/Uninmueble';
+import Home from './pages/Home';
+
 function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<MainLayout />} />
+        <Route path="/" element={<Home />} />
         <Route path="/login" element={<FormIniciarSesion />} />
         <Route path="/signin" element={<FormSignIn />} />
         <Route path="/comprar" element={<ComprarAlquilar />} />
