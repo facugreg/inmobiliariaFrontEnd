@@ -7,7 +7,10 @@ import {
   CButton,
   CAlert,
   CCol,
-  CRow
+  CRow,
+  CCard,
+  CCardTitle,
+  CCardBody,
 } from "@coreui/react";
 
 export function FormContacto() {
@@ -59,22 +62,30 @@ export function FormContacto() {
   };
 
   return (
-    <CForm onSubmit={handleSubmit}>
+    <CCard className="p-3 w-100">
+      <CCardTitle className="p-3">
+        Contactanos para más información
+      </CCardTitle>
+      
+      <CCardBody>
+        
+      <CForm onSubmit={handleSubmit}>
+        <CRow className="mb-3">
+          
+          <CFormLabel htmlFor="nombre">Nombre*</CFormLabel>
+          <CFormInput
+            type="text"
+            id="nombre"
+            name="nombre"
+            value={formData.nombre}
+            onChange={handleChange}
+            invalid={!!errors.nombre}
+          />
+          {errors.nombre && <div className="text-danger">{errors.nombre}</div>}
+          
+        </CRow>
       <CRow className="mb-3">
-        <CCol lg={6}> 
-        <CFormLabel htmlFor="nombre">Nombre</CFormLabel>
-        <CFormInput
-          type="text"
-          id="nombre"
-          name="nombre"
-          value={formData.nombre}
-          onChange={handleChange}
-          invalid={!!errors.nombre}
-        />
-        {errors.nombre && <div className="text-danger">{errors.nombre}</div>}
-        </CCol>
-      <CCol lg={6}>
-        <CFormLabel htmlFor="apellido">Apellido</CFormLabel>
+        <CFormLabel htmlFor="apellido">Apellido*</CFormLabel>
         <CFormInput
           type="text"
           id="apellido"
@@ -84,11 +95,9 @@ export function FormContacto() {
           invalid={!!errors.apellido}
         />
         {errors.apellido && <div className="text-danger">{errors.apellido}</div>}
-      </CCol>
       </CRow>
-      <CRow className="mb-3">
-      <CCol lg={7}>
-        <CFormLabel htmlFor="email">Email</CFormLabel>
+      <CRow>
+        <CFormLabel htmlFor="email">Email*</CFormLabel>
         <CFormInput
           type="email"
           id="email"
@@ -98,9 +107,9 @@ export function FormContacto() {
           invalid={!!errors.email}
         />
         {errors.email && <div className="text-danger">{errors.email}</div>}
-      </CCol>
-      <CCol lg={5}>
-        <CFormLabel htmlFor="telefono">Telefono</CFormLabel>
+      </CRow>
+      <CRow className="mb-3">
+        <CFormLabel htmlFor="telefono">Telefono*</CFormLabel>
         <CFormInput
           type="text"
           id="telefono"
@@ -110,14 +119,12 @@ export function FormContacto() {
           invalid={!!errors.telefono}
         />
         {errors.telefono && <div className="text-danger">{errors.telefono}</div>}
-      </CCol>
       </CRow>
 
-      <CRow className="mb-3">
+      <CRow >
       </CRow>
       <CRow className="mb-3">
-        <CCol lg={12}>
-        <CFormLabel htmlFor="mensaje">Consulta</CFormLabel>
+        <CFormLabel htmlFor="mensaje">Consulta*</CFormLabel>
         <CFormTextarea
           id="mensaje"
           name="mensaje"
@@ -127,14 +134,13 @@ export function FormContacto() {
           invalid={!!errors.mensaje}
         />
         {errors.mensaje && <div className="text-danger">{errors.mensaje}</div>}
-      </CCol>
       </CRow>
-      <CRow className="mb-3 justify-content-center">
-        <CCol lg={12} className="text-center">
+      <CRow className="mb-1 mt-3 justify-content-center">
+       
           <CButton type="submit" color="primary" style= {{maxWidth: "300px",  width: '100%' }}>
             Enviar
           </CButton>
-        </CCol>
+       
       </CRow>
 
       {submitSuccess && (
@@ -143,5 +149,8 @@ export function FormContacto() {
         </CAlert>
       )}
     </CForm>
+    </CCardBody>
+    </CCard>
+
   );
 }
