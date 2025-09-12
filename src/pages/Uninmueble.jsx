@@ -51,8 +51,6 @@ const resenas = [
 
   return (
     <>
-      <CContainer fluid className="p-0">
-        <Header userType='guest' />
         <CContainer
           fluid
           className="d-flex flex-column justify-content-center align-items-center p-5"
@@ -118,14 +116,13 @@ const resenas = [
           </CRow>
         </CContainer>
 
+        <CContainer>
         <Paginacion
           paginaActual={paginaActual}
           totalPaginas={totalPaginas}
           onCambiarPagina={handleCambiarPagina}
         />
-
-        <Footer />
-      </CContainer>
+        </CContainer>
     </>
   );
 };
