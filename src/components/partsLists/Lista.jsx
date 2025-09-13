@@ -1,6 +1,6 @@
 import { CContainer, CCol, CRow, CButton } from '@coreui/react';
 //import { useState } from 'react';
-import ListaItem from './ListaItem';
+import ListaItem from './ListaItem.jsx';
 
 export default function Lista({ items, onDelete, onEdit, columns }) {
   return (
@@ -8,7 +8,7 @@ export default function Lista({ items, onDelete, onEdit, columns }) {
       <CContainer className="overflow-auto mt-3 border border-gray-300 rounded-2" style={{ maxHeight: '400px' }}>
       {items.map((item) => (
         <ListaItem key={item.id}>
-          <CRow className="mt-2">
+          <CRow className="mt-2 text-left">
             {columns.map((col, index) => (
               <CCol key={index} lg={col.size || 3}>
                 {item[col.key] || 'N/A'}
