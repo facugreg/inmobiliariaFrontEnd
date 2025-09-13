@@ -11,6 +11,7 @@ import { Uninmueble } from './pages/Uninmueble';
 import Home from './pages/Home';
 import Layout from './components/Layout';
 import { useState, useEffect } from 'react';
+import { TipoServicio } from './pages/TipoServicio';
 
 
 function App() {
@@ -72,7 +73,11 @@ function App() {
             element={userType === 'admin' ? <Inmuebles /> : <Navigate to="/" />}
           />
 
-        <Route path="/uninmueble" element={<Uninmueble />} />
+          <Route path="/uninmueble" element={<Uninmueble />} />
+          <Route 
+          path="/tiposervicios" 
+          element={userType === 'admin' ? <TipoServicio /> : <Navigate to= "/" />} 
+          />
 
       </Route>
 
