@@ -1,9 +1,9 @@
-import { Buscador } from '../components/Buscador.jsx';
-import { CardComprarAlquilar } from '../components/cards/CardComprarAlquilar.jsx';
-import { Filtro } from '../components/Filtro.jsx';
+import { Buscador } from '../../components/Buscador.jsx';
+import { CardComprarAlquilar } from '../../components/cards/CardComprarAlquilar.jsx';
+import { Filtro } from '../../components/Filtro.jsx';
 import { CCol, CContainer, CRow } from '@coreui/react';
 import { useState } from 'react';
-import { Paginacion } from '../components/Paginacion.jsx';
+import { Paginacion } from '../../components/Paginacion.jsx';
 
 export const ComprarAlquilar = () => {
   const [tipoInmueble, setTipoInmueble] = useState('');

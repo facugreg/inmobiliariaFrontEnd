@@ -1,7 +1,5 @@
 import '@coreui/coreui/dist/css/coreui.min.css';
-import { CardComprarAlquilar } from '../components/cards/CardComprarAlquilar.jsx';
-import Footer from '../components/Footer.jsx';
-import Header from '../components/Header.jsx';
+import { CardComprarAlquilar } from '../../components/cards/CardComprarAlquilar.jsx';
 import {
   CContainer,
   CCarousel,
@@ -11,12 +9,12 @@ import {
   CCard,
   CImage,
 } from '@coreui/react';
-import { Resenas } from '../components/resenas.jsx'; 
-import { DetalleInmueble } from '../components/detalleInmueble.jsx';
+import { Resenas } from '../../components/resenas.jsx'; 
+import { DetalleInmueble } from '../../components/detalleInmueble.jsx';
 import { useState } from 'react';
-import { Paginacion } from '../components/Paginacion.jsx';
-import agente from '../assets/agente.png';
-import  casa  from '../assets/casa.jpg';
+import { Paginacion } from '../../components/Paginacion.jsx';
+import agente from '../../assets/agente.png';
+import  casa  from '../../assets/casa.jpg';
 
 export const Uninmueble = () => {
   const [paginaActual, setPaginaActual] = useState(1);

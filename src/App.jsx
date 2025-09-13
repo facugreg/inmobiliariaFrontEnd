@@ -3,15 +3,15 @@ import { BrowserRouter as Router, Routes, Route, Navigate, useNavigate } from 'r
 import '@coreui/coreui/dist/css/coreui.min.css';
 import FormIniciarSesion from './components/InicioSesion';
 import FormSignIn from './components/Registro';
-import { ComprarAlquilar } from './pages/ComprarAlquilar';
-import { Contacto } from './pages/Contacto';
-import Inmuebles from './pages/Inmuebles';
-import { MisVisitas } from './pages/MisVisitas';
-import { Uninmueble } from './pages/Uninmueble';
+import { ComprarAlquilar } from './pages/user-guest/ComprarAlquilar';
+import { Contacto } from './pages/user-guest/Contacto';
+import { MisVisitas } from './pages/user-guest/MisVisitas';
+import { Uninmueble } from './pages/user-guest/Uninmueble';
 import Home from './pages/Home';
 import Layout from './components/Layout';
 import { useState, useEffect } from 'react';
-import { TipoServicio } from './pages/TipoServicio';
+import { TipoServicio } from './pages/admin/TipoServicio';
+import Inmuebles from './pages/admin/Inmuebles';
 
 
 function App() {
