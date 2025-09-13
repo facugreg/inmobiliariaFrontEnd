@@ -7,7 +7,7 @@ import {
   CCardTitle,
   CButton,
 } from '@coreui/react';
-import agente from '../assets/agente.png';
+import agente from '../../assets/agente.png';
 
 export default function Card({ title, text, button }) {
   return (

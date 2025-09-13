@@ -9,17 +9,18 @@ import {
   CCardText,
   CModalFooter, CModal, CModalHeader, CModalTitle, CModalBody
 } from '@coreui/react';
-import casa from '../assets/casa.jpg';
+import casa from '../../assets/casa.jpg';
 import CIcon from '@coreui/icons-react';
 import { cilBorderOuter, cilCalendar, cilList } from '@coreui/icons';
 import { useState } from 'react';
-import { FormSolicitudVisita } from './FormSolicitudVisita';
+import { FormSolicitudVisita } from '../forms/FormSolicitudVisita';
 import { useNavigate } from 'react-router-dom';
 
 export function CardComprarAlquilar({ precio, direccion, mts2, descripcion, antiguedad, requisitos }) {
   //useStates  
   const [modalVisible, setModalVisible] = useState(false);
   const navigate = useNavigate();
+  console.log('entro');
 
   //Handlers
   const handleSubmit = (e) => {
