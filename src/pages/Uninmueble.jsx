@@ -1,5 +1,5 @@
 import '@coreui/coreui/dist/css/coreui.min.css';
-import { CardComprarAlquilar } from '../components/CardComprarAlquilar.jsx';
+import { CardComprarAlquilar } from '../components/cards/CardComprarAlquilar.jsx';
 import Footer from '../components/Footer.jsx';
 import Header from '../components/Header.jsx';
 import {

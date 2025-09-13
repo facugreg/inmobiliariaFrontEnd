@@ -1,9 +1,10 @@
 import { CButton, CCol, CContainer, CRow } from '@coreui/react';
 import { Buscador } from '../components/Buscador.jsx';
 import { Filtro } from '../components/Filtro.jsx';
-import Lista from '../components/Lista.jsx';
+import Lista from '../components/partsLists/Lista.jsx';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { EncabezadoLista } from '../components/partsLists/EncabezadoLista.jsx';
 
 export function TipoServicio() {
   const PATH= 'http://localhost:3000/api/tipoServicios';
@@ -11,15 +12,23 @@ export function TipoServicio() {
 
     useEffect(() => {
     const getTipoServicios = async () => {
-      const response = await axios.get(PATH);
-      setTipoServicios(response.data.data);
+      try {
+        const response = await axios.get(PATH);
+        setTipoServicios(response.data.data);
+      } catch (error) {
+        console.error('Error fetching tipoServicios:', error);
+      }
     };
     getTipoServicios();
   }, []);
 
   const deleteTipoServicio = async (id) => {
-    await axios.delete(`${PATH}/${id}`);
-    setTipoServicios((prev) => prev.filter((item) => item.id !== id));
+    try {
+      await axios.delete(`${PATH}/${id}`);
+      setTipoServicios((prev) => prev.filter((item) => item.id !== id));
+    } catch (error) {
+      console.error('Error deleting tipoServicio:', error);
+    }
   };
   const updateTipoServicio = () => {};
 
@@ -34,6 +43,11 @@ export function TipoServicio() {
           <CButton color="primary">Agregar tipo de servicio</CButton>
         </CCol>
       </CRow>
+      <EncabezadoLista columns={[
+          { key: 'id', size: 1 },
+          { key: 'nombre', size: 3 },
+          { key: 'descripcion', size: 5 },
+        ]}/>
       <Lista
         items={tipoServicios}
         onDelete={deleteTipoServicio}

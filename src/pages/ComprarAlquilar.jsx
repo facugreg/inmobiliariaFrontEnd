@@ -1,5 +1,5 @@
 import { Buscador } from '../components/Buscador.jsx';
-import { CardComprarAlquilar } from '../components/CardComprarAlquilar.jsx';
+import { CardComprarAlquilar } from '../components/cards/CardComprarAlquilar.jsx';
 import { Filtro } from '../components/Filtro.jsx';
 import { CCol, CContainer, CRow } from '@coreui/react';
 import { useState } from 'react';

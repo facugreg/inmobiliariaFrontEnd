@@ -1,7 +1,7 @@
 import { CContainer, CCol, CRow } from "@coreui/react";
-import { FormContacto } from "../components/FormContacto.jsx";
+import { FormContacto } from "../components/forms/FormContacto.jsx";
 import oficina from '../assets/oficina.webp';
-import { CardContacto } from "../components/CardContacto.jsx";
+import { CardContacto } from "../components/cards/CardContacto.jsx";
 
 export const Contacto = () => {
 

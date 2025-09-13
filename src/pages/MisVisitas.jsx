@@ -1,7 +1,7 @@
 import { CCol, CContainer, CRow } from "@coreui/react";
 import { Buscador } from "../components/Buscador.jsx";
 import { Filtro } from "../components/Filtro.jsx";
-import Lista from "../components/Lista.jsx";
+import Lista from "../components/partsLists/Lista.jsx";
 import { useState } from "react";
 
 const opcionesEstado = [

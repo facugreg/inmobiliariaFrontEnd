@@ -1,7 +1,7 @@
 import { CContainer, CRow, CCol, CButton } from '@coreui/react';
 
 import '@coreui/coreui/dist/css/coreui.min.css';
-import Lista from '../components/Lista.jsx';
+import Lista from '../components/partsLists/Lista.jsx';
 import { Buscador } from '../components/Buscador.jsx';
 import { Filtro } from '../components/Filtro.jsx';
 import { useEffect } from 'react';
