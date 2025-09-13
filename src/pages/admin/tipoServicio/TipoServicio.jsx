@@ -1,17 +1,16 @@
 import { CButton, CCol, CContainer, CRow } from '@coreui/react';
-import { Buscador } from '../../components/Buscador.jsx';
-import { Filtro } from '../../components/Filtro.jsx';
-import Lista from '../../components/partsLists/Lista.jsx';
+import { Buscador } from '../../../components/Buscador.jsx';
+import Lista from '../../../components/partsLists/Lista.jsx';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { EncabezadoLista } from '../../components/partsLists/EncabezadoLista.jsx';
+import { EncabezadoLista } from '../../../components/partsLists/EncabezadoLista.jsx';
+import { useNavigate } from 'react-router-dom';
 
 export function TipoServicio() {
 
   const PATH= 'http://localhost:3000/api/tipoServicios';
   const [tipoServicios, setTipoServicios] = useState([]);
 
-  const [showForm, setShowForm] = useState(false); // Estado para mostrar/ocultar el formulario
     useEffect(() => {
     const getTipoServicios = async () => {
       try {
@@ -34,20 +33,11 @@ export function TipoServicio() {
   };
   const updateTipoServicio = () => {};
 
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const handleAgregar= () =>{
     console.log('por agregar nuevo tiposervicio')
-    setShowForm(true); //Muestra el form al hacer click
+    navigate('/addtiposervicio')
   }
-  const handleFormSubmit = async (data) => {
-    try {
-      const response = await axios.post(PATH, data); // Enviar datos al backend
-      setTipoServicios((prev) => [...prev, response.data.data]); // Actualizar lista
-      setShowForm(false); // Ocultar formulario después de guardar
-    } catch (error) {
-      console.error('Error creating tipoServicio:', error);
-    }
-  };
 
   return (
     <>
@@ -75,9 +65,6 @@ export function TipoServicio() {
           { key: 'descripcionTipoServicio', size: 5 },
         ]}
       />
-      {showForm && (
-        <FormCrearTipoServicio onSubmit={handleFormSubmit} onCancel={() => setShowForm(false)} />
-      )}
     </CContainer>
     </>
   )
