@@ -62,7 +62,7 @@ export function FormContacto() {
   };
 
   return (
-    <CCard className="p-3 w-100">
+    <CCard className="p-3 w-100 bg-light">
       <CCardTitle className="p-3">
         Contactanos para más información
       </CCardTitle>
@@ -80,6 +80,7 @@ export function FormContacto() {
             value={formData.nombre}
             onChange={handleChange}
             invalid={!!errors.nombre}
+            className="bg-light"
           />
           {errors.nombre && <div className="text-danger">{errors.nombre}</div>}
           
@@ -93,6 +94,7 @@ export function FormContacto() {
           value={formData.apellido}
           onChange={handleChange}
           invalid={!!errors.apellido}
+          className="bg-light"
         />
         {errors.apellido && <div className="text-danger">{errors.apellido}</div>}
       </CRow>
@@ -105,6 +107,7 @@ export function FormContacto() {
           value={formData.email}
           onChange={handleChange}
           invalid={!!errors.email}
+          className="bg-light"
         />
         {errors.email && <div className="text-danger">{errors.email}</div>}
       </CRow>
@@ -117,6 +120,7 @@ export function FormContacto() {
           value={formData.telefono}
           onChange={handleChange}
           invalid={!!errors.telefono}
+          className="bg-light"
         />
         {errors.telefono && <div className="text-danger">{errors.telefono}</div>}
       </CRow>
@@ -132,6 +136,7 @@ export function FormContacto() {
           onChange={handleChange}
           rows={4}
           invalid={!!errors.mensaje}
+          className="bg-light"
         />
         {errors.mensaje && <div className="text-danger">{errors.mensaje}</div>}
       </CRow>

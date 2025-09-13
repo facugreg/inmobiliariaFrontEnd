@@ -4,7 +4,7 @@ import { CCard, CCardTitle, CCardBody, CCardText, CButton } from "@coreui/react"
 
 export function CardContacto() {
   return (
-    <CCard className= "p-3 w-100" >
+    <CCard className= "p-3 w-100 bg-light">
       <CCardTitle className= "p-3 justify-content-center align-items-center">
         Datos de contacto
       </CCardTitle>
