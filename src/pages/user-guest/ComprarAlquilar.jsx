@@ -60,7 +60,7 @@ export const ComprarAlquilar = () => {
   //const indiceInicio = (paginaActual - 1) * inmueblesPorPagina;
   return (
     <>
-        <CContainer
+        <CContainer fluid
           className="d-flex flex-column justify-content-center align-items-center"
         >
           <CRow className="mt-3  d-flex align-items-center">
@@ -93,6 +93,7 @@ export const ComprarAlquilar = () => {
                 opciones={opcionesAntiguedad}
                 value={antiguedad}
                 onChange={handleAntiguedadChange}
+                className='me-5'
               />
             </CCol>
             {/* Espaciador */}
