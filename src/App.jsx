@@ -10,7 +10,8 @@ import { Uninmueble } from './pages/user-guest/Uninmueble';
 import Home from './pages/Home';
 import Layout from './components/Layout';
 import { useState, useEffect } from 'react';
-import { TipoServicio } from './pages/admin/TipoServicio';
+import { TipoServicio } from './pages/admin/tipoServicio/TipoServicio';
+import { AddTipoServicio } from './pages/admin/tipoServicio/AddTipoServicio.jsx';
 import Inmuebles from './pages/admin/Inmuebles';
 
 
@@ -78,6 +79,8 @@ function App() {
           path="/tiposervicios" 
           element={userType === 'admin' ? <TipoServicio /> : <Navigate to= "/" />} 
           />
+
+          <Route path='addtiposervicio' element= {<AddTipoServicio/>}/>
 
       </Route>
 

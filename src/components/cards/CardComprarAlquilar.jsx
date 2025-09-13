@@ -20,7 +20,6 @@ export function CardComprarAlquilar({ precio, direccion, mts2, descripcion, anti
   //useStates  
   const [modalVisible, setModalVisible] = useState(false);
   const navigate = useNavigate();
-  console.log('entro');
 
   //Handlers
   const handleSubmit = (e) => {
