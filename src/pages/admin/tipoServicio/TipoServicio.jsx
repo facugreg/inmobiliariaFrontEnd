@@ -31,9 +31,12 @@ export function TipoServicio() {
       console.error('Error deleting tipoServicio:', error);
     }
   };
-  const updateTipoServicio = () => {};
-
   const navigate = useNavigate();
+  const updateTipoServicio = (id) => {
+    console.log('por modificar tiposervicio');
+    navigate(`/updatetiposervicio/${id}`);
+  };
+
   const handleAgregar= () =>{
     console.log('por agregar nuevo tiposervicio')
     navigate('/addtiposervicio')

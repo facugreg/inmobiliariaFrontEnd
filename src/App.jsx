@@ -12,6 +12,7 @@ import Layout from './components/Layout';
 import { useState, useEffect } from 'react';
 import { TipoServicio } from './pages/admin/tipoServicio/TipoServicio';
 import { AddTipoServicio } from './pages/admin/tipoServicio/AddTipoServicio.jsx';
+import { UpdateTipoServicio } from './pages/admin/tipoServicio/UpdateTipoServicio.jsx';
 import Inmuebles from './pages/admin/Inmuebles';
 
 
@@ -81,6 +82,7 @@ function App() {
           />
 
           <Route path='addtiposervicio' element= {<AddTipoServicio/>}/>
+          <Route path='updatetiposervicio/:id' element={<UpdateTipoServicio />} />
 
       </Route>
 
