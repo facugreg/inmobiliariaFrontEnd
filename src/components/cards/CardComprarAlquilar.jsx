@@ -62,10 +62,10 @@ export function CardComprarAlquilar({ precio, direccion, mts2, descripcion, anti
           </CCardText>
             <CRow className="mb-3">
               <CCol lg={6} className="d-flex justify-content-center">
-                <CButton color="primary" onClick={() => setModalVisible(true)} className="w-100 px-4" > Solicitar visita </CButton>
+                <CButton color="primary" onClick={() => setModalVisible(true)} className="w-100 px-4 mt-2" > Solicitar visita </CButton>
               </CCol>
               <CCol lg={6} className="d-flex justify-content-center">
-                <CButton color= "primary" className="w-100 px-4" onClick={handleVerMas}> Ver mas </CButton>
+                <CButton color= "primary" className="w-100 px-4 mt-2" onClick={handleVerMas}> Ver mas </CButton>
               </CCol>
             </CRow>
           </CCardBody>  
