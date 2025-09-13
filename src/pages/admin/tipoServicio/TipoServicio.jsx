@@ -46,7 +46,7 @@ export function TipoServicio() {
     <>
      <CContainer>
       <CRow className="mt-3  d-flex justify-content-center align-items-center">
-        <CCol lg={6} sm={12}>
+        <CCol lg={10} sm={12}>
           <Buscador placeholder="Buscar por tipo de servicio" />
         </CCol>
         <CCol lg={2} sm={12} className="d-flex justify-content-end">
