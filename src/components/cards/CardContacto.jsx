@@ -44,13 +44,13 @@ export function CardContacto() {
       <CCardBody>
         <CCardText>
           <CButton>
-            <CIcon icon={cibInstagram} className="me-2"/>
+            <CIcon size={'xl'} icon={cibInstagram} className="me-2"/>
           </CButton>
           <CButton>
-            <CIcon icon={cibFacebook} className="me-2" />
+            <CIcon size={'xl'} icon={cibFacebook} className="me-2" />
           </CButton>
           <CButton>
-            <CIcon icon={cibTwitter} className="me-2" />
+            <CIcon size={'xl'} icon={cibTwitter} className="me-2" />
           </CButton>
         </CCardText>
       </CCardBody>
