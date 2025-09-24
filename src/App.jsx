@@ -14,6 +14,9 @@ import { TipoServicio } from './pages/admin/tipoServicio/TipoServicio';
 import { AddTipoServicio } from './pages/admin/tipoServicio/AddTipoServicio.jsx';
 import { UpdateTipoServicio } from './pages/admin/tipoServicio/UpdateTipoServicio.jsx';
 import Inmuebles from './pages/admin/Inmuebles';
+import { Propietarios } from './pages/admin/propietario/propietarios.jsx';
+import DeletePropietario from './pages/admin/propietario/deletePropietario.jsx';
+import  UpdatePropietario  from './pages/admin/propietario/updatePropietario.jsx';
 
 
 function App() {
@@ -74,7 +77,22 @@ function App() {
             path="inmuebles"
             element={userType === 'admin' ? <Inmuebles /> : <Navigate to="/" />}
           />
-
+          <Route
+            path="propietarios"
+            element={userType === 'admin' ? <Propietarios /> : <Navigate to="/" />}
+          />
+          <Route
+            path="deletePropietario/:id"
+            element={userType === 'admin' ? <DeletePropietario /> : <Navigate to="/" />}
+          />
+          <Route
+            path="addPropietario/:id"
+            element={userType === 'admin' ? <Propietarios /> : <Navigate to="/" />}
+          />
+          <Route
+            path="updatePropietario/:id"
+            element={userType === 'admin' ? <UpdatePropietario /> : <Navigate to="/" />}
+          />
           <Route path="/uninmueble" element={<Uninmueble />} />
           <Route 
           path="/tiposervicios" 
