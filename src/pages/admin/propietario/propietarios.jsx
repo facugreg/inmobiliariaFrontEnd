@@ -1,4 +1,6 @@
 import { CButton, CCol, CContainer, CRow } from '@coreui/react';
+import { CIcon } from '@coreui/icons-react'; 
+import { cilUser } from '@coreui/icons';
 import { useNavigate } from 'react-router-dom';
 import usePropietarios  from './getPropietarioss.jsx';
 
@@ -45,7 +47,7 @@ export function Propietarios() {
     {propietarios.length === 0 ? (
       <p>No hay propietarios cargados.</p>
     ) : (
-      <table className="table table-striped">
+      <table className="table table-striped"> 
         <thead>
           <tr>
             <th>ID</th>
@@ -57,7 +59,10 @@ export function Propietarios() {
           {propietarios.map((prop) => (
             <tr key={prop.id}>
               <td>{prop.id}</td>
-              <td>{prop.nombrePropietario}</td>
+              <td>
+                <CIcon icon={cilUser} className="me-2" />
+                {prop.nombrePropietario}
+              </td>
               <td>{prop.mailPropietario}</td>
               <td>
                 <CButton 

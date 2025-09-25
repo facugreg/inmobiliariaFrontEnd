@@ -17,7 +17,7 @@ import Inmuebles from './pages/admin/Inmuebles';
 import { Propietarios } from './pages/admin/propietario/propietarios.jsx';
 import DeletePropietario from './pages/admin/propietario/deletePropietario.jsx';
 import  UpdatePropietario  from './pages/admin/propietario/updatePropietario.jsx';
-
+import AddPropietario from './pages/admin/propietario/addPropietario.jsx';
 
 function App() {
   const [userType, setUserType] = useState('guest'); // Estado global para userType
@@ -86,8 +86,8 @@ function App() {
             element={userType === 'admin' ? <DeletePropietario /> : <Navigate to="/" />}
           />
           <Route
-            path="addPropietario/:id"
-            element={userType === 'admin' ? <Propietarios /> : <Navigate to="/" />}
+            path="addPropietario"
+            element={userType === 'admin' ? <AddPropietario /> : <Navigate to="/" />}
           />
           <Route
             path="updatePropietario/:id"

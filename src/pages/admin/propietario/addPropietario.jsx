@@ -1,10 +1,10 @@
 import { CContainer, CRow, CButton, CCol } from "@coreui/react";
-import FormCrearPropietario from "../../../components/forms/FormCrearPropietario.jsx";
+import { FormCrearPropietario } from "../../../components/forms/FormCrearPropietario.jsx";
 
-export function addPropietario(){
+export default function AddPropietario(){
 
   const handleVolver = () => {
-    window.history.back(); // Regresa a la página anterior
+    window.history.back(); 
   };
   
   return(
