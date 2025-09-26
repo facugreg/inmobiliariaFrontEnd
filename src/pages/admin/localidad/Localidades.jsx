@@ -24,9 +24,6 @@ export default function Localidades() {
     return <p>Error al cargar localidades: {error.message}</p>;
   }
 
-  if (!localidades || localidades.length === 0) {
-    return <p>No se encontraron localidades.</p>;
-  }
   const handleAgregar = () => {
     setSelectedLocalidad(null);
     setVisible(true);
@@ -59,6 +56,7 @@ export default function Localidades() {
             </CButton>
           </CCol>
         </CRow>
+
         <EncabezadoLista
           columns={[
             { key: 'id', size: '2' },
@@ -66,6 +64,7 @@ export default function Localidades() {
             { key: 'Codigo postal', size: '3' },
           ]}
         />
+
         <Lista
           items={localidades}
           onDelete={handleDelete}
