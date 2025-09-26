@@ -18,7 +18,7 @@ export const adminItems = [
   { direccion: '#', nombre: 'Solicitudes visitas' },
   { direccion: '/inmuebles', nombre: 'Inmuebles' },
   { direccion: 'tiposervicios', nombre: 'Tipos servicios' },
-  { direccion: '#', nombre: 'Localidades' },
+  { direccion: 'localidades', nombre: 'Localidades' },
   { direccion: 'propietarios', nombre: 'Propietarios' },
 ];
 

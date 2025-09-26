@@ -1,5 +1,11 @@
 //import './App.css';
-import { BrowserRouter as Router, Routes, Route, Navigate, useNavigate } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+  useNavigate,
+} from 'react-router-dom';
 import '@coreui/coreui/dist/css/coreui.min.css';
 import FormIniciarSesion from './components/InicioSesion';
 import FormSignIn from './components/Registro';
@@ -16,26 +22,33 @@ import { UpdateTipoServicio } from './pages/admin/tipoServicio/UpdateTipoServici
 import Inmuebles from './pages/admin/Inmuebles';
 import { Propietarios } from './pages/admin/propietario/propietarios.jsx';
 import DeletePropietario from './pages/admin/propietario/deletePropietario.jsx';
-import  UpdatePropietario  from './pages/admin/propietario/updatePropietario.jsx';
+import UpdatePropietario from './pages/admin/propietario/updatePropietario.jsx';
 import AddPropietario from './pages/admin/propietario/addPropietario.jsx';
+import Localidades from './pages/admin/localidad/Localidades.jsx';
 
 function App() {
   const [userType, setUserType] = useState('guest'); // Estado global para userType
   const [isLoading, setIsLoading] = useState(true); // Nueva bandera de carga
 
   // Carga userType de localStorage al montar la app, provisorio para testing
- useEffect(() => {
+  useEffect(() => {
     const savedUserType = localStorage.getItem('userType');
-    console.log('useEffect: userType inicial desde localStorage:', savedUserType);
+    console.log(
+      'useEffect: userType inicial desde localStorage:',
+      savedUserType
+    );
     if (savedUserType) {
       setUserType(savedUserType);
     }
     setIsLoading(false); // Marca que la carga inicial terminó
-    console.log('useEffect: isLoading establecido a false, userType:', savedUserType || 'guest');
+    console.log(
+      'useEffect: isLoading establecido a false, userType:',
+      savedUserType || 'guest'
+    );
   }, []);
 
   // Función para actualizar userType después del login (pásala a FormIniciarSesion)
- const handleLogin = (newUserType) => {
+  const handleLogin = (newUserType) => {
     console.log('handleLogin: seteando userType a:', newUserType);
     setUserType(newUserType);
     localStorage.setItem('userType', newUserType);
@@ -49,7 +62,12 @@ function App() {
     console.log('handleLogout: localStorage.userType eliminado');
   };
 
-  console.log('Renderizando App con userType:', userType, 'isLoading:', isLoading);
+  console.log(
+    'Renderizando App con userType:',
+    userType,
+    'isLoading:',
+    isLoading
+  );
 
   // Mientras carga, no renderizar rutas protegidas
   if (isLoading) {
@@ -61,52 +79,78 @@ function App() {
       <Routes>
         <Route
           element={
-            <Layout userType={userType} setUserType={setUserType} onLogout={handleLogout} />
+            <Layout
+              userType={userType}
+              setUserType={setUserType}
+              onLogout={handleLogout}
+            />
           }
         >
-        <Route index element={<Home />} />
-        <Route path="/comprar" element={<ComprarAlquilar />} />
-        <Route path="/alquilar" element={<ComprarAlquilar />} />
-        <Route path="/contacto" element={<Contacto />} />
-        {/* Rutas protegidas: Redirige si no logueado */}
+          <Route index element={<Home />} />
+          <Route path="/comprar" element={<ComprarAlquilar />} />
+          <Route path="/alquilar" element={<ComprarAlquilar />} />
+          <Route path="/contacto" element={<Contacto />} />
+          {/* Rutas protegidas: Redirige si no logueado */}
           <Route
             path="misvisitas"
-            element={userType === 'user' ? <MisVisitas /> : <Navigate to="/login" />}
+            element={
+              userType === 'user' ? <MisVisitas /> : <Navigate to="/login" />
+            }
           />
           <Route
             path="inmuebles"
             element={userType === 'admin' ? <Inmuebles /> : <Navigate to="/" />}
           />
           <Route
+            path="localidades"
+            element={
+              userType === 'admin' ? <Localidades /> : <Navigate to="/" />
+            }
+          />
+          <Route
             path="propietarios"
-            element={userType === 'admin' ? <Propietarios /> : <Navigate to="/" />}
+            element={
+              userType === 'admin' ? <Propietarios /> : <Navigate to="/" />
+            }
           />
           <Route
             path="deletePropietario/:id"
-            element={userType === 'admin' ? <DeletePropietario /> : <Navigate to="/" />}
+            element={
+              userType === 'admin' ? <DeletePropietario /> : <Navigate to="/" />
+            }
           />
           <Route
             path="addPropietario"
-            element={userType === 'admin' ? <AddPropietario /> : <Navigate to="/" />}
+            element={
+              userType === 'admin' ? <AddPropietario /> : <Navigate to="/" />
+            }
           />
           <Route
             path="updatePropietario/:id"
-            element={userType === 'admin' ? <UpdatePropietario /> : <Navigate to="/" />}
+            element={
+              userType === 'admin' ? <UpdatePropietario /> : <Navigate to="/" />
+            }
           />
           <Route path="/uninmueble" element={<Uninmueble />} />
-          <Route 
-          path="/tiposervicios" 
-          element={userType === 'admin' ? <TipoServicio /> : <Navigate to= "/" />} 
+          <Route
+            path="/tiposervicios"
+            element={
+              userType === 'admin' ? <TipoServicio /> : <Navigate to="/" />
+            }
           />
 
-          <Route path='addtiposervicio' element= {<AddTipoServicio/>}/>
-          <Route path='updatetiposervicio/:id' element={<UpdateTipoServicio />} />
-
-      </Route>
-
+          <Route path="addtiposervicio" element={<AddTipoServicio />} />
+          <Route
+            path="updatetiposervicio/:id"
+            element={<UpdateTipoServicio />}
+          />
+        </Route>
 
         {/* Rutas fuera del layout (ej: login no necesita Header/Footer; ajusta si quieres) */}
-        <Route path="/login" element={<LoginWrapper handleLogin={handleLogin} />} />
+        <Route
+          path="/login"
+          element={<LoginWrapper handleLogin={handleLogin} />}
+        />
         <Route path="/signin" element={<FormSignIn />} />
       </Routes>
     </Router>
@@ -117,7 +161,9 @@ function App() {
 function LoginWrapper({ handleLogin }) {
   const navigate = useNavigate();
   // Asume que FormIniciarSesion acepta props onSuccess
-  return <FormIniciarSesion onSuccess={handleLogin} onCancel={() => navigate('/')} />;
+  return (
+    <FormIniciarSesion onSuccess={handleLogin} onCancel={() => navigate('/')} />
+  );
 }
 
 export default App;

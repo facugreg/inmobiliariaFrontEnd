@@ -7,11 +7,10 @@ import { EncabezadoLista } from '../../../components/partsLists/EncabezadoLista.
 import { useNavigate } from 'react-router-dom';
 
 export function TipoServicio() {
-
-  const PATH= 'http://localhost:3000/api/tipoServicios';
+  const PATH = 'http://localhost:3000/api/tipoServicios';
   const [tipoServicios, setTipoServicios] = useState([]);
 
-    useEffect(() => {
+  useEffect(() => {
     const getTipoServicios = async () => {
       try {
         const response = await axios.get(PATH);
@@ -37,38 +36,42 @@ export function TipoServicio() {
     navigate(`/updatetiposervicio/${id}`);
   };
 
-  const handleAgregar= () =>{
-    console.log('por agregar nuevo tiposervicio')
-    navigate('/addtiposervicio')
-  }
+  const handleAgregar = () => {
+    console.log('por agregar nuevo tiposervicio');
+    navigate('/addtiposervicio');
+  };
 
   return (
     <>
-     <CContainer>
-      <CRow className="mt-3  d-flex justify-content-center align-items-center">
-        <CCol lg={10} sm={12}>
-          <Buscador placeholder="Buscar por tipo de servicio" />
-        </CCol>
-        <CCol lg={2} sm={12} className="d-flex justify-content-end">
-          <CButton color="primary" onClick={handleAgregar}>Agregar tipo de servicio</CButton>
-        </CCol>
-      </CRow>
-      <EncabezadoLista columns={[
-          { key: 'id', size: 1 },
-          { key: 'nombre', size: 3 },
-          { key: 'descripcion', size: 5 },
-        ]}/>
-      <Lista
-        items={tipoServicios}
-        onDelete={deleteTipoServicio}
-        onEdit={updateTipoServicio}
-        columns={[
-          { key: 'id', size: 1 },
-          { key: 'nombreTipoServicio', size: 3 },
-          { key: 'descripcionTipoServicio', size: 5 },
-        ]}
-      />
-    </CContainer>
+      <CContainer>
+        <CRow className="mt-3  d-flex justify-content-center align-items-center">
+          <CCol lg={10} sm={12}>
+            <Buscador placeholder="Buscar por tipo de servicio" />
+          </CCol>
+          <CCol lg={2} sm={12} className="d-flex justify-content-end">
+            <CButton color="primary" onClick={handleAgregar}>
+              Agregar tipo de servicio
+            </CButton>
+          </CCol>
+        </CRow>
+        <EncabezadoLista
+          columns={[
+            { key: 'id', size: 1 },
+            { key: 'nombre', size: 3 },
+            { key: 'descripcion', size: 4 },
+          ]}
+        />
+        <Lista
+          items={tipoServicios}
+          onDelete={deleteTipoServicio}
+          onEdit={updateTipoServicio}
+          columns={[
+            { key: 'id', size: 1 },
+            { key: 'nombreTipoServicio', size: 3 },
+            { key: 'descripcionTipoServicio', size: 4 },
+          ]}
+        />
+      </CContainer>
     </>
-  )
+  );
 }
