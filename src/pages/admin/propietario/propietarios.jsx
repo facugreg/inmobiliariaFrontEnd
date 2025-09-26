@@ -29,9 +29,20 @@ export function Propietarios() {
     }
 
     if (!propietarios || propietarios.length === 0) {
-        return <p>No se encontraron propietarios.</p>;
-    }
-
+        return (<>
+            <CContainer>
+              <p>No se encontraron propietarios...</p>
+        <h2 className="my-3">Desea agregar su primer propietario</h2>
+        <CButton
+        color="primary" 
+        size="sm"
+        onClick={handleAgregar}
+        >
+        Agregar propietario
+        </CButton>
+        </CContainer>
+        </>)
+}
   
   return (
     <>
