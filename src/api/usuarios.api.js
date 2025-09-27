@@ -1,0 +1,20 @@
+import axios from 'axios';
+
+const PATH = 'http://localhost:3000/api/usuarios';
+
+export const getUsuarios = async () => {
+  const res = await axios.get(PATH);
+  return res.data.data;
+};
+
+export const createUsuario = async (data) => {
+  return await axios.post(PATH, data);
+};
+
+export const updateUsuario = async ({ id, ...data }) => {
+  return await axios.put(`${PATH}/${id}`, data);
+};
+
+export const deleteUsuario = async (id) => {
+  return await axios.delete(`${PATH}/${id}`);
+};
