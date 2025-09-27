@@ -4,11 +4,10 @@ import {
   Routes,
   Route,
   Navigate,
-  useNavigate,
 } from 'react-router-dom';
 import '@coreui/coreui/dist/css/coreui.min.css';
-import FormIniciarSesion from './components/InicioSesion';
-import FormSignIn from './components/Registro';
+import Login from './pages/Login.jsx';
+import Registro from './pages/Registro.jsx';
 import { ComprarAlquilar } from './pages/user-guest/ComprarAlquilar';
 import { Contacto } from './pages/user-guest/Contacto';
 import { MisVisitas } from './pages/user-guest/MisVisitas';
@@ -149,20 +148,11 @@ function App() {
         {/* Rutas fuera del layout (ej: login no necesita Header/Footer; ajusta si quieres) */}
         <Route
           path="/login"
-          element={<LoginWrapper handleLogin={handleLogin} />}
+          element={<Login onSuccess={handleLogin}/>}
         />
-        <Route path="/signin" element={<FormSignIn />} />
+        <Route path="/signin" element={<Registro />} />
       </Routes>
     </Router>
-  );
-}
-
-// Wrapper para login: Para que pueda acceder a handleLogin
-function LoginWrapper({ handleLogin }) {
-  const navigate = useNavigate();
-  // Asume que FormIniciarSesion acepta props onSuccess
-  return (
-    <FormIniciarSesion onSuccess={handleLogin} onCancel={() => navigate('/')} />
   );
 }
 

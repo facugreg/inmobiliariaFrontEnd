@@ -20,8 +20,6 @@ import {
   CImage,
 } from '@coreui/react';
 import Card from '../components/cards/Card.jsx';
-import Item from '../components/ItemCarousel.jsx';
-import FormIniciarSesion from '../components/InicioSesion.jsx';
 import { Buscador } from '../components/Buscador.jsx';
 
 const opcionesInmueble = [

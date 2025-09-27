@@ -10,14 +10,27 @@ import {
   CAlert
 } from '@coreui/react';
 import { Link } from 'react-router-dom';
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
+import { toast, ToastContainer } from 'react-toastify';
 
-function FormIniciarSesion({ onSuccess, onCancel }) {
+function Login({ onSuccess}) {
+
+  const location = useLocation();
   const emailInputRef = useRef(null);
   const passwordInputRef = useRef(null);
   const [error, setError] = useState(''); // Para mostrar errores
   const navigate = useNavigate(); // Si onCancel no lo usa, pero por si acaso
+  const onCancel = () => {navigate('/');};
+
+  useEffect(() => {
+    if (location.state?.showSuccessToast) {
+      toast.success('Usuario creado correctamente!');
+      navigate(location.pathname, { replace: true, state: {} });
+    }
+  }, [location, navigate]); 
+
 
   const handleSubmit = async (event) => {
     event.preventDefault(); // Previene recarga
@@ -64,6 +77,7 @@ function FormIniciarSesion({ onSuccess, onCancel }) {
     }
   };
   return (
+    <>
     <CContainer
       fluid
       className="d-flex justify-content-center align-items-center vh-100"
@@ -117,6 +131,8 @@ function FormIniciarSesion({ onSuccess, onCancel }) {
         </CCol>
       </CRow>
     </CContainer>
+    <ToastContainer position="top-right" autoClose={3000} closeOnClick />
+    </>
   );
 }
-export default FormIniciarSesion;
+export default Login;

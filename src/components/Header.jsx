@@ -83,6 +83,7 @@ export default function Header({ userType = 'guest', onLogout }) {
             </CButton>
           )}
         </CCol>
+        
         {/* Menú colapsable para pantallas pequeñas */}
         <CCollapse visible={isOpen} className="d-lg-none bg-light p-2">
           <CNav className="flex-column">
