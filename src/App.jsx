@@ -19,7 +19,7 @@ import { useState, useEffect } from 'react';
 import { TipoServicio } from './pages/admin/tipoServicio/TipoServicio';
 import { AddTipoServicio } from './pages/admin/tipoServicio/AddTipoServicio.jsx';
 import { UpdateTipoServicio } from './pages/admin/tipoServicio/UpdateTipoServicio.jsx';
-import Inmuebles from './pages/admin/Inmuebles';
+import Inmuebles from './pages/admin/inmueble/Inmuebles.jsx';
 import { Propietarios } from './pages/admin/propietario/propietarios.jsx';
 import DeletePropietario from './pages/admin/propietario/deletePropietario.jsx';
 import UpdatePropietario from './pages/admin/propietario/updatePropietario.jsx';
@@ -98,7 +98,7 @@ function App() {
             }
           />
           <Route
-            path="inmuebles"
+            path="Inmuebles"
             element={userType === 'admin' ? <Inmuebles /> : <Navigate to="/" />}
           />
           <Route

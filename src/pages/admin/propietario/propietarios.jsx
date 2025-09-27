@@ -55,9 +55,6 @@ export function Propietarios() {
     >
     Agregar propietario
     </CButton>
-    {propietarios.length === 0 ? (
-      <p>No hay propietarios cargados.</p>
-    ) : (
       <table className="table table-striped"> 
         <thead>
           <tr>
@@ -96,7 +93,6 @@ export function Propietarios() {
           ))}
         </tbody>
       </table>
-    )}
   </CContainer>
         </>
   )

@@ -1,0 +1,91 @@
+import { CCol, CButton, CContainer, CRow } from '@coreui/react';
+import { useNavigate } from 'react-router-dom';
+import {Buscador} from '../../../components/Buscador';
+import Lista from '../../../components/partsLists/Lista';
+import { EncabezadoLista } from '../../../components/partsLists/EncabezadoLista';
+import { useState } from 'react';
+import useInmuebles from './getInmuebles';
+import { Filtro } from '../../../components/Filtro';
+
+const opcionesTipoInmueble = [
+  { value: 'Casa', label: 'Casa' },
+  { value: 'Cochera', label: 'Cochera' },
+  { value: 'Departamento', label: 'Departamento' },
+  { value: 'Terreno', label: 'Terreno' },
+];
+export default function Inmuebles() {
+   const navigate = useNavigate();
+    const [tipoInmueble, setTipoInmueble] = useState('');
+    const [search, setCalleFiltro] = useState('');
+    const searcher = (e) => setCalleFiltro(e.target.value);
+    const [query, setQuery] = useState('');
+    const handleSearchClick = () => setQuery(search);
+  const onChangeEstado = (e) => setTipoInmueble(e.target.value);
+  const { inmuebles, isLoading, isError, error } = useInmuebles({tipoInmueble, query});
+  const handleAgregar= () => {
+        console.log('por agregar nuevo propietario');
+        navigate('/addInmueble');
+    };
+  const updateInmueble = (id) => {
+        console.log('por modificar propietario');
+        navigate(`/updateInmueble/${id}`);
+    };
+
+  const deleteInmueble = async (id) => {
+        console.log('por modificar Inmueble');
+        navigate(`/deleteInmueble/${id}`);
+    };
+
+  if (isLoading) {
+    return <p>Cargando Inmuebles...</p>;
+  }
+
+  if (isError) {
+    return <p>Error al cargar inmuebles: {error.message}</p>;
+  }
+
+  return (
+    <>
+      <CContainer>
+        <CRow className="mt-3  d-flex justify-content-center align-items-center">
+            <CCol lg={6} sm={12}>
+            <Buscador placeholder="Buscar por calle de inmueble"
+              searcher={searcher} search={search} handleSearchClick={handleSearchClick} />
+            </CCol>
+            <CCol lg={4} sm={12}>
+            <Filtro
+                label="Tipo de inmueble"
+                opciones={opcionesTipoInmueble}
+                onChange={onChangeEstado}
+                value={tipoInmueble}
+            />
+            </CCol>
+            <CCol lg={2} sm={12} className="d-flex justify-content-end">
+            <CButton color="primary" onClick={handleAgregar}>Agregar inmueble</CButton>
+            </CCol>
+        </CRow>
+
+        <EncabezadoLista
+          columns={[
+            { key: 'id', size: '1' },
+            { key: 'Calle', size: '2' },
+            { key: 'Número', size: '2' },
+            { key: 'localidad', size: '3' },
+          ]}
+        />
+
+        <Lista
+          items={inmuebles}
+          onDelete={deleteInmueble}
+          onEdit={updateInmueble}
+          columns={[
+            { key: 'id', size: '1' },
+            { key: 'direccionCalle', size: '2' },
+            { key: 'direccionNumero', size: '2' },
+            { key: 'localidad', size: '3' },
+          ]}
+        ></Lista>
+      </CContainer>
+    </>
+  );
+}

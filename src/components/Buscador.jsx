@@ -10,7 +10,7 @@ import CIcon from "@coreui/icons-react";
 import { cilSearch } from "@coreui/icons";
 import { Filtro } from "./Filtro";
 
-export function Buscador({ onSearch, mostrarFiltro = false,
+export function Buscador({ searcher, search,handleSearchClick, mostrarFiltro = false,
   filtroLabel = "Seleccionar",
   filtroOpciones = [],
   filtroValue = "",
@@ -25,6 +25,8 @@ export function Buscador({ onSearch, mostrarFiltro = false,
             name="buscar"
             placeholder={placeholder}
             className="w-50"
+            onChange={ searcher}
+            value={search}
           />
           {/* Filtro condicional */}
           {mostrarFiltro && (
@@ -41,7 +43,7 @@ export function Buscador({ onSearch, mostrarFiltro = false,
             type="button"
             color="primary"
             className="w-20"
-            onClick={onSearch}
+            onClick={handleSearchClick}
           >
             <CIcon icon={cilSearch} />
           </CButton>
