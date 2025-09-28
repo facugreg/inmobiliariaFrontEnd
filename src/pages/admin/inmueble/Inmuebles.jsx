@@ -23,15 +23,15 @@ export default function Inmuebles() {
   const onChangeEstado = (e) => setTipoInmueble(e.target.value);
   const { inmuebles, isLoading, isError, error } = useInmuebles({tipoInmueble, query});
   const handleAgregar= () => {
-        console.log('por agregar nuevo propietario');
+        console.log('por agregar nuevo inmueble');
         navigate('/addInmueble');
     };
   const updateInmueble = (id) => {
-        console.log('por modificar propietario');
+        console.log('por modificar inmueble');
         navigate(`/updateInmueble/${id}`);
     };
 
-  const deleteInmueble = async (id) => {
+  const deleteInmueble = (id) => {
         console.log('por modificar Inmueble');
         navigate(`/deleteInmueble/${id}`);
     };
