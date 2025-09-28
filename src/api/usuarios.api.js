@@ -18,3 +18,8 @@ export const updateUsuario = async ({ id, ...data }) => {
 export const deleteUsuario = async (id) => {
   return await axios.delete(`${PATH}/${id}`);
 };
+
+export const loginUsuario = async (data) => {
+  const res = await axios.post(`${PATH}/login`, data, { headers: { 'Content-Type': 'application/json' } });
+  return res.data.data;
+};

@@ -46,14 +46,13 @@ function App() {
     );
   }, []);
 
-  // Función para actualizar userType después del login (pásala a FormIniciarSesion)
   const handleLogin = (newUserType) => {
-    console.log('handleLogin: seteando userType a:', newUserType);
-    setUserType(newUserType);
-    localStorage.setItem('userType', newUserType);
-    console.log('handleLogin: userType guardado en localStorage:', newUserType);
-  };
-
+      console.log('handleLogin: seteando userType a:', newUserType);
+      setUserType(newUserType);
+      localStorage.setItem('userType', newUserType);
+      console.log('handleLogin: userType guardado en localStorage:', newUserType);
+    };
+  
   const handleLogout = () => {
     console.log('handleLogout: seteando userType a guest');
     setUserType('guest');
@@ -148,7 +147,7 @@ function App() {
         {/* Rutas fuera del layout (ej: login no necesita Header/Footer; ajusta si quieres) */}
         <Route
           path="/login"
-          element={<Login onSuccess={handleLogin}/>}
+          element={<Login handleLogin={handleLogin} />}
         />
         <Route path="/signin" element={<Registro />} />
       </Routes>
