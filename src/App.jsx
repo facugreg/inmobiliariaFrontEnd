@@ -19,6 +19,8 @@ import { TipoServicio } from './pages/admin/tipoServicio/TipoServicio';
 import { AddTipoServicio } from './pages/admin/tipoServicio/AddTipoServicio.jsx';
 import { UpdateTipoServicio } from './pages/admin/tipoServicio/UpdateTipoServicio.jsx';
 import Inmuebles from './pages/admin/inmueble/Inmuebles.jsx';
+import DeleteInmueble from './pages/admin/inmueble/deleteInmueble.jsx';
+import AddInmueble from './pages/admin/inmueble/addInmueble.jsx';
 import { Propietarios } from './pages/admin/propietario/propietarios.jsx';
 import DeletePropietario from './pages/admin/propietario/deletePropietario.jsx';
 import UpdatePropietario from './pages/admin/propietario/updatePropietario.jsx';
@@ -99,6 +101,18 @@ function App() {
           <Route
             path="Inmuebles"
             element={userType === 'admin' ? <Inmuebles /> : <Navigate to="/" />}
+          />
+           <Route
+            path="deleteInmueble/:id"
+            element={
+              userType === 'admin' ? <DeleteInmueble /> : <Navigate to="/" />
+            }
+          />
+          <Route
+            path="addInmueble"
+            element={
+              userType === 'admin' ? <AddInmueble /> : <Navigate to="/" />
+            }
           />
           <Route
             path="localidades"
