@@ -67,7 +67,7 @@ export const ComprarAlquilar = () => {
             <CCol lg={6} md={12}>
               <Buscador onSearch={() => alert('Buscar inmueble')} />
             </CCol>
-            <CCol lg={2} md={12} sm={12}>
+            <CCol lg={2} md={12} sm={12} xs={12}>
               <Filtro
                 label="Tipo"
                 opciones={opcionesInmueble}
@@ -77,7 +77,7 @@ export const ComprarAlquilar = () => {
               />
             </CCol>
             {/* Espaciador */}
-            <CCol lg={2} md={12} sm={12}>
+            <CCol lg={2} md={12} sm={12} xs={12}>
               <Filtro
                 label="Precio"
                 opciones={opcionesPrecio}
@@ -87,7 +87,7 @@ export const ComprarAlquilar = () => {
               />
             </CCol>
             {/* Espaciador */}
-            <CCol lg={2} md={12} sm={12}>
+            <CCol lg={2} md={12} sm={12} xs={12}>
               <Filtro
                 label="Antigüedad"
                 opciones={opcionesAntiguedad}
