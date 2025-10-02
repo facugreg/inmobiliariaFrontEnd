@@ -1,8 +1,7 @@
 export const guestItems = [
-  { direccion: '#', nombre: 'Horarios' },
   { direccion: '/comprar', nombre: 'Comprar' },
   { direccion: '/alquilar', nombre: 'Alquilar' },
-  { direccion: '/contacto', nombre: 'Contacto' },
+  { direccion: '/contacto', nombre: 'Contacto|Horarios' },
 ];
 
 // Navegacion para usuarios registrados (logueados)
@@ -10,7 +9,7 @@ export const userItems = [
   { direccion: '/misvisitas', nombre: 'Mis Visitas' },
   { direccion: '/comprar', nombre: 'Comprar' },
   { direccion: '/alquilar', nombre: 'Alquilar' },
-  { direccion: '/contacto', nombre: 'Contacto' },
+  { direccion: '/contacto', nombre: 'Contacto|Horarios' },
 ];
 
 // Navegación para administradores
