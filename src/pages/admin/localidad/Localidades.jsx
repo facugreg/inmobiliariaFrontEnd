@@ -1,5 +1,5 @@
 import { CCol, CButton, CContainer, CRow } from '@coreui/react';
-
+import ModalEliminar from '../../../components/ModalEliminar';
 import { Buscador } from '../../../components/Buscador';
 import Lista from '../../../components/partsLists/Lista';
 import { EncabezadoLista } from '../../../components/partsLists/EncabezadoLista';
@@ -15,6 +15,8 @@ export default function Localidades() {
   const [selectedLocalidad, setSelectedLocalidad] = useState(null);
   const { localidades, isLoading, isError, error } = useLocalidades();
   const { mutate: deleteLocalidad } = useDeleteLocalidad();
+  const [localidadAEliminar, setLocalidadAEliminar] = useState(null);
+  const [visibleEliminar, setVisibleEliminar] = useState(false);
 
   if (isLoading) {
     return <p>Cargando localidades...</p>;
@@ -36,9 +38,16 @@ export default function Localidades() {
     setVisible(true);
   };
   const handleDelete = (id) => {
-    deleteLocalidad(id);
+    const item = localidades.find((localidad) => localidad.id === id);
+    setLocalidadAEliminar(item);
+    setVisibleEliminar(!visibleEliminar);
   };
-
+  const handleConfirm = () => {
+    if (localidadAEliminar) {
+      deleteLocalidad(localidadAEliminar.id);
+      setVisibleEliminar(false);
+    }
+  };
   return (
     <>
       <CContainer>
@@ -75,7 +84,11 @@ export default function Localidades() {
             { key: 'codPostal', size: '3' },
           ]}
         ></Lista>
-
+        <ModalEliminar
+          visibleEliminar={visibleEliminar}
+          setVisibleEliminar={setVisibleEliminar}
+          handleConfirm={handleConfirm}
+        />
         <FormLocalidad
           initialData={selectedLocalidad}
           visible={visible}
