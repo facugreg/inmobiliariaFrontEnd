@@ -6,12 +6,13 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 
-  const addInmuebleApi = async ({ formData }) => {
-  const response = await axios.post(`http://localhost:3000/api/inmuebles`, formData);
-  return response.data.data;
-  };
 
-  export default function FormCrearInmueble() {   
+export default function FormCrearInmueble() {   
+    const addInmuebleApi = async ({ formData }) => {
+    const PATH = 'http://localhost:3000/api/inmuebles';
+    const response = await axios.post(PATH, formData);
+    return response.data.data;
+    };
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const [formData, setFormData] = useState({
@@ -452,6 +453,8 @@ const handleChange = (e) => {
           </CCol>
         </CRow>
         </CForm>
+
+        {/* Modal de create exitoso */}
         <CModal visible={showModal} onClose={handleCloseModal}>
           <CModalHeader>
             <CModalTitle>Guardado exitoso</CModalTitle>
