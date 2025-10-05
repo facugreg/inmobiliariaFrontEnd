@@ -29,10 +29,15 @@ import Localidades from './pages/admin/localidad/Localidades.jsx';
 function App() {
   const [userType, setUserType] = useState('guest'); // Estado global para userType
   const [isLoading, setIsLoading] = useState(true); // Nueva bandera de carga
+  const [userId, setUserId] = useState(null); // Estado para userId
 
   // Carga userType de localStorage al montar la app, provisorio para testing
   useEffect(() => {
     const savedUserType = localStorage.getItem('userType');
+    const savedUserId = localStorage.getItem('userId');
+    if (savedUserId) {
+      setUserId(savedUserId);
+    }
     console.log(
       'useEffect: userType inicial desde localStorage:',
       savedUserType
@@ -47,11 +52,13 @@ function App() {
     );
   }, []);
 
-  const handleLogin = (newUserType) => {
+  const handleLogin = (newUserType, newUserId) => {
       console.log('handleLogin: seteando userType a:', newUserType);
       setUserType(newUserType);
       localStorage.setItem('userType', newUserType);
       console.log('handleLogin: userType guardado en localStorage:', newUserType);
+      setUserId(newUserId);
+      localStorage.setItem('userId', newUserId);
     };
   
   const handleLogout = () => {
@@ -59,6 +66,8 @@ function App() {
     setUserType('guest');
     localStorage.removeItem('userType');
     console.log('handleLogout: localStorage.userType eliminado');
+    localStorage.removeItem('userId');
+    setUserId(null);
   };
 
   console.log(
