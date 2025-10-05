@@ -8,10 +8,10 @@ import useInmuebles from './getInmuebles';
 import { Filtro } from '../../../components/Filtro';
 
 const opcionesTipoInmueble = [
-  { value: 'Casa', label: 'Casa' },
-  { value: 'Cochera', label: 'Cochera' },
-  { value: 'Departamento', label: 'Departamento' },
-  { value: 'Terreno', label: 'Terreno' },
+  { value: 'casa', label: 'Casa' },
+  { value: 'cochera', label: 'Cochera' },
+  { value: 'departamento', label: 'Departamento' },
+  { value: 'terreno', label: 'Terreno' },
 ];
 export default function Inmuebles() {
    const navigate = useNavigate();
