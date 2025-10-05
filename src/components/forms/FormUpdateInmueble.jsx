@@ -1,33 +1,29 @@
 
-import { CButton,CFormSelect, CCard, CCardTitle, CCardBody, CCol, CForm, CFormInput, CFormLabel, CRow, CModal, CModalHeader, CModalBody, CModalTitle, CModalFooter } from '@coreui/react';
-import { useState } from 'react';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { CButton, CCard, CCardTitle, CCardBody, CCol, CForm, CFormInput, CFormLabel, CRow, CModal, CModalHeader, CModalTitle, CModalFooter } from '@coreui/react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import useInmueble from '../../pages/admin/inmueble/getInmueble';
 
-const addInmuebleApi = async ({ formData }) => {
-    const PATH = 'http://localhost:3000/api/inmuebles';
-    const response = await axios.post(PATH, formData);
-    return response.data.data;
-    };
 
-export default function FormCrearInmueble() {   
+const updateInmuebleApi = async ({ id, formData }) => {
+  const response = await axios.put(`http://localhost:3000/api/inmuebles/${id}`, formData);
+  return response.data?.data ?? response.data;
+};
+
+export function FormUpdateInmueble({ id }) {   
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const [formData, setFormData] = useState({
-    tipo: "",
     mtrs: "",
     descripcion: "",
-    direccionCalle: "",
-    direccionNumero: "",
     fechaConstruccion: "",
     fechaPublicacion: "",
     requisitos: "",
     propietario: "",
     tipoServicio: "",
-    localidad: "",
     // campos opcionales por tipo
-    piso: "",
     depto: "",
     cantAmbientes: "",
     cantBanios: "",
@@ -39,27 +35,59 @@ export default function FormCrearInmueble() {
     nroParcela: "",
     zonificacion: "",
   });
-
   const [showModal, setShowModal] = useState(false);
-  const { mutate, error } = useMutation({
-    mutationFn: addInmuebleApi,
-    onSuccess: ( data ) => {
-      queryClient.invalidateQueries(['inmuebles']);
-      setFormData(data);
+  const { inmueble, isLoading } = useInmueble(id);
+  const [tipo, setTipo] = useState('');
+
+useEffect(() => {
+  if (inmueble) {
+    console.log('🔍 inmueble.tipo:', inmueble.tipo);
+    setTipo(inmueble.tipo);
+    const baseData = {
+      descripcion: inmueble.descripcion,
+      mtrs: inmueble.mtrs,
+      requisitos: inmueble.requisitos,
+      propietario: inmueble.propietario?.id || '',
+      tipoServicio: inmueble.tipoServicio?.id || '',
+      fechaConstruccion: inmueble.fechaConstruccion?.split('T')[0] || '',
+      fechaPublicacion: inmueble.fechaPublicacion?.split('T')[0] || '',
+    };
+
+    // Agrega solo los campos del tipo específico
+    if (inmueble.tipo === 'departamento') {
+      baseData.depto = inmueble.depto;
+      baseData.cantAmbientes = inmueble.cantAmbientes;
+      baseData.cantBanios = inmueble.cantBanios;
+      baseData.balcon = inmueble.balcon;
+    } else if (inmueble.tipo === 'casa') {
+      baseData.cantAmbientes = inmueble.cantAmbientes;
+      baseData.cantBanios = inmueble.cantBanios;
+      baseData.patio = inmueble.patio;
+      baseData.pileta = inmueble.pileta;
+    } else if (inmueble.tipo === 'cochera') {
+      baseData.techo = inmueble.techo;
+      baseData.tipoVehiculo = inmueble.tipoVehiculo;
+    } else if (inmueble.tipo === 'terreno') {
+      baseData.nroParcela = inmueble.nroParcela;
+      baseData.zonificacion = inmueble.zonificacion;
+    }
+
+    setFormData(baseData);
+  }
+}, [inmueble]);
+  const { mutate, isError, error } = useMutation({
+    mutationFn: updateInmuebleApi,
+     onSuccess: () => {
+      queryClient.invalidateQueries(['inmueble', id]);
       setShowModal(true);
     },
     onError: (err) => {
       console.error(err);
+      console.error('server response:', err.response?.data);
     }
   });
 
-  const handleSubmit = (e) => {
-    console.log(formData);
-    e.preventDefault();
-    mutate({ formData }); 
-  };
-
-const handleChange = (e) => {
+ const handleChange = (e) => {
   const { name, value, type, checked } = e.target;
 
   //supuestamente usar el prev es mas seguro para condiciones de 
@@ -79,38 +107,84 @@ const handleChange = (e) => {
     };
   });
 };
-  const handleCloseModal = () => {
-    setShowModal(false)
-    navigate('/inmuebles'); 
+const handleSubmit = (e) => {
+  e.preventDefault();
+  
+  const dataToSend = {
+    tipo: tipo,
+    descripcion: formData.descripcion,
+    mtrs: formData.mtrs,
+    requisitos: formData.requisitos,
+    fechaConstruccion: formData.fechaConstruccion,
+    fechaPublicacion: formData.fechaPublicacion,
+    direccionCalle: inmueble.direccionCalle,
+    direccionNumero: inmueble.direccionNumero,
+    
+    // Solo IDs, no objetos
+    propietario: formData.propietario,
+    tipoServicio: formData.tipoServicio,
+    localidad: inmueble.localidad?.id || inmueble.localidad,
+    
+    // Campos específicos por tipo
+    ...(tipo === 'departamento' && {
+      depto: formData.depto,
+      cantAmbientes: formData.cantAmbientes,
+      cantBanios: formData.cantBanios,
+      balcon: formData.balcon,
+    }),
+    ...(tipo === 'casa' && {
+      cantAmbientes: formData.cantAmbientes,
+      cantBanios: formData.cantBanios,
+      patio: formData.patio,
+      pileta: formData.pileta,
+    }),
+    ...(tipo === 'cochera' && {
+      techo: formData.techo,
+      tipoVehiculo: formData.tipoVehiculo,
+    }),
+    ...(tipo === 'terreno' && {
+      nroParcela: formData.nroParcela,
+      zonificacion: formData.zonificacion,
+    }),
   };
-   const handleCancelar = () => {
-    window.history.back();
-  };
+  // convertir strings de fecha YYYY-MM-DD a ISO (el backend suele esperar parseable)
+if (dataToSend.fechaConstruccion && typeof dataToSend.fechaConstruccion === 'string') {
+  dataToSend.fechaConstruccion = new Date(dataToSend.fechaConstruccion).toISOString();
+}
+if (dataToSend.fechaPublicacion && typeof dataToSend.fechaPublicacion === 'string') {
+  dataToSend.fechaPublicacion = new Date(dataToSend.fechaPublicacion).toISOString();
+}
 
+// asegurar que los ids de relaciones son números (si vienen como string)
+dataToSend.propietario = Number(dataToSend.propietario);
+dataToSend.tipoServicio = Number(dataToSend.tipoServicio);
+dataToSend.localidad = Number(dataToSend.localidad);
+
+  console.log('Enviando:', dataToSend);
+  mutate({ id, formData: dataToSend }); 
+};
+
+  if (isLoading) return <p>Cargando datos...</p>;
 
   return (
-    <CCard className= "p-3 w-100 bg-light">
+    <CCard className="p-3 w-100 bg-light">
       <CCardBody>
-      <CCardTitle>
-        Nuevo Inmueble
-      </CCardTitle>
-        <CForm onSubmit={handleSubmit} className= "mt-3">
-        <CRow>
-           <CFormLabel htmlFor="tipo">Tipo de Inmueble</CFormLabel>
-            <CFormSelect
-            id="tipo"
-            name="tipo"
-            value={formData.tipo}
-            onChange={handleChange}
-            required>
-            <option value="">-- Selecciona un tipo --</option>
-            <option value="casa">Casa</option>
-            <option value="departamento">Departamento</option>
-            <option value="cochera">Cochera</option>
-            <option value="terreno">Terreno</option>
-            </CFormSelect>
+        <CCardTitle>Modificar Inmueble</CCardTitle>
+        <CForm onSubmit={handleSubmit} className="mt-3">
+          <CRow>
+          <CFormLabel htmlFor="descripcion">Descripción</CFormLabel>
+            <CFormInput
+                type="text"
+                id="descripcion"
+                placeholder='Descripción  detallada de su inmueble'
+                name="descripcion"
+                value={formData.descripcion}
+                onChange={handleChange}
+                className="mb-3"
+                required
+            />
         </CRow>
-        <CRow>
+          <CRow>
             <CFormLabel htmlFor="mtrs">
             Metros*
             </CFormLabel>
@@ -124,79 +198,6 @@ const handleChange = (e) => {
             required
             className="mb-3"
             />
-        </CRow>
-        <CRow>
-          <CFormLabel htmlFor="descripcion">Descripción</CFormLabel>
-            <CFormInput
-                type="text"
-                id="descripcion"
-                placeholder='Descripción  detallada de su inmueble'
-                name="descripcion"
-                value={formData.descripcion}
-                onChange={handleChange}
-                className="mb-3"
-                required
-            />
-        </CRow>
-        <CRow>
-          <CFormLabel htmlFor='direccionCalle'>
-            Calle*
-          </CFormLabel>
-          <CFormInput
-            type="text"
-            name="direccionCalle"
-            id='direccionCalle'
-            placeholder="Calle del inmueble"
-            value={formData.direccionCalle}
-            onChange={handleChange}
-            className="mb-3"
-            required
-          />
-        </CRow>
-        <CRow>
-          <CFormLabel htmlFor='direccionNumero'>
-            Número*
-          </CFormLabel>
-          <CFormInput
-            type="number"
-            name="direccionNumero"
-            id='direccionNumero'
-            placeholder="Número del inmueble"
-            value={formData.direccionNumero}
-            onChange={handleChange}
-            className="mb-3"
-            required
-          />
-        </CRow>
-        <CRow>
-          <CFormLabel htmlFor='fechaConstruccion'>
-            fecha de construcción*
-          </CFormLabel>
-          <CFormInput
-            type="date"
-            name="fechaConstruccion"
-            id='fechaConstruccion'
-            placeholder="Fecha de construcción del inmueble"
-            value={formData.fechaConstruccion}
-            onChange={handleChange}
-            className="mb-3"
-            required
-          />
-        </CRow>
-        <CRow>
-          <CFormLabel htmlFor='fechaPublicacion'>
-            fecha de publicación (seleccionar día de hoy o mas adelante)*
-          </CFormLabel>
-          <CFormInput
-            type="date"
-            name="fechaPublicacion"
-            id='fechaPublicacion'
-            placeholder=" fecha publicación del inmueble"
-            value={formData.fechaPublicacion}
-            onChange={handleChange}
-            className="mb-3"
-            required
-          />
         </CRow>
         <CRow>
           <CFormLabel htmlFor='requisitos'>
@@ -243,35 +244,37 @@ const handleChange = (e) => {
           />
         </CRow>
         <CRow>
-          <CFormLabel htmlFor='localidad'>
-            Id de la localidad*
-          </CFormLabel> 
+          <CFormLabel htmlFor='fechaConstruccion'>
+            fecha de construcción*
+          </CFormLabel>
           <CFormInput
-            type="number"
-            name="localidad"
-            id='localidad'
-            placeholder="Id de la localidad del inmueble"
-            value={formData.localidad}
+            type="date"
+            name="fechaConstruccion"
+            id='fechaConstruccion'
+            placeholder="Fecha de construcción del inmueble"
+            value={formData.fechaConstruccion}
             onChange={handleChange}
             className="mb-3"
             required
           />
         </CRow>
-        {formData.tipo === "departamento" && (
+         <CRow>
+          <CFormLabel htmlFor='fechaPublicacion'>
+            fecha de publicación (seleccionar día de hoy o dejar la fecha anterior)*
+          </CFormLabel>
+          <CFormInput
+            type="date"
+            name="fechaPublicacion"
+            id='fechaPublicacion'
+            placeholder=" fecha publicación del inmueble"
+            value={formData.fechaPublicacion}
+            onChange={handleChange}
+            className="mb-3"
+            required
+          />
+        </CRow>
+        {tipo === "departamento" && (
         <>
-        <CRow>
-          <CFormLabel htmlFor="piso">Piso</CFormLabel>
-          <CFormInput
-            type="number"
-            id="piso"
-            name="piso"
-            value={formData.piso}
-            onChange={handleChange}
-            placeholder="En que piso está el departamento"
-            className="mb-3"
-            required
-          />
-        </CRow>
         <CRow>
           <CFormLabel htmlFor="depto">Número o sección de departamento</CFormLabel>
           <CFormInput
@@ -325,7 +328,7 @@ const handleChange = (e) => {
         </>
       )}
 
-      {formData.tipo === "casa" && (
+      {tipo === "casa" && (
         <>
         <CRow>
           <CFormLabel htmlFor="cantAmbientes">Cantidad de ambientes</CFormLabel>
@@ -378,7 +381,7 @@ const handleChange = (e) => {
         </>
       )}
 
-      {formData.tipo === "cochera" && (
+      {tipo === "cochera" && (
         <>
         <CRow>
           <CFormLabel htmlFor="techo">Techo</CFormLabel>
@@ -407,7 +410,7 @@ const handleChange = (e) => {
         </>
       )}
 
-      {formData.tipo === "terreno" && (
+      {tipo === "terreno" && (
         <>
         <CRow>
           <CFormLabel htmlFor="nroParcela">Número de parcela</CFormLabel>
@@ -438,39 +441,32 @@ const handleChange = (e) => {
         </>
       )}
 
-        {error && (
-            <div className="text-danger mb-3">
-              {error.response?.data?.message || error.message}
-            </div>
-          )}
-        <CRow className='justify-content-end'>
-          <CCol lg={1}>
-          <CButton type='button' color='secondary' className='mt-3 mx-3' onClick={handleCancelar}>Cancelar</CButton>
-          </CCol>
-          <CCol lg={1}>
-          <CButton type='submit' color='primary'className='mt-3 mx-3'>Guardar</CButton>
-          </CCol>
-        </CRow>
+          {isError && <div className="text-danger mb-3">{error.message}</div>}
+          <CRow className="justify-content-end">
+            <CCol lg={1}>
+              <CButton type="button" color="secondary" className="mt-3 mx-3" onClick={() => navigate('/inmuebles')}>
+                Cancelar
+              </CButton>
+            </CCol>
+            <CCol lg={1}>
+              <CButton type="submit" color="primary" className="mt-3 mx-3">
+                Guardar
+              </CButton>
+            </CCol>
+          </CRow>
         </CForm>
 
-        {/* Modal de create exitoso */}
-        <CModal visible={showModal} onClose={handleCloseModal}>
+        <CModal visible={showModal} onClose={() => setShowModal(false)}>
           <CModalHeader>
             <CModalTitle>Guardado exitoso</CModalTitle>
           </CModalHeader>
-          <CModalBody>
-            <p><strong>{formData?.tipo}</strong> guardado/a</p>
-          </CModalBody>
           <CModalFooter>
-            <CButton color="primary" onClick={handleCloseModal}>
+            <CButton color="primary" onClick={() => navigate('/inmuebles')}>
               Cerrar
             </CButton>
           </CModalFooter>
         </CModal>
       </CCardBody>
     </CCard>
-
   );
 }
-
-
