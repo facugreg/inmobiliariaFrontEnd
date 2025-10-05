@@ -9,26 +9,29 @@ import {
   CNav,
   CNavItem,
   CNavLink,
-  CCollapse
+  CCollapse,
+  CDropdown,
+  CDropdownToggle,
+  CDropdownMenu,
+  CDropdownItem
 } from '@coreui/react';
-import { getNavigationItems, } from '../config/navigation';
+import { getNavigationItems } from '../navigation/navigation';
 import { useState } from 'react';
-import { cilHamburgerMenu } from '@coreui/icons';
+import { cilHamburgerMenu, cilUser, cilAccountLogout } from '@coreui/icons';
 import CIcon from '@coreui/icons-react';
-//el header tendria que cambiar segun el tipo de usuario, no segun los navItems que le pasemos 
-export default function Header({ userType = 'guest', onLogout }) { 
 
+export default function Header({ userType = 'guest', onLogout }) { 
   const navigate = useNavigate();
   const navItems = getNavigationItems(userType);
-  const [isOpen, setIsOpen] = useState(false); // Estado para controlar el menú
+  const [isOpen, setIsOpen] = useState(false);
 
   const handleLogoutClick = () => {
-    onLogout(); // Llama al handler de App
+    onLogout();
     navigate('/');
   };
 
   const handleToggleMenu = () => {
-    setIsOpen(!isOpen); // Alterna el estado al hacer clic en el ícono
+    setIsOpen(!isOpen);
   };
 
   const isLoggedIn = userType !== 'guest';
@@ -56,11 +59,11 @@ export default function Header({ userType = 'guest', onLogout }) {
             onClick={handleToggleMenu}
             color='primary'
           >
-            <CIcon icon={cilHamburgerMenu} size="2xl" /> {/* Ícono de hamburguesa */}
+            <CIcon icon={cilHamburgerMenu} size="2xl" />
           </CButton>
         </CCol>
 
-        {/* Menú de navegación (colapsable en pantallas pequeñas) */}
+        {/* Menú de navegación */}
         <CCol xs={12} lg={6} className="d-none d-lg-block">
           <CNav className="justify-content-center">
             {navItems.map((item, index) => (
@@ -71,20 +74,36 @@ export default function Header({ userType = 'guest', onLogout }) {
           </CNav>
         </CCol>
 
-        {/* Botón de sesión */}
+        {/* Sesión: botón o menú de usuario */}
         <CCol xs={3} lg={3} className="d-flex justify-content-end">
           {isLoggedIn ? (
-            <CButton onClick={handleLogoutClick} color="secondary">
-              Cerrar sesión
-            </CButton>
+            <CDropdown>
+              <CDropdownToggle color="light" caret={false} style={{ width: '3rem', height: '3rem', padding: 0 }}>
+                <CIcon icon={cilUser} style={{ width: '100%', height: '100%' }}  />
+              </CDropdownToggle>
+              <CDropdownMenu>
+                <CDropdownItem
+                  className="cursor-pointer"
+                  onClick={() => navigate('/perfil')}
+                >
+                  Mi perfil
+                </CDropdownItem>
+                <CDropdownItem
+                  className="cursor-pointer text-danger fw-bold d-flex align-items-center gap-2"
+                  onClick={handleLogoutClick}
+                >
+                  <CIcon icon={cilAccountLogout} /> Cerrar sesión
+                </CDropdownItem>
+              </CDropdownMenu>
+            </CDropdown>
           ) : (
             <CButton onClick={() => navigate('/login')} color="primary">
               Iniciar sesión
             </CButton>
           )}
         </CCol>
-        
-        {/* Menú colapsable para pantallas pequeñas */}
+
+        {/* Menú colapsable en pantallas pequeñas */}
         <CCollapse visible={isOpen} className="d-lg-none bg-light p-2">
           <CNav className="flex-column">
             {navItems.map((item, index) => (
