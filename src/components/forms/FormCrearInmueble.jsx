@@ -5,20 +5,20 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-
-
-export default function FormCrearInmueble() {   
-    const addInmuebleApi = async ({ formData }) => {
+const addInmuebleApi = async ({ formData }) => {
     const PATH = 'http://localhost:3000/api/inmuebles';
     const response = await axios.post(PATH, formData);
     return response.data.data;
     };
+
+export default function FormCrearInmueble() {   
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const [formData, setFormData] = useState({
     tipo: "",
     mtrs: "",
     descripcion: "",
+    precioDolar:"",
     direccionCalle: "",
     direccionNumero: "",
     fechaConstruccion: "",
@@ -30,6 +30,7 @@ export default function FormCrearInmueble() {
     // campos opcionales por tipo
     piso: "",
     depto: "",
+    precioExpensas:"",
     cantAmbientes: "",
     cantBanios: "",
     patio: false,
@@ -55,10 +56,46 @@ export default function FormCrearInmueble() {
   });
 
   const handleSubmit = (e) => {
-    console.log(formData);
-    e.preventDefault();
-    mutate({ formData }); 
+  e.preventDefault();
+  
+  const baseData = {
+    tipo: formData.tipo,
+    mtrs: Number(formData.mtrs),
+    descripcion: formData.descripcion,
+    precioDolar: Number(formData.precioDolar),
+    direccionCalle: formData.direccionCalle,
+    direccionNumero: Number(formData.direccionNumero),
+    fechaConstruccion: formData.fechaConstruccion,
+    fechaPublicacion: formData.fechaPublicacion,
+    requisitos: formData.requisitos,
+    propietario: Number(formData.propietario),
+    tipoServicio: Number(formData.tipoServicio),
+    localidad: Number(formData.localidad),
   };
+
+  // Agregar SOLO campos del tipo específico
+  if (formData.tipo === 'casa') {
+    baseData.cantAmbientes = Number(formData.cantAmbientes);
+    baseData.cantBanios = Number(formData.cantBanios);
+    baseData.patio = formData.patio;
+    baseData.pileta = formData.pileta;
+  } else if (formData.tipo === 'departamento') {
+    baseData.piso = Number(formData.piso);
+    baseData.depto = formData.depto;
+    baseData.precioExpensas = Number(formData.precioExpensas);
+    baseData.cantAmbientes = Number(formData.cantAmbientes);
+    baseData.cantBanios = Number(formData.cantBanios);
+    baseData.balcon = formData.balcon;
+  } else if (formData.tipo === 'cochera') {
+    baseData.techo = formData.techo;
+    baseData.tipoVehiculo = formData.tipoVehiculo;
+  } else if (formData.tipo === 'terreno') {
+    baseData.nroParcela = Number(formData.nroParcela);
+    baseData.zonificacion = formData.zonificacion;
+  }
+
+  mutate({ formData: baseData });
+};
 
 const handleChange = (e) => {
   const { name, value, type, checked } = e.target;
@@ -138,6 +175,21 @@ const handleChange = (e) => {
                 className="mb-3"
                 required
             />
+        </CRow>
+        <CRow>
+          <CFormLabel htmlFor='precioDolar'>
+            Precio según tipo de servicio (mensual, cuatrimestral, anual o total)*
+          </CFormLabel>
+          <CFormInput
+            type="number"
+            name="precioDolar"
+            id='precioDolar'
+            placeholder="precio en dolares (usd)"
+            value={formData.precioDolar}
+            onChange={handleChange}
+            className="mb-3"
+            required
+          />
         </CRow>
         <CRow>
           <CFormLabel htmlFor='direccionCalle'>
@@ -282,6 +334,21 @@ const handleChange = (e) => {
             value={formData.depto}
             onChange={handleChange}
             placeholder="Número de departamento"
+            className="mb-3"
+            required
+          />
+        </CRow>
+        <CRow>
+          <CFormLabel htmlFor='precioExpensas'>
+            Precio de las expensas*
+          </CFormLabel>
+          <CFormInput
+            type="number"
+            name="precioExpensas"
+            id='precioExpensas'
+            placeholder="precio de expensas (pesos)"
+            value={formData.precioExpensas}
+            onChange={handleChange}
             className="mb-3"
             required
           />

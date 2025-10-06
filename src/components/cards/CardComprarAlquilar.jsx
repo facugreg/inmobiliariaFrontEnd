@@ -16,7 +16,7 @@ import { useState } from 'react';
 import { FormSolicitudVisita } from '../forms/FormSolicitudVisita';
 import { useNavigate } from 'react-router-dom';
 
-export function CardComprarAlquilar({ precio, direccion, mts2, descripcion, antiguedad, requisitos }) {
+export function CardComprarAlquilar({ precioDolar, direccion, mts2, descripcion, antiguedad, requisitos }) {
   //useStates  
   const [modalVisible, setModalVisible] = useState(false);
   const navigate = useNavigate();
@@ -48,7 +48,7 @@ export function CardComprarAlquilar({ precio, direccion, mts2, descripcion, anti
           <CCol xs={12} md={8}>
           <CCardBody className="d-flex flex-column justify-content-between text-center">
           <CCardText align="left">
-            <h3 className="fw-bold" style={{ fontFamily: 'Poppins, sans-serif', fontSize: '24px' }}>{precio}</h3>
+            <h3 className="fw-bold" style={{ fontFamily: 'Poppins, sans-serif', fontSize: '24px' }}>{precioDolar}</h3>
             <p className="mb-1" style={{ fontFamily: 'Poppins, sans-serif', fontSize: '18px' }}>{direccion}</p>
             <p className="mb-1">
               <CIcon icon ={cilBorderOuter} className="me-2 text-primary" ></CIcon>

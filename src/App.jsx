@@ -20,6 +20,7 @@ import { UpdateTipoServicio } from './pages/admin/tipoServicio/UpdateTipoServici
 import Inmuebles from './pages/admin/inmueble/Inmuebles.jsx';
 import DeleteInmueble from './pages/admin/inmueble/deleteInmueble.jsx';
 import AddInmueble from './pages/admin/inmueble/addInmueble.jsx';
+import UpdateInmueble from './pages/admin/inmueble/updateInmueble.jsx';
 import { Propietarios } from './pages/admin/propietario/propietarios.jsx';
 import DeletePropietario from './pages/admin/propietario/deletePropietario.jsx';
 import UpdatePropietario from './pages/admin/propietario/updatePropietario.jsx';
@@ -126,6 +127,12 @@ function App() {
             path="/addInmueble"
             element={
               userType === 'admin' ? <AddInmueble /> : <Navigate to="/" />
+            }
+          />
+           <Route
+            path="updateInmueble/:id"
+            element={
+              userType === 'admin' ? <UpdateInmueble /> : <Navigate to="/" />
             }
           />
           <Route
