@@ -110,7 +110,7 @@ function App() {
           <Route
             path="/perfil"
             element={
-              userType === 'user' || userType === 'admin' ? <Perfil userId={userId} /> : <Navigate to="/login" />
+              userType === 'user' || userType === 'admin' ? <Perfil userId={userId} handleLogout={handleLogout} /> : <Navigate to="/" />
             }
           />
           <Route

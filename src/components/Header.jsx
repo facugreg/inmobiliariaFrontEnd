@@ -97,7 +97,7 @@ export default function Header({ userType = 'guest', onLogout }) {
               </CDropdownMenu>
             </CDropdown>
           ) : (
-            <CButton onClick={() => navigate('/perfil')} color="primary">
+            <CButton onClick={() => navigate('/login')} color="primary">
               Iniciar sesión
             </CButton>
           )}

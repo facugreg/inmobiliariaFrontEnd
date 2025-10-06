@@ -14,7 +14,7 @@ const schema = z.object({
     telefono: z.string("Teléfono inválido").regex(/^\d{10}$/, "Teléfono inválido"),
 })
 
-export default function FormPerfil({ user, onUpdate, isSubmitting, errorMail }) {
+export default function FormPerfil({ user, onUpdate, isSubmitting, errorMail, onDelete }) {
   const {control, handleSubmit, formState: {errors}, setError} = useForm({
     resolver: zodResolver(schema),
     defaultValues: {
@@ -46,7 +46,7 @@ export default function FormPerfil({ user, onUpdate, isSubmitting, errorMail }) 
                   <CButton type="submit" color="primary" className="d-flex align-items-center gap-2" disabled={isSubmitting}>
                     {isSubmitting ? 'Guardando...' : 'Guardar cambios'}
                   </CButton>
-                  <CButton color="danger" className="d-flex align-items-center gap-2">
+                  <CButton onClick={onDelete} color="danger" className="d-flex align-items-center gap-2">
                     <CIcon icon={cilTrash} /> Eliminar cuenta
                   </CButton>
                 </div>

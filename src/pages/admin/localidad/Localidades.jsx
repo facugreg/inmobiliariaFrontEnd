@@ -88,6 +88,7 @@ export default function Localidades() {
           visibleEliminar={visibleEliminar}
           setVisibleEliminar={setVisibleEliminar}
           handleConfirm={handleConfirm}
+          titulo = "localidad"
         />
         <FormLocalidad
           initialData={selectedLocalidad}

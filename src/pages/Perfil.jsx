@@ -1,19 +1,21 @@
 import {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
-import { useOneUsuario, useUpdateUsuario } from '../hooks/usuarios.hooks.js';
+import { useOneUsuario, useUpdateUsuario, useDeleteUsuario } from '../hooks/usuarios.hooks.js';
 import FormPerfil from '../components/forms/FormPerfil.jsx';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { set } from 'zod';
+import ModalEliminar from '../components/ModalEliminar.jsx';
 
-export default function Perfil({ userId }) {
+export default function Perfil({ userId, handleLogout }) {
 
   const navigate = useNavigate();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMail, setErrorMail] = useState(null);
+  const [visibleEliminar, setVisibleEliminar] = useState(false);
 
   const { data: user, isLoading, error } = useOneUsuario(userId);
   const {mutate: updateUsuario} = useUpdateUsuario();
+  const {mutate: deleteUsuario} = useDeleteUsuario();
   
   if (isLoading) return <div>Cargando...</div>;
   if (error) {
@@ -45,11 +47,33 @@ export default function Perfil({ userId }) {
     });
   };
 
+  const handleDelete = () => {
+    setVisibleEliminar(true);
+  }
 
+  const handleConfirm = () => {
+    deleteUsuario(userId, {
+      onSuccess: () => {
+        setVisibleEliminar(false);
+        navigate('/'); 
+        handleLogout();
+      },
+      onError: (error) => {
+        console.error('Error al eliminar el usuario:', error);
+        toast.error('No se pudo eliminar el usuario');
+      },
+    });
+  };
 
   return (
     <>
-    <FormPerfil user={user} onUpdate={handleUpdate} isSubmitting={isSubmitting} errorMail={errorMail} />
+    <FormPerfil user={user} onUpdate={handleUpdate} isSubmitting={isSubmitting} errorMail={errorMail} onDelete={handleDelete} />
+    <ModalEliminar
+      visibleEliminar={visibleEliminar}
+      setVisibleEliminar={setVisibleEliminar}
+      handleConfirm={handleConfirm}
+      titulo = "usuario"
+    />
     <ToastContainer
       position="top-right"
       autoClose={3000} 
