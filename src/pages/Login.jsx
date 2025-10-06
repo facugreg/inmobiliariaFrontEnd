@@ -4,7 +4,7 @@ import { toast, ToastContainer } from 'react-toastify';
 import { useLoginUsuario } from "../hooks/usuarios.hooks";
 import FormLogin from "../components/forms/FormLogin";
 
-function Login({ handleLogin}) {
+function Login({ handleLogin }) {
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -22,7 +22,7 @@ function Login({ handleLogin}) {
   const onSubmit = (data) => {
     loginMutation.mutate(data, {
       onSuccess: (user) => {
-        handleLogin(user.rol || 'guest');
+        handleLogin(user.rol || 'guest', user.id || null);
         navigate('/');
       },
     });

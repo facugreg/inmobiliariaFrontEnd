@@ -11,11 +11,12 @@ export default function ModalEliminar({
   visibleEliminar,
   setVisibleEliminar,
   handleConfirm,
+  titulo,
 }) {
   return (
     <CModal visible={visibleEliminar} onClose={() => setVisibleEliminar(false)}>
       <CModalHeader>
-        <CModalTitle>Eliminar</CModalTitle>
+        <CModalTitle>Eliminar {titulo}</CModalTitle>
       </CModalHeader>
       <CModalBody>
         <p>¿Está seguro? La accion no se podrá deshacer</p>
@@ -29,7 +30,7 @@ export default function ModalEliminar({
         >
           Cancelar
         </CButton>
-        <CButton onClick={handleConfirm} color="primary">
+        <CButton onClick={handleConfirm} color="danger">
           Eliminar
         </CButton>
       </CModalFooter>

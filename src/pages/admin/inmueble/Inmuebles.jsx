@@ -8,12 +8,6 @@ import useInmuebles from './getInmuebles';
 import { Filtro } from '../../../components/Filtro';
 import { useLocalidades } from '../../../hooks/localidades.hooks';
 
-const opcionesTipoInmueble = [
-  { value: 'Casa', label: 'Casa' },
-  { value: 'Cochera', label: 'Cochera' },
-  { value: 'Departamento', label: 'Departamento' },
-  { value: 'Terreno', label: 'Terreno' },
-];
 export default function Inmuebles() {
   const navigate = useNavigate();
   const [tipoInmueble, setTipoInmueble] = useState('');
@@ -37,7 +31,14 @@ export default function Inmuebles() {
       label: loc.nombre,
     }))
     .sort((a, b) => a.label.localeCompare(b.label));
-
+  
+    const opcionesTipoInmueble = [
+    { value: 'casa', label: 'Casa' },
+    { value: 'cochera', label: 'Cochera' },
+    { value: 'departamento', label: 'Departamento' },
+    { value: 'terreno', label: 'Terreno' },
+  ];
+  
   const handleAgregar = () => {
     console.log('por agregar nuevo inmueble');
     navigate('/addInmueble');

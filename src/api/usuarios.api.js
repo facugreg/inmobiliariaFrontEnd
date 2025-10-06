@@ -7,6 +7,11 @@ export const getUsuarios = async () => {
   return res.data.data;
 };
 
+export const getOneUsuario = async (id) => {
+  const res = await axios.get(`${PATH}/${id}`);
+  return res.data.data;
+};
+
 export const createUsuario = async (data) => {
   return await axios.post(PATH, data);
 };

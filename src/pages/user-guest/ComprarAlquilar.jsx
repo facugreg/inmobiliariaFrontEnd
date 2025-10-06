@@ -1,152 +1,108 @@
 import { Buscador } from '../../components/Buscador.jsx';
-import { CardComprarAlquilar } from '../../components/cards/CardComprarAlquilar.jsx';
 import { Filtro } from '../../components/Filtro.jsx';
 import { CCol, CContainer, CRow } from '@coreui/react';
 import { useState } from 'react';
-import { Paginacion } from '../../components/Paginacion.jsx';
+import CardssComprarAlquilar from '../../components/cards/CardssComprarAlquilar.jsx';
+import useInmuebles from '../admin/inmueble/getInmuebles.jsx';
+import { useLocalidades } from '../../hooks/localidades.hooks.js';
 
-export const ComprarAlquilar = () => {
+const opcionesInmueble = [
+  { value: 'departamento', label: 'Departamento' },
+  { value: 'casa', label: 'Casa' },
+  { value: 'cochera', label: 'Cochera' },
+  { value: 'terreno', label: 'Terreno' },
+];
+
+const opcionesPrecio = [
+  { value: '0-50000', label: 'Hasta $50,000' },
+  { value: '50000-100000', label: '$50,000 - $100,000' },
+  { value: '100000-200000', label: '$100,000 - $200,000' },
+  { value: '200000+', label: 'Más de $200,000' },
+];
+
+export function ComprarAlquilar() {
   const [tipoInmueble, setTipoInmueble] = useState('');
-  const [rangoPrecio, setRangoPrecio] = useState('');
-  const [antiguedad, setAntiguedad] = useState('');
-  const [paginaActual, setPaginaActual] = useState(1);
-  const totalPaginas = 3;
+  const [precioDolar, setPrecio] = useState('');
+  const [localidad, setLocalidad] = useState('');
+  const [search, setCalleFiltro] = useState('');
+  const [query, setQuery] = useState('');
+  
+  const searcher = (e) => setCalleFiltro(e.target.value);
+  const handleSearchClick = () => setQuery(search);
+  const onChangeEstado = (e) => setTipoInmueble(e.target.value);
+  const onChangePrecio = (e) => setPrecio(e.target.value);
+  const onChangeLocalidad = (e) => setLocalidad(e.target.value);
 
-  // Opciones para los filtros
-  const opcionesInmueble = [
-    { value: 'Departamento', label: 'Departamento' },
-    { value: 'Casa', label: 'Casa' },
-    { value: 'Cochera', label: 'Cochera' },
-    { value: 'Terreno', label: 'Terreno' },
-  ];
+  const { inmuebles, isLoading, isError, error } = useInmuebles({
+    tipoInmueble,      
+    localidad,
+    precioDolar,
+    query,             
+  });
+  
+  const { localidades } = useLocalidades();
 
-  const opcionesPrecio = [
-    { value: '0-50000', label: 'Hasta $50,000' },
-    { value: '50000-100000', label: '$50,000 - $100,000' },
-    { value: '100000-200000', label: '$100,000 - $200,000' },
-    { value: '200000+', label: 'Más de $200,000' },
-  ];
+  const opcionesLocalidades = localidades
+    ? localidades
+        .map((loc) => ({
+          value: loc.id,
+          label: loc.nombre,
+        }))
+        .sort((a, b) => a.label.localeCompare(b.label))
+    : [];
 
-  const opcionesAntiguedad = [
-    { value: '0-5', label: 'Hasta 5 años' },
-    { value: '5-10', label: '5-10 años' },
-    { value: '10-20', label: '10-20 años' },
-    { value: '+20', label: '+20 años' },
-  ];
+  if (isLoading) {
+    return <p>Cargando Inmuebles...</p>;
+  }
 
-  // Manejo de cambios
-  const handleTipoInmuebleChange = (e) => {
-    setTipoInmueble(e.target.value);
-    console.log('Filtro tipo inmueble:', e.target.value);
-  };
+  if (isError) {
+    return <p>Error al cargar inmuebles: {error.message}</p>;
+  }
 
-  const handleRangoPrecioChange = (e) => {
-    setRangoPrecio(e.target.value);
-    console.log('Filtro rango precio:', e.target.value);
-  };
-
-  const handleAntiguedadChange = (e) => {
-    setAntiguedad(e.target.value);
-    console.log('Filtro antiguedad:', e.target.value);
-  };
-
-  const handleCambiarPagina = (nuevaPagina) => {
-    setPaginaActual(nuevaPagina);
-    console.log('Página cambiada a:', nuevaPagina);
-    // Aquí podrías actualizar la lista de inmuebles según la página
-  };
-
-  //const inmueblesPorPagina = 4; // Supongamos que muestras 4 inmuebles por página
-  //const indiceInicio = (paginaActual - 1) * inmueblesPorPagina;
   return (
     <>
-        <CContainer fluid
-          className="d-flex flex-column justify-content-center align-items-center"
-        >
-          <CRow className="mt-3  d-flex align-items-center">
-            <CCol lg={6} md={12}>
-              <Buscador onSearch={() => alert('Buscar inmueble')} />
-            </CCol>
-            <CCol lg={2} md={12} sm={12} xs={12}>
-              <Filtro
-                label="Tipo"
-                opciones={opcionesInmueble}
-                value={tipoInmueble}
-                onChange={handleTipoInmuebleChange}
-                className="me-5"
-              />
-            </CCol>
-            {/* Espaciador */}
-            <CCol lg={2} md={12} sm={12} xs={12}>
-              <Filtro
-                label="Precio"
-                opciones={opcionesPrecio}
-                value={rangoPrecio}
-                onChange={handleRangoPrecioChange}
-                className="me-5"
-              />
-            </CCol>
-            {/* Espaciador */}
-            <CCol lg={2} md={12} sm={12} xs={12}>
-              <Filtro
-                label="Antigüedad"
-                opciones={opcionesAntiguedad}
-                value={antiguedad}
-                onChange={handleAntiguedadChange}
-                className='me-5'
-              />
-            </CCol>
-            {/* Espaciador */}
-          </CRow>
-        </CContainer>
-        <CContainer
-          fluid
-          className="d-flex flex-column justify-content-center align-items-center p-5"
-        >
-          <CCol xs={12} sm={6} md={8} lg={8} className="d-flex flex-wrap align justify-content-center">
-
-          <CardComprarAlquilar
-            precio="$150.000"
-            direccion="Calle Falsa 123"
-            mts2="85"
-            descripcion="Departamento luminoso con vista al parque"
-            antiguedad="5 años"
-            requisitos="Comprobante de ingresos y referencias"
-          />
-          <CardComprarAlquilar
-            precio="$200.000"
-            direccion="Avenida Siempre Viva 742"
-            mts2="120"
-            descripcion="Casa familiar con jardín y piscina"
-            antiguedad="10 años"
-            requisitos="Comprobante de ingresos y referencias"
-          />
-          <CardComprarAlquilar
-            precio="$100.000"
-            direccion="Boulevard de los Sueños Rotos 456"
-            mts2="60"
-            descripcion="Departamento moderno en el centro de la ciudad"
-            antiguedad="2 años"
-            requisitos="Comprobante de ingresos y referencias"
-          />
-          <CardComprarAlquilar
-            precio="$250.000"
-            direccion="Calle del Sol 789"
-            mts2="150"
-            descripcion="Casa espaciosa con vista al mar"
-            antiguedad="8 años"
-            requisitos="Comprobante de ingresos y referencias"
-          />
+      <CContainer fluid className="d-flex flex-column justify-content-center align-items-center">
+        <CRow className="mt-3 d-flex align-items-center">
+          <CCol lg={6} md={12}>
+            <Buscador
+              placeholder="Buscar por calle de inmueble"
+              searcher={searcher}
+              search={search}
+              handleSearchClick={handleSearchClick}
+            />
           </CCol>
-        </CContainer>
-
-        <CContainer>
-        <Paginacion
-          paginaActual={paginaActual}
-          totalPaginas={totalPaginas}
-          onCambiarPagina={handleCambiarPagina}
-        />
-        </CContainer>
+          <CCol lg={2} md={12} sm={12} xs={12}>
+            <Filtro
+              label="Tipo"
+              opciones={opcionesInmueble}
+              value={tipoInmueble}
+              onChange={onChangeEstado}
+            />
+          </CCol>
+          <CCol lg={2} md={12} sm={12} xs={12}>
+            <Filtro
+              label="Precio"
+              opciones={opcionesPrecio}
+              value={precioDolar}
+              onChange={onChangePrecio}
+            />
+          </CCol>
+          <CCol lg={2} md={12} sm={12} xs={12}>
+            <Filtro
+              label="Localidad"
+              opciones={opcionesLocalidades}
+              value={localidad}
+              onChange={onChangeLocalidad}
+            />
+          </CCol>
+        </CRow>
+      </CContainer>
+      
+      <CardssComprarAlquilar inmuebles={inmuebles} />
+      
+      <CContainer>
+        {/* acá falta que terminemos lo de paginación lo saqué */}
+      </CContainer>
     </>
   );
-};
+}

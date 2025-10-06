@@ -20,19 +20,26 @@ import { UpdateTipoServicio } from './pages/admin/tipoServicio/UpdateTipoServici
 import Inmuebles from './pages/admin/inmueble/Inmuebles.jsx';
 import DeleteInmueble from './pages/admin/inmueble/deleteInmueble.jsx';
 import AddInmueble from './pages/admin/inmueble/addInmueble.jsx';
+import UpdateInmueble from './pages/admin/inmueble/updateInmueble.jsx';
 import { Propietarios } from './pages/admin/propietario/propietarios.jsx';
 import DeletePropietario from './pages/admin/propietario/deletePropietario.jsx';
 import UpdatePropietario from './pages/admin/propietario/updatePropietario.jsx';
 import AddPropietario from './pages/admin/propietario/addPropietario.jsx';
 import Localidades from './pages/admin/localidad/Localidades.jsx';
+import Perfil from './pages/Perfil.jsx';
 
 function App() {
   const [userType, setUserType] = useState('guest'); // Estado global para userType
   const [isLoading, setIsLoading] = useState(true); // Nueva bandera de carga
+  const [userId, setUserId] = useState(null); // Estado para userId
 
   // Carga userType de localStorage al montar la app, provisorio para testing
   useEffect(() => {
     const savedUserType = localStorage.getItem('userType');
+    const savedUserId = localStorage.getItem('userId');
+    if (savedUserId) {
+      setUserId(savedUserId);
+    }
     console.log(
       'useEffect: userType inicial desde localStorage:',
       savedUserType
@@ -47,11 +54,13 @@ function App() {
     );
   }, []);
 
-  const handleLogin = (newUserType) => {
+  const handleLogin = (newUserType, newUserId) => {
       console.log('handleLogin: seteando userType a:', newUserType);
       setUserType(newUserType);
       localStorage.setItem('userType', newUserType);
       console.log('handleLogin: userType guardado en localStorage:', newUserType);
+      setUserId(newUserId);
+      localStorage.setItem('userId', newUserId);
     };
   
   const handleLogout = () => {
@@ -59,6 +68,8 @@ function App() {
     setUserType('guest');
     localStorage.removeItem('userType');
     console.log('handleLogout: localStorage.userType eliminado');
+    localStorage.removeItem('userId');
+    setUserId(null);
   };
 
   console.log(
@@ -91,53 +102,65 @@ function App() {
           <Route path="/contacto" element={<Contacto />} />
           {/* Rutas protegidas: Redirige si no logueado */}
           <Route
-            path="misvisitas"
+            path="/misvisitas"
             element={
               userType === 'user' ? <MisVisitas /> : <Navigate to="/login" />
             }
           />
           <Route
-            path="Inmuebles"
+            path="/perfil"
+            element={
+              userType === 'user' || userType === 'admin' ? <Perfil userId={userId} handleLogout={handleLogout} /> : <Navigate to="/" />
+            }
+          />
+          <Route
+            path="/Inmuebles"
             element={userType === 'admin' ? <Inmuebles /> : <Navigate to="/" />}
           />
            <Route
-            path="deleteInmueble/:id"
+            path="/deleteInmueble/:id"
             element={
               userType === 'admin' ? <DeleteInmueble /> : <Navigate to="/" />
             }
           />
           <Route
-            path="addInmueble"
+            path="/addInmueble"
             element={
               userType === 'admin' ? <AddInmueble /> : <Navigate to="/" />
             }
           />
+           <Route
+            path="updateInmueble/:id"
+            element={
+              userType === 'admin' ? <UpdateInmueble /> : <Navigate to="/" />
+            }
+          />
           <Route
-            path="localidades"
+            path="/localidades"
             element={
               userType === 'admin' ? <Localidades /> : <Navigate to="/" />
             }
           />
           <Route
-            path="propietarios"
+            path="/propietarios"
             element={
               userType === 'admin' ? <Propietarios /> : <Navigate to="/" />
             }
           />
           <Route
-            path="deletePropietario/:id"
+            path="/deletePropietario/:id"
             element={
               userType === 'admin' ? <DeletePropietario /> : <Navigate to="/" />
             }
           />
           <Route
-            path="addPropietario"
+            path="/addPropietario"
             element={
               userType === 'admin' ? <AddPropietario /> : <Navigate to="/" />
             }
           />
           <Route
-            path="updatePropietario/:id"
+            path="/updatePropietario/:id"
             element={
               userType === 'admin' ? <UpdatePropietario /> : <Navigate to="/" />
             }
@@ -150,7 +173,7 @@ function App() {
             }
           />
 
-          <Route path="addtiposervicio" element={<AddTipoServicio />} />
+          <Route path="/addtiposervicio" element={<AddTipoServicio />} />
           <Route
             path="updatetiposervicio/:id"
             element={<UpdateTipoServicio />}
