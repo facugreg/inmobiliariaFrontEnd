@@ -54,10 +54,44 @@ export default function FormCrearInmueble() {
   });
 
   const handleSubmit = (e) => {
-    console.log(formData);
-    e.preventDefault();
-    mutate({ formData }); 
+  e.preventDefault();
+  
+  const baseData = {
+    tipo: formData.tipo,
+    mtrs: Number(formData.mtrs),
+    descripcion: formData.descripcion,
+    direccionCalle: formData.direccionCalle,
+    direccionNumero: Number(formData.direccionNumero),
+    fechaConstruccion: formData.fechaConstruccion,
+    fechaPublicacion: formData.fechaPublicacion,
+    requisitos: formData.requisitos,
+    propietario: Number(formData.propietario),
+    tipoServicio: Number(formData.tipoServicio),
+    localidad: Number(formData.localidad),
   };
+
+  // Agregar SOLO campos del tipo específico
+  if (formData.tipo === 'casa') {
+    baseData.cantAmbientes = Number(formData.cantAmbientes);
+    baseData.cantBanios = Number(formData.cantBanios);
+    baseData.patio = formData.patio;
+    baseData.pileta = formData.pileta;
+  } else if (formData.tipo === 'departamento') {
+    baseData.piso = Number(formData.piso);
+    baseData.depto = formData.depto;
+    baseData.cantAmbientes = Number(formData.cantAmbientes);
+    baseData.cantBanios = Number(formData.cantBanios);
+    baseData.balcon = formData.balcon;
+  } else if (formData.tipo === 'cochera') {
+    baseData.techo = formData.techo;
+    baseData.tipoVehiculo = formData.tipoVehiculo;
+  } else if (formData.tipo === 'terreno') {
+    baseData.nroParcela = Number(formData.nroParcela);
+    baseData.zonificacion = formData.zonificacion;
+  }
+
+  mutate({ formData: baseData });
+};
 
 const handleChange = (e) => {
   const { name, value, type, checked } = e.target;
