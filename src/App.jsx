@@ -25,6 +25,7 @@ import DeletePropietario from './pages/admin/propietario/deletePropietario.jsx';
 import UpdatePropietario from './pages/admin/propietario/updatePropietario.jsx';
 import AddPropietario from './pages/admin/propietario/addPropietario.jsx';
 import Localidades from './pages/admin/localidad/Localidades.jsx';
+import Perfil from './pages/Perfil.jsx';
 
 function App() {
   const [userType, setUserType] = useState('guest'); // Estado global para userType
@@ -100,53 +101,59 @@ function App() {
           <Route path="/contacto" element={<Contacto />} />
           {/* Rutas protegidas: Redirige si no logueado */}
           <Route
-            path="misvisitas"
+            path="/misvisitas"
             element={
               userType === 'user' ? <MisVisitas /> : <Navigate to="/login" />
             }
           />
           <Route
-            path="Inmuebles"
+            path="/perfil"
+            element={
+              userType === 'user' || userType === 'admin' ? <Perfil userId={userId} /> : <Navigate to="/login" />
+            }
+          />
+          <Route
+            path="/Inmuebles"
             element={userType === 'admin' ? <Inmuebles /> : <Navigate to="/" />}
           />
            <Route
-            path="deleteInmueble/:id"
+            path="/deleteInmueble/:id"
             element={
               userType === 'admin' ? <DeleteInmueble /> : <Navigate to="/" />
             }
           />
           <Route
-            path="addInmueble"
+            path="/addInmueble"
             element={
               userType === 'admin' ? <AddInmueble /> : <Navigate to="/" />
             }
           />
           <Route
-            path="localidades"
+            path="/localidades"
             element={
               userType === 'admin' ? <Localidades /> : <Navigate to="/" />
             }
           />
           <Route
-            path="propietarios"
+            path="/propietarios"
             element={
               userType === 'admin' ? <Propietarios /> : <Navigate to="/" />
             }
           />
           <Route
-            path="deletePropietario/:id"
+            path="/deletePropietario/:id"
             element={
               userType === 'admin' ? <DeletePropietario /> : <Navigate to="/" />
             }
           />
           <Route
-            path="addPropietario"
+            path="/addPropietario"
             element={
               userType === 'admin' ? <AddPropietario /> : <Navigate to="/" />
             }
           />
           <Route
-            path="updatePropietario/:id"
+            path="/updatePropietario/:id"
             element={
               userType === 'admin' ? <UpdatePropietario /> : <Navigate to="/" />
             }
@@ -159,7 +166,7 @@ function App() {
             }
           />
 
-          <Route path="addtiposervicio" element={<AddTipoServicio />} />
+          <Route path="/addtiposervicio" element={<AddTipoServicio />} />
           <Route
             path="updatetiposervicio/:id"
             element={<UpdateTipoServicio />}
