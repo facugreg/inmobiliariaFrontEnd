@@ -18,6 +18,7 @@ export default function FormCrearInmueble() {
     tipo: "",
     mtrs: "",
     descripcion: "",
+    precioDolar:"",
     direccionCalle: "",
     direccionNumero: "",
     fechaConstruccion: "",
@@ -29,6 +30,7 @@ export default function FormCrearInmueble() {
     // campos opcionales por tipo
     piso: "",
     depto: "",
+    precioExpensas:"",
     cantAmbientes: "",
     cantBanios: "",
     patio: false,
@@ -60,6 +62,7 @@ export default function FormCrearInmueble() {
     tipo: formData.tipo,
     mtrs: Number(formData.mtrs),
     descripcion: formData.descripcion,
+    precioDolar: Number(formData.precioDolar),
     direccionCalle: formData.direccionCalle,
     direccionNumero: Number(formData.direccionNumero),
     fechaConstruccion: formData.fechaConstruccion,
@@ -79,6 +82,7 @@ export default function FormCrearInmueble() {
   } else if (formData.tipo === 'departamento') {
     baseData.piso = Number(formData.piso);
     baseData.depto = formData.depto;
+    baseData.precioExpensas = Number(formData.precioExpensas);
     baseData.cantAmbientes = Number(formData.cantAmbientes);
     baseData.cantBanios = Number(formData.cantBanios);
     baseData.balcon = formData.balcon;
@@ -171,6 +175,21 @@ const handleChange = (e) => {
                 className="mb-3"
                 required
             />
+        </CRow>
+        <CRow>
+          <CFormLabel htmlFor='precioDolar'>
+            Precio según tipo de servicio (mensual, cuatrimestral, anual o total)*
+          </CFormLabel>
+          <CFormInput
+            type="number"
+            name="precioDolar"
+            id='precioDolar'
+            placeholder="precio en dolares (usd)"
+            value={formData.precioDolar}
+            onChange={handleChange}
+            className="mb-3"
+            required
+          />
         </CRow>
         <CRow>
           <CFormLabel htmlFor='direccionCalle'>
@@ -315,6 +334,21 @@ const handleChange = (e) => {
             value={formData.depto}
             onChange={handleChange}
             placeholder="Número de departamento"
+            className="mb-3"
+            required
+          />
+        </CRow>
+        <CRow>
+          <CFormLabel htmlFor='precioExpensas'>
+            Precio de las expensas*
+          </CFormLabel>
+          <CFormInput
+            type="number"
+            name="precioExpensas"
+            id='precioExpensas'
+            placeholder="precio de expensas (pesos)"
+            value={formData.precioExpensas}
+            onChange={handleChange}
             className="mb-3"
             required
           />

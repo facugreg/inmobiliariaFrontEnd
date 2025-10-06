@@ -19,6 +19,7 @@ export function FormUpdateInmueble({ id }) {
   const [formData, setFormData] = useState({
     mtrs: "",
     descripcion: "",
+    precioDolar:"",
     fechaConstruccion: "",
     fechaPublicacion: "",
     requisitos: "",
@@ -28,6 +29,7 @@ export function FormUpdateInmueble({ id }) {
     depto: "",
     cantAmbientes: "",
     cantBanios: "",
+    precioExpensas:"",
     patio: false,
     pileta: false,
     balcon: false,
@@ -49,6 +51,7 @@ export function FormUpdateInmueble({ id }) {
       const baseData = {
         descripcion: inmueble.descripcion,
         mtrs: inmueble.mtrs,
+        precioDolar: inmueble.precioDolar,
         requisitos: inmueble.requisitos || '',
         propietario: inmueble.propietario?.id || '',
         tipoServicio: inmueble.tipoServicio?.id || '',
@@ -59,6 +62,7 @@ export function FormUpdateInmueble({ id }) {
       // Agrega solo los campos EDITABLES del tipo específico
       if (inmueble.tipo === 'departamento') {
         baseData.depto = inmueble.depto || '';
+        baseData.precioExpensas = inmueble.precioExpensas || 0;
         baseData.cantAmbientes = inmueble.cantAmbientes || 0;
         baseData.cantBanios = inmueble.cantBanios || 0;
         baseData.balcon = inmueble.balcon || false;
@@ -126,6 +130,7 @@ export function FormUpdateInmueble({ id }) {
       // Campos editables (del formulario)
       descripcion: formData.descripcion,
       mtrs: Number(formData.mtrs),
+      precioDolar: Number(formData.precioDolar),
       requisitos: formData.requisitos,
       fechaConstruccion: formData.fechaConstruccion ? new Date(formData.fechaConstruccion).toISOString() : undefined,
       fechaPublicacion: formData.fechaPublicacion ? new Date(formData.fechaPublicacion).toISOString() : undefined,
@@ -137,6 +142,7 @@ export function FormUpdateInmueble({ id }) {
     if (tipo === 'departamento') {
       dataToSend.piso = inmueble.piso; // NO editable
       dataToSend.depto = formData.depto;
+      dataToSend.precioExpensas = Number(formData.precioExpensas);
       dataToSend.cantAmbientes = Number(formData.cantAmbientes);
       dataToSend.cantBanios = Number(formData.cantBanios);
       dataToSend.balcon = formData.balcon;
@@ -190,7 +196,19 @@ export function FormUpdateInmueble({ id }) {
               required
             />
           </CRow>
-
+          <CRow>
+            <CFormLabel htmlFor="precioDolar">Precio según tipo de servicio (mensual, cuatrimestral, anual o total)*</CFormLabel>
+            <CFormInput
+              type="number"
+              id="precioDolar"
+              name="precioDolar"
+              placeholder="precio en dolares (usd)"
+              value={formData.precioDolar}
+              onChange={handleChange}
+              required
+              className="mb-3"
+            />
+          </CRow>
           <CRow>
             <CFormLabel htmlFor="mtrs">Metros Cuadrados*</CFormLabel>
             <CFormInput
@@ -286,6 +304,19 @@ export function FormUpdateInmueble({ id }) {
                   value={formData.depto}
                   onChange={handleChange}
                   placeholder="Ej: A, B, 1, 2"
+                  className="mb-3"
+                />
+              </CRow>
+              <CRow>
+                <CFormLabel htmlFor="precioExpensas">Precio de las expensas*</CFormLabel>
+                <CFormInput
+                  type="number"
+                  id="precioExpensas"
+                  name="precioExpensas"
+                  placeholder="precio de expensas (pesos)"
+                  value={formData.precioExpensas}
+                  onChange={handleChange}
+                  required
                   className="mb-3"
                 />
               </CRow>
