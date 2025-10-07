@@ -28,7 +28,7 @@ export function CardComprarAlquilar({
   const navigate = useNavigate();
 
   const handleVerMas = () => {
-    navigate('/uninmueble');
+    navigate(`/uninmueble/${idInmueble}`);
   };
 
   return (
