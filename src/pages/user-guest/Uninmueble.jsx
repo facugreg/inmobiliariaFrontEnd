@@ -12,11 +12,18 @@ import {
 import { Resenas } from '../../components/resenas.jsx'; 
 import { DetalleInmueble } from '../../components/detalleInmueble.jsx';
 import { useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { Paginacion } from '../../components/Paginacion.jsx';
 import agente from '../../assets/agente.png';
 import  casa  from '../../assets/casa.jpg';
+import useInmueble from '../admin/inmueble/getInmueble.jsx';
 
 export const Uninmueble = () => {
+  const {id} = useParams(); // Obtener el ID desde los parámetros de la URL
+  console.log(id);
+  const { inmueble, loading, error} = useInmueble(id); // Usar el hook personalizado para obtener los datos del inmueble
+  console.log(inmueble);
+  
   const [paginaActual, setPaginaActual] = useState(1);
   const totalPaginas = 3;
 
@@ -41,7 +48,17 @@ const resenas = [
     descripcionResena:"¿Los pagos mensuales pueden ser por transferencia virtual?"
   }
   ];
+if (loading) {
+    return <div>Cargando...</div>;
+  }
 
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
+
+  if (!inmueble) {
+    return <div>No se encontró el inmueble</div>;
+  }
   const handleCambiarPagina = (nuevaPagina) => {
     setPaginaActual(nuevaPagina);
     console.log('Página cambiada a:', nuevaPagina);
@@ -49,22 +66,8 @@ const resenas = [
 
   return (
     <>
-        <CContainer
-          fluid
-          className="d-flex flex-column justify-content-center align-items-center p-5"
-        >
-          <CCol lg={9} md={10} sm={12} className="d-flex flex-wrap justify-content-center">
-            <CardComprarAlquilar
-              precio="$150.000"
-              direccion="Calle Falsa 123"
-              mts2="85"
-              descripcion="Departamento luminoso con vista al parque"
-              antiguedad="5 años"
-              requisitos="Comprobante de ingresos y referencias"
-            />
-          </CCol>
-        </CContainer>
         <CContainer> 
+          {/*Carrusel imagenes del inmueble*/}
           <CRow className="justify-content-center">
             <CCol lg={11} md={11} sm={12}>
               <CCard className="mb-4">
@@ -88,23 +91,20 @@ const resenas = [
             </CCol>
           </CRow>
         </CContainer>
-          
+      {/*Detalle del inmueble*/}
         <CContainer className="mt-4">
           <CRow className="justify-content-center">
             <CCol lg={11} md={11} sm={12}>  
               <CRow>
                 <DetalleInmueble 
-                  textoDescripcion="acá va la descripción completaaa del inmueble...." 
-                  tituloDescripcion="DESCRIPCIÓN DETALLADA"
-                  nombrePropietario="Juan Pérez"
-                  telefonoPropietario="3482609045"
-                  emailPropietario="pepe@gmail.com"
+                  inmueble={inmueble}
                 />
               </CRow>
             </CCol>
           </CRow>
         </CContainer>
-
+          
+        {/*Reseñas*/}
         <CContainer className="mt-4">
           <CRow className="justify-content-center">
             <CCol lg={11} md={11} sm={12}>
