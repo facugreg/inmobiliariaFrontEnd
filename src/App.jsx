@@ -27,6 +27,7 @@ import UpdatePropietario from './pages/admin/propietario/updatePropietario.jsx';
 import AddPropietario from './pages/admin/propietario/addPropietario.jsx';
 import Localidades from './pages/admin/localidad/Localidades.jsx';
 import Perfil from './pages/Perfil.jsx';
+import Visitas from './pages/admin/visita/Visitas.jsx';
 
 function App() {
   const [userType, setUserType] = useState('guest'); // Estado global para userType
@@ -55,18 +56,19 @@ function App() {
   }, []);
 
   const handleLogin = (newUserType, newUserId) => {
-      console.log('handleLogin: seteando userType a:', newUserType);
-      setUserType(newUserType);
-      localStorage.setItem('userType', newUserType);
-      console.log('handleLogin: userType guardado en localStorage:', newUserType);
-      setUserId(newUserId);
-      localStorage.setItem('userId', newUserId);
-    };
-  
+    console.log('handleLogin: seteando userType a:', newUserType);
+    setUserType(newUserType);
+    localStorage.setItem('userType', newUserType);
+    console.log('handleLogin: userType guardado en localStorage:', newUserType);
+    setUserId(newUserId);
+    localStorage.setItem('userId', newUserId);
+  };
+
   const handleLogout = () => {
     console.log('handleLogout: seteando userType a guest');
     setUserType('guest');
     localStorage.removeItem('userType');
+    localStorage.removeItem('userId');
     console.log('handleLogout: localStorage.userType eliminado');
     localStorage.removeItem('userId');
     setUserId(null);
@@ -108,16 +110,24 @@ function App() {
             }
           />
           <Route
+            path="/visitas"
+            element={userType === 'admin' ? <Visitas /> : <Navigate to="/" />}
+          />
+          <Route
             path="/perfil"
             element={
-              userType === 'user' || userType === 'admin' ? <Perfil userId={userId} handleLogout={handleLogout} /> : <Navigate to="/" />
+              userType === 'user' || userType === 'admin' ? (
+                <Perfil userId={userId} handleLogout={handleLogout} />
+              ) : (
+                <Navigate to="/" />
+              )
             }
           />
           <Route
             path="/Inmuebles"
             element={userType === 'admin' ? <Inmuebles /> : <Navigate to="/" />}
           />
-           <Route
+          <Route
             path="/deleteInmueble/:id"
             element={
               userType === 'admin' ? <DeleteInmueble /> : <Navigate to="/" />
@@ -129,7 +139,7 @@ function App() {
               userType === 'admin' ? <AddInmueble /> : <Navigate to="/" />
             }
           />
-           <Route
+          <Route
             path="updateInmueble/:id"
             element={
               userType === 'admin' ? <UpdateInmueble /> : <Navigate to="/" />
@@ -181,10 +191,7 @@ function App() {
         </Route>
 
         {/* Rutas fuera del layout (ej: login no necesita Header/Footer; ajusta si quieres) */}
-        <Route
-          path="/login"
-          element={<Login handleLogin={handleLogin} />}
-        />
+        <Route path="/login" element={<Login handleLogin={handleLogin} />} />
         <Route path="/signin" element={<Registro />} />
       </Routes>
     </Router>

@@ -14,7 +14,7 @@ export const userItems = [
 
 // Navegación para administradores
 export const adminItems = [
-  { direccion: '#', nombre: 'Solicitudes visitas' },
+  { direccion: '/visitas', nombre: 'Solicitudes visitas' },
   { direccion: '/inmuebles', nombre: 'Inmuebles' },
   { direccion: '/tiposervicios', nombre: 'Tipos servicios' },
   { direccion: '/localidades', nombre: 'Localidades' },

@@ -10,7 +10,8 @@ export default function CardssComprarAlquilar({ inmuebles }) {
       {inmuebles.map((inmueble) => (
         <CardComprarAlquilar
           key={inmueble.id}
-          precioDolar={`$${inmueble.precioDolar || 'Consultar'}`}
+          idInmueble={inmueble.id}
+          precioDolar={`${inmueble.precioDolar || 'Consultar'}`}
           direccion={`${inmueble.direccionCalle} ${inmueble.direccionNumero}`}
           mts2={inmueble.mtrs}
           descripcion={inmueble.descripcion}
