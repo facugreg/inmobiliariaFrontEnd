@@ -1,15 +1,27 @@
 import { CIcon } from '@coreui/icons-react';
 import { cilUser } from '@coreui/icons';
 import { CCard, CCardBody, CCardTitle, CCol } from '@coreui/react';
-export function DetalleInmueble ({textoDescripcion, tituloDescripcion="DESCRIPCIÓN DETALLADA",
-         nombrePropietario, telefonoPropietario, emailPropietario}){
+export function DetalleInmueble ({inmueble}){
+    console.log('detalleee',inmueble);
+    if (!inmueble) {
+    return <div>Cargando datos del inmueble...</div>;
+  }
     return(
         <>
+    {/*Tengo que armarlo bien para que muestre lo que corresponda*/}
     <CCol lg={8} md={7}>
     <CCard className="h-100">
     <CCardBody>
-    <CCardTitle>{tituloDescripcion}</CCardTitle>
-    <p>{textoDescripcion}</p>
+    <CCardTitle>{inmueble.direccionCalle && inmueble.direccionNumero && inmueble.localidad?.nombre
+                ? `$ ${inmueble.precioDolar} - ${inmueble.direccionCalle}, ${inmueble.direccionNumero} - ${inmueble.localidad.nombre}`
+                : 'Dirección no disponible'}</CCardTitle>
+    <p><strong>Descripcion: </strong>{inmueble.descripcion || 'Sin descripción disponible'}</p>
+    <p><strong>Fecha de construccion: </strong>{inmueble.fechaConstruccion || 'Sin descripción disponible'}</p>
+    <p><strong>mtrs2: </strong>{inmueble.mtrs}</p>
+    <p><strong>Requisitos: </strong>{inmueble.requisitos}</p>
+    <p><strong>Balcon: </strong>{inmueble.balcon ? 'Si' : 'No'}</p>
+    <p><strong>Ambientes: </strong>{inmueble.cantAmbientes}</p>
+    <p><strong>Baños: </strong>{inmueble.cantBanios}</p>
     </CCardBody>
     </CCard>
     </CCol>
@@ -21,9 +33,11 @@ export function DetalleInmueble ({textoDescripcion, tituloDescripcion="DESCRIPCI
     PROPIETARIO
     </CCardTitle>
     <div>
-    <strong>Nombre:</strong> {nombrePropietario}<br/>
-    <strong>Teléfono:</strong> {telefonoPropietario}<br/>
-    <strong>Email:</strong> {emailPropietario}
+    <strong>Nombre:</strong> {inmueble.propietario?.nombrePropietario
+                ? `${inmueble.propietario.nombrePropietario} ${inmueble.propietario.apellidoPropietario || ''}`
+                : 'No especificado'}<br/>
+    <strong>Teléfono:</strong> {inmueble.propietario?.telefonoPropietario || 'No especificado'}<br/>
+    <strong>Email:</strong> {inmueble.propietario?.mailPropietario || 'No especificado'}
     </div>
     </CCardBody>
     </CCard>
