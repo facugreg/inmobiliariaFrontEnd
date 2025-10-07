@@ -165,7 +165,7 @@ function App() {
               userType === 'admin' ? <UpdatePropietario /> : <Navigate to="/" />
             }
           />
-          <Route path="/uninmueble" element={<Uninmueble />} />
+          <Route path="/uninmueble/:id" element={<Uninmueble />} />
           <Route
             path="/tiposervicios"
             element={

@@ -16,7 +16,7 @@ import { useState } from 'react';
 import { FormSolicitudVisita } from '../forms/FormSolicitudVisita';
 import { useNavigate } from 'react-router-dom';
 
-export function CardComprarAlquilar({ precioDolar, direccion, mts2, descripcion, antiguedad, requisitos }) {
+export function CardComprarAlquilar({ id, precioDolar, direccion, mts2, descripcion, antiguedad, requisitos }) {
   //useStates  
   const [modalVisible, setModalVisible] = useState(false);
   const navigate = useNavigate();
@@ -29,7 +29,7 @@ export function CardComprarAlquilar({ precioDolar, direccion, mts2, descripcion,
   };
 
   const handleVerMas = () => {
-    navigate('/uninmueble');
+    navigate(`/uninmueble/${id}`);
   };
   return (
     <>
