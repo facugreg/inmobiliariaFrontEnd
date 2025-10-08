@@ -1,5 +1,4 @@
 import '@coreui/coreui/dist/css/coreui.min.css';
-import { CardComprarAlquilar } from '../../components/cards/CardComprarAlquilar.jsx';
 import {
   CContainer,
   CCarousel,
@@ -8,46 +7,28 @@ import {
   CCarouselItem,
   CCard,
   CImage,
+  CCardBody,
+  CCardTitle,
 } from '@coreui/react';
-import { Resenas } from '../../components/resenas.jsx'; 
 import { DetalleInmueble } from '../../components/detalleInmueble.jsx';
-import { useState } from 'react';
+import { CardConsulta } from '../../components/cards/CardConsulta.jsx';
 import { useParams } from 'react-router-dom';
-import { Paginacion } from '../../components/Paginacion.jsx';
 import agente from '../../assets/agente.png';
 import  casa  from '../../assets/casa.jpg';
 import useInmueble from '../admin/inmueble/getInmueble.jsx';
+import { FormConsulta } from '../../components/forms/FormConsulta.jsx';
+//import { cibGmail, cilPhone, cilUser } from '@coreui/icons';
+import CIcon from '@coreui/icons-react';
 
 export const Uninmueble = () => {
   const {id} = useParams(); // Obtener el ID desde los parámetros de la URL
   console.log(id);
   const { inmueble, loading, error} = useInmueble(id); // Usar el hook personalizado para obtener los datos del inmueble
   console.log(inmueble);
-  
-  const [paginaActual, setPaginaActual] = useState(1);
-  const totalPaginas = 3;
 
 const imagenesCarrusel = [
   agente, casa, agente, casa];
 
-const resenas = [
-  {
-    id: 1,
-    nombreUsuario: "bruno",
-    descripcionResena:"el departamento está mal ubicado y no posee los los elementos de cocina necesarios"
-  },
-  {
-    id: 2,
-    nombreUsuario: "pepe",
-    descripcionResena:"el departamento está BIEN ubicado y tiene los los elementos de cocina necesarios"
-  },
-  {
-    id: 3,
-    nombreUsuario: "Lucas",
-    ResenaOConsulta: "Consulta",
-    descripcionResena:"¿Los pagos mensuales pueden ser por transferencia virtual?"
-  }
-  ];
 if (loading) {
     return <div>Cargando...</div>;
   }
@@ -59,10 +40,6 @@ if (loading) {
   if (!inmueble) {
     return <div>No se encontró el inmueble</div>;
   }
-  const handleCambiarPagina = (nuevaPagina) => {
-    setPaginaActual(nuevaPagina);
-    console.log('Página cambiada a:', nuevaPagina);
-  };
 
   return (
     <>
@@ -107,19 +84,17 @@ if (loading) {
         {/*Reseñas*/}
         <CContainer className="mt-4">
           <CRow className="justify-content-center">
-            <CCol lg={11} md={11} sm={12}>
-            {resenas.map(resena => (<Resenas key={resena.id} props={resena}>
-            </Resenas>))}
+            <CCol lg={8} md={8} sm={12}>
+            <h4 className="mb-3">Opiniones</h4>
+            {inmueble.consultas?.map(consulta => (<CardConsulta key={consulta.id} props={consulta}>
+            </CardConsulta>))}
+            </CCol>
+            <CCol lg={3} md={4} sm={12}>
+              <h5 className="mb-3">Comparti tu experiencia</h5>
+              <FormConsulta />
+
             </CCol>
           </CRow>
-        </CContainer>
-
-        <CContainer>
-        <Paginacion
-          paginaActual={paginaActual}
-          totalPaginas={totalPaginas}
-          onCambiarPagina={handleCambiarPagina}
-        />
         </CContainer>
     </>
   );
