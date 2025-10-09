@@ -1,7 +1,7 @@
 import CIcon from '@coreui/icons-react';
 import '@coreui/coreui/dist/css/coreui.min.css';
 import im from '../assets/im.png';
-import agente from '../assets/agente.png';
+//import agente from '../assets/agente.png';
 import { useState } from 'react';
 import {
   CContainer,
@@ -19,8 +19,9 @@ import {
   CCardText,
   CImage,
 } from '@coreui/react';
-import Card from '../components/cards/Card.jsx';
+//import Card from '../components/cards/Card.jsx';
 import { Buscador } from '../components/Buscador.jsx';
+import { CardComprarAlquilar } from '../components/cards/CardComprarAlquilar.jsx';
 
 const opcionesInmueble = [
   { value: 'Departamento', label: 'Departamento' },
@@ -72,8 +73,49 @@ const Home = () => {
             </CCol>
           </CRow>
         </CContainer>
-
+{/* 
         <CRow className=" mt-3 justify-content-center gx-0">
+          <CCol lg={9} sm={9}>
+            <CCarousel
+              controls
+              indicators
+              style={{ height: '300px' }}
+            >
+              <CCarouselItem>
+                <CardComprarAlquilar
+                            precio="$150.000"
+                            direccion="Calle Falsa 123"
+                            mts2="85"
+                            descripcion="Departamento luminoso con vista al parque"
+                            antiguedad="5 años"
+                            requisitos="Comprobante de ingresos y referencias"
+              />
+              </CCarouselItem>
+              <CCarouselItem>
+                <CardComprarAlquilar
+                  precio="$200.000"
+                  direccion="Avenida Siempre Viva 742"
+                  mts2="120"
+                  descripcion="Casa familiar con jardín y piscina"
+                  antiguedad="10 años"
+                  requisitos="Comprobante de ingresos y referencias"
+                />
+              </CCarouselItem>
+              <CCarouselItem>
+                <CardComprarAlquilar
+                  precio="$100.000"
+                  direccion="Boulevard de los Sueños Rotos 456"
+                  mts2="60"
+                  descripcion="Departamento moderno en el centro de la ciudad"
+                  antiguedad="2 años"
+                  requisitos="Comprobante de ingresos y referencias"
+                />
+              </CCarouselItem>
+            </CCarousel>
+          </CCol>
+        </CRow> */}
+
+        {/* <CRow className=" mt-3 justify-content-center gx-0">
           <CCol lg={9} sm={9}>
             <CCard>
               <CRow className="g-0">
@@ -143,7 +185,7 @@ const Home = () => {
             text="uN TEXTO CUALQUIERA"
             button="Ver mapa"
           />
-        </CRow>
+        </CRow> */}
     </>
   );
 };
