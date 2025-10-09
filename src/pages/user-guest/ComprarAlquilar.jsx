@@ -20,7 +20,8 @@ const opcionesPrecio = [
   { value: '200000+', label: 'Más de $200,000' },
 ];
 
-export function ComprarAlquilar() {
+export function ComprarAlquilar({tipoServicio}) {
+  console.log('ComprarAlquilar: tipoServicio recibido:', tipoServicio);
   const [tipoInmueble, setTipoInmueble] = useState('');
   const [precioDolar, setPrecio] = useState('');
   const [localidad, setLocalidad] = useState('');
@@ -37,7 +38,8 @@ export function ComprarAlquilar() {
     tipoInmueble,      
     localidad,
     precioDolar,
-    query,             
+    query,
+    tipoServicio,             
   });
   
   const { localidades } = useLocalidades();

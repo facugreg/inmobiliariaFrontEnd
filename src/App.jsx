@@ -99,8 +99,8 @@ function App() {
           }
         >
           <Route index element={<Home />} />
-          <Route path="/comprar" element={<ComprarAlquilar />} />
-          <Route path="/alquilar" element={<ComprarAlquilar />} />
+          <Route path="/comprar" element={<ComprarAlquilar tipoServicio = "Comprar" />} />
+          <Route path="/alquilar" element={<ComprarAlquilar tipoServicio = "Alquilar" />} />
           <Route path="/contacto" element={<Contacto />} />
           {/* Rutas protegidas: Redirige si no logueado */}
           <Route
