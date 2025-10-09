@@ -13,25 +13,25 @@ import { cilBorderOuter, cilCalendar, cilList } from '@coreui/icons';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import FormSolicitudVista from '../forms/FormSolicitudVisita';
-export function CardComprarAlquilar({
-  idInmueble,
-  precioDolar,
-  direccion,
-  mts2,
-  descripcion,
-  antiguedad,
-  requisitos,
-}) {
+
+
+export function CardComprarAlquilar({inmueble}) {
   //useStates
   const [modalVisible, setModalVisible] = useState(false);
-
+  
   const navigate = useNavigate();
-
+  
   const handleVerMas = () => {
-    navigate(`/uninmueble/${idInmueble}`);
+    navigate(`/uninmueble/${inmueble.id}`);
   };
+function calcularAntiguedad(fechaConstruccion) {
+if (!fechaConstruccion) return 'N/A';
+const anio = new Date(fechaConstruccion).getFullYear();
+const antiguedad = new Date().getFullYear() - anio;
+return `${antiguedad} años`;
+}
 
-  return (
+return (
     <>
       <CCard className="mb-3">
         <CRow className="g-0">
@@ -42,7 +42,7 @@ export function CardComprarAlquilar({
               className="w-100 h-100"
               style={{ objectFit: 'cover' }}
               onClick={handleVerMas}
-            />
+              />
           </CCol>
           {/* Contenido a la derecha */}
           <CCol xs={12} md={8}>
@@ -54,8 +54,8 @@ export function CardComprarAlquilar({
                     fontFamily: 'Poppins, sans-serif',
                     fontSize: '24px',
                   }}
-                >
-                  {precioDolar}
+                  >
+                  {inmueble.precioDolar}
                 </h3>
                 <p
                   className="mb-1"
@@ -63,26 +63,26 @@ export function CardComprarAlquilar({
                     fontFamily: 'Poppins, sans-serif',
                     fontSize: '18px',
                   }}
-                >
-                  {direccion}
+                  >
+                {inmueble.tipo} en <strong>{inmueble.direccionCalle}{inmueble.direccionNumero}</strong>
                 </p>
                 <p className="mb-1">
                   <CIcon
                     icon={cilBorderOuter}
                     className="me-2 text-primary"
-                  ></CIcon>
-                  <strong>Metros²:</strong> {mts2}
+                    ></CIcon>
+                  <strong>Metros²:</strong> {inmueble.mts2}
                   <CIcon
                     icon={cilCalendar}
                     className="ms-4 me-2 text-primary"
-                  ></CIcon>
+                    ></CIcon>
                   <strong>Antigüedad: </strong>
-                  {antiguedad}
+                  {calcularAntiguedad(inmueble.fechaConstruccion)}
                 </p>
-                <p>{descripcion}</p>
+                <p>{inmueble.descripcion}</p>
                 <small className="text-muted">
                   <CIcon icon={cilList} className="me-2 text-primary"></CIcon>
-                  <strong>Requisitos:</strong> {requisitos}
+                  <strong>Requisitos:</strong> {inmueble.requisitos}
                 </small>
                 <br />
               </CCardText>
@@ -92,7 +92,7 @@ export function CardComprarAlquilar({
                     color="primary"
                     onClick={() => setModalVisible(true)}
                     className="w-100 px-4 mt-2"
-                  >
+                    >
                     {' '}
                     Solicitar visita{' '}
                   </CButton>
@@ -102,7 +102,7 @@ export function CardComprarAlquilar({
                     color="primary"
                     className="w-100 px-4 mt-2"
                     onClick={handleVerMas}
-                  >
+                    >
                     {' '}
                     Ver mas{' '}
                   </CButton>
@@ -115,9 +115,11 @@ export function CardComprarAlquilar({
       <FormSolicitudVista
         modalVisible={modalVisible}
         setModalVisible={setModalVisible}
-        idInmueble={idInmueble}
+        idInmueble={inmueble.id}
         initialData={null}
-      />
+        />
     </>
   );
 }
+
+

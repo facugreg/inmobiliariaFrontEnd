@@ -8,24 +8,13 @@ export default function CardssComprarAlquilar({ inmuebles }) {
       style={{ maxHeight: '400px' }}
     >
       {inmuebles.map((inmueble) => (
-        <CardComprarAlquilar
+    <CardComprarAlquilar
           key={inmueble.id}
-          idInmueble={inmueble.id}
-          precioDolar={`${inmueble.precioDolar || 'Consultar'}`}
-          direccion={`${inmueble.direccionCalle} ${inmueble.direccionNumero}`}
-          mts2={inmueble.mtrs}
-          descripcion={inmueble.descripcion}
-          antiguedad={calcularAntiguedad(inmueble.fechaConstruccion)}
-          requisitos={inmueble.requisitos || 'No especificado'}
+          inmueble={inmueble}
         />
       ))}
     </CContainer>
   );
 }
 
-function calcularAntiguedad(fechaConstruccion) {
-  if (!fechaConstruccion) return 'N/A';
-  const anio = new Date(fechaConstruccion).getFullYear();
-  const antiguedad = new Date().getFullYear() - anio;
-  return `${antiguedad} años`;
-}
+
