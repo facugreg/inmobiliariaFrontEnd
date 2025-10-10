@@ -64,6 +64,9 @@ export default function Inmuebles() {
   return (
     <>
       <CContainer>
+        <CRow className="mt-3 d-flex justify-content-center align-items-center">
+          <h2>Inmuebles</h2>
+        </CRow>
         <CRow className="mt-3  d-flex justify-content-center align-items-center">
           <CCol lg={4} sm={12}>
             <Buscador

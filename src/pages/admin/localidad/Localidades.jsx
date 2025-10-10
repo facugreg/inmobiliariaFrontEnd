@@ -52,6 +52,9 @@ export default function Localidades() {
     <>
       <CContainer>
         <CRow className="mt-3 d-flex justify-content-center align-items-center">
+          <h2>Localidades</h2>
+        </CRow>
+        <CRow className="mt-3 d-flex justify-content-center align-items-center">
           <CCol lg={10} sm={12}>
             <Buscador placeholder="Buscar por codigo postal" />
           </CCol>

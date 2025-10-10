@@ -1,6 +1,6 @@
 import { EncabezadoLista } from '../../../components/partsLists/EncabezadoLista';
 import Lista from '../../../components/partsLists/Lista';
-import { CContainer } from '@coreui/react';
+import { CContainer, CRow } from '@coreui/react';
 import { useUpdateVisita, useVisitas } from '../../../hooks/visita.hooks';
 
 export default function Visitas() {
@@ -28,6 +28,9 @@ export default function Visitas() {
   };
   return (
     <CContainer>
+      <CRow className="mt-3 d-flex justify-content-center align-items-center">
+        <h2>Solicitudes de visitas</h2>
+      </CRow>
       <EncabezadoLista
         columns={[
           { key: 'id', size: '1' },

@@ -3,6 +3,7 @@ import { CIcon } from '@coreui/icons-react';
 import { cilUser } from '@coreui/icons';
 import { useNavigate } from 'react-router-dom';
 import usePropietarios  from './getPropietarioss.jsx';
+import { Buscador } from '../../../components/Buscador.jsx';
 
 export function Propietarios() {
   const navigate = useNavigate();
@@ -47,14 +48,19 @@ export function Propietarios() {
   return (
     <>
     <CContainer>
-    <h2 className="my-3">Lista de Propietarios</h2>
-    <CButton
-    color="primary" 
-    size="sm"
-    onClick={handleAgregar}
-    >
-    Agregar propietario
-    </CButton>
+      <CRow>
+        <h2 className="my-3">Propietarios</h2>
+      </CRow>
+    <CRow className="mt-3  d-flex justify-content-center align-items-center">
+      <CCol lg={10} sm={12}>
+        <Buscador placeholder="Buscar por nombre de propietario" />
+      </CCol>
+      <CCol lg={2} sm={12} className="d-flex justify-content-end">
+        <CButton color="primary" onClick={handleAgregar}>
+          Agregar propietario
+        </CButton>
+      </CCol>
+    </CRow>
       <table className="table table-striped"> 
         <thead>
           <tr>
