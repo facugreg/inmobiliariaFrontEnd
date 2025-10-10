@@ -99,8 +99,9 @@ export function ComprarAlquilar({tipoServicio}) {
           </CCol>
         </CRow>
       </CContainer>
-      
+       <CContainer fluid className="d-flex flex-column justify-content-center align-items-center mt-3">
       <CardssComprarAlquilar inmuebles={inmuebles} />
+       </CContainer>
       
       <CContainer>
         {/* acá falta que terminemos lo de paginación lo saqué */}

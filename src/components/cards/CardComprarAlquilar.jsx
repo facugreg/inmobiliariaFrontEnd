@@ -71,7 +71,7 @@ return (
                     icon={cilBorderOuter}
                     className="me-2 text-primary"
                     ></CIcon>
-                  <strong>Metros²:</strong> {inmueble.mts2}
+                  <strong>Metros²:</strong> {inmueble.mtrs}
                   <CIcon
                     icon={cilCalendar}
                     className="ms-4 me-2 text-primary"
