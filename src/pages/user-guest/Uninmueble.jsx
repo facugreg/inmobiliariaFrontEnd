@@ -91,7 +91,7 @@ if (loading) {
             </CCol>
             <CCol lg={3} md={4} sm={12}>
               <h5 className="mb-3">Comparti tu experiencia</h5>
-              <FormConsulta />
+              <FormConsulta idInmueble = {inmueble.id} />
 
             </CCol>
           </CRow>
