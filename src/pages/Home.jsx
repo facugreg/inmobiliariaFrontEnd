@@ -1,8 +1,7 @@
-import CIcon from '@coreui/icons-react';
 import '@coreui/coreui/dist/css/coreui.min.css';
 import im from '../assets/im.png';
-//import agente from '../assets/agente.png';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   CContainer,
   CCarousel,
@@ -19,9 +18,7 @@ import {
   CCardText,
   CImage,
 } from '@coreui/react';
-//import Card from '../components/cards/Card.jsx';
 import { Buscador } from '../components/Buscador.jsx';
-import { CardComprarAlquilar } from '../components/cards/CardComprarAlquilar.jsx';
 
 const opcionesInmueble = [
   { value: 'Departamento', label: 'Departamento' },
@@ -31,6 +28,7 @@ const opcionesInmueble = [
 ];
 
 const Home = () => {
+  const navigate = useNavigate();
   const [filtroBuscador, setFiltroBuscador] = useState('');
 
   const handleFiltroBuscadorChange = (e) => {
@@ -46,15 +44,15 @@ const Home = () => {
             backgroundImage: `url(${im})`,
             backgroundSize: 'cover',
             backgroundPosition: 'center',
-            minHeight: '400px',
+            minHeight: '300px',
           }}
         >
           <CRow className=" d-flex justify-content-center w-100">
             <CCol sm={3} lg={'auto'} className="text-center mb-2">
-              <CButton color="light">Comprar</CButton>
+              <CButton color="light" onClick={() => navigate('/comprar')}>Comprar</CButton>
             </CCol>
             <CCol lg={'auto'} sm={3} className="text-center mb-2">
-              <CButton color="light">Alquiler</CButton>
+              <CButton color="light" onClick={() => navigate('/alquilar')}>Alquilar</CButton>
             </CCol>
             <CCol lg={'auto'} sm={3} className="text-center mb-2">
               <CButton color="light">Alquiler temporal</CButton>
@@ -73,119 +71,85 @@ const Home = () => {
             </CCol>
           </CRow>
         </CContainer>
-{/* 
-        <CRow className=" mt-3 justify-content-center gx-0">
-          <CCol lg={9} sm={9}>
-            <CCarousel
-              controls
-              indicators
-              style={{ height: '300px' }}
-            >
-              <CCarouselItem>
-                <CardComprarAlquilar
-                            precio="$150.000"
-                            direccion="Calle Falsa 123"
-                            mts2="85"
-                            descripcion="Departamento luminoso con vista al parque"
-                            antiguedad="5 años"
-                            requisitos="Comprobante de ingresos y referencias"
-              />
-              </CCarouselItem>
-              <CCarouselItem>
-                <CardComprarAlquilar
-                  precio="$200.000"
-                  direccion="Avenida Siempre Viva 742"
-                  mts2="120"
-                  descripcion="Casa familiar con jardín y piscina"
-                  antiguedad="10 años"
-                  requisitos="Comprobante de ingresos y referencias"
-                />
-              </CCarouselItem>
-              <CCarouselItem>
-                <CardComprarAlquilar
-                  precio="$100.000"
-                  direccion="Boulevard de los Sueños Rotos 456"
-                  mts2="60"
-                  descripcion="Departamento moderno en el centro de la ciudad"
-                  antiguedad="2 años"
-                  requisitos="Comprobante de ingresos y referencias"
-                />
-              </CCarouselItem>
-            </CCarousel>
-          </CCol>
-        </CRow> */}
 
-        {/* <CRow className=" mt-3 justify-content-center gx-0">
-          <CCol lg={9} sm={9}>
-            <CCard>
-              <CRow className="g-0">
-                <CCol lg={4} sm={12}>
-                  <CCardBody>
-                    <CCardTitle>unTitulo</CCardTitle>
-                    <CCardText>
-                      Este no es solo un inmueble, es una inversión en tu estilo
-                      de vida. Un diseño inteligente, acabados premium y una
-                      ubicación estratégica que eleva tu día a día. Descubre la
-                      comodidad, la funcionalidad y la elegancia en un solo
-                      lugar. La vida moderna te espera.
-                    </CCardText>
-                    <CButton color="primary">Ver propiedades</CButton>
-                  </CCardBody>
+        <CContainer fluid className="bg-violet-500 bg-opacity-90"
+        style={{
+          backgroundColor: 'rgba(72, 10, 72, 0.1)', // Color violeta con opacidad del 10%
+        }}
+        >
+          <CRow className="justify-content-center">
+            <CCol lg={9} sm={9}>
+              <h2 className="mt-2 text-center">¿Quiénes somos?</h2>
+              <div>
+                <p className="text-center">
+                  Somos <span className="text-primary"><b>Hogar Urbano Servicios Inmobiliarios</b></span> y hace 5 años 
+                  trabajamos con un claro objetivo: brindarle a todos y 
+                  cada uno de nuestros clientes un servicio integral de asesoramiento 
+                  en materia de operaciones inmobiliarias con la intención de que éstas 
+                  sean sólidas, rentables y con proyección de futuro. 
+                  </p>
+                  <p className="text-center">
+                  Sabemos que los grandes proyectos se alcanzan solo con un buen trabajo en equipo. 
+                  Bienvenido a ser parte de nuestra amplia red de profesionales y 
+                  amigos que hacemos de esta experiencia algo más que un negocio inmobiliario. 
+                </p>
+                <p className="text-center font-italic text-primary">
+                 <b>«Juntos hacemos la diferencia»</b>
+                </p>
+              </div>
+      
+              <hr className="border-black my-4" />
+      
+              <h2 className="mt-2 text-center">¿Por qué elegirnos?</h2>
+              <CRow>
+                <p className="text-center">Te acompañamos en el proceso de tu inversión inmobiliaria</p>
+              </CRow>
+              <CRow>
+                <CCol lg={4} sm={12} className="text-center mb-3">
+                  <CCard className='h-100 bg-light' >
+                    <CCardTitle className='mt-2'>Te asesoramos en tu elección</CCardTitle>
+                    <CCardBody> <p>Atendemos tu consulta, 
+                    te ayudamos a encontrar lo que buscás 
+                    ¡Queremos que disfrutes todo el proceso de búsqueda y concreción!
+                  </p></CCardBody>
+                  </CCard>
                 </CCol>
-                <CCol lg={8} sm={12}>
-                  <CRow>
-                    <CCol>
-                      <CCarousel
-                        controls
-                        indicators
-                        style={{ height: '300px' }}
-                      >
-                        <CCarouselItem>
-                          <CImage
-                            className="d-block  w-100 "
-                            src={agente}
-                            style={{ objectFit: 'cover', height: '300px' }}
-                          />
-                        </CCarouselItem>
-                        <CCarouselItem>
-                          <CImage
-                            className="d-block w-100 "
-                            src={agente}
-                            style={{ objectFit: 'cover', height: '300px' }}
-                          />
-                        </CCarouselItem>
-                        <CCarouselItem>
-                          <CImage
-                            className="d-block w-100 "
-                            src={agente}
-                            style={{ objectFit: 'cover', height: '300px' }}
-                          />
-                        </CCarouselItem>
-                      </CCarousel>
-                    </CCol>
-                  </CRow>
+                <CCol lg={4} sm={12} className="text-center mb-3">
+                  <CCard className='h-100 bg-light'>
+                    <CCardTitle className='mt-2'>
+                      Te acompañamos en el proceso
+                      </CCardTitle>
+                      <CCardBody>
+                  <p>Te cuidamos en aspectos legales, te
+                  asesoramos en el mercado, te
+                  acompañamos desde el inicio hasta
+                  la posventa.</p>
+                      </CCardBody>
+                    </CCard>
+
+                </CCol>
+                <CCol lg={4} sm={12} className="text-center mb-3">
+                  <CCard className='h-100 bg-light'>
+                  <CCardTitle className='mt-2'>Seguimos con vos</CCardTitle>
+                  <CCardBody>
+                  <p>Administramos tu inmueble con
+                    nuestros departamentos de alquiler
+                    anual y temporario y administración de consorcio 
+                    para cuidar tu inversión.</p>
+                  </CCardBody>
+                  </CCard>
                 </CCol>
               </CRow>
-            </CCard>
-          </CCol>
-        </CRow>
-        <CRow className="mt-4 d-flex justify-content-center gx-0">
-          <Card
-            title=" Conoce nuestra ubicacion y la de nuestros inmuebles"
-            text="uN TEXTO CUALQUIERA"
-            button="Ver mapa"
-          />
-          <Card
-            title=" Conoce nuestra ubicacion y la de nuestros inmuebles"
-            text="uN TEXTO CUALQUIERA"
-            button="Ver mapa"
-          />
-          <Card
-            title=" Conoce nuestra ubicacion y la de nuestros inmuebles"
-            text="uN TEXTO CUALQUIERA"
-            button="Ver mapa"
-          />
-        </CRow> */}
+              <CRow className="d-flex justify-content-center mb-3">
+                <CCol className="text-center">
+                  <CButton color="primary" onClick={() => navigate('/comprar')}>Ver todas las propiedades</CButton>
+                </CCol>
+                
+                
+              </CRow>
+              </CCol>
+          </CRow>
+        </CContainer>
     </>
   );
 };

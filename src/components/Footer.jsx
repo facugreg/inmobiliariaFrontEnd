@@ -5,7 +5,7 @@ export default function Footer() {
   return (
     <>
       <CRow
-        className="mt-4 d-flex justify-content-center gx-0"
+        className="d-flex justify-content-center gx-0"
         style={{ backgroundColor: 'lightgray' }}
       >
         <CCol xs={2} className="d-flex justify-content-center">
