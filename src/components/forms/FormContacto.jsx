@@ -63,7 +63,7 @@ export function FormContacto() {
 
   return (
     <CCard className="p-3 w-100 bg-light">
-      <CCardTitle className="p-3">
+      <CCardTitle >
         Contactanos para más información
       </CCardTitle>
       
@@ -98,7 +98,7 @@ export function FormContacto() {
         />
         {errors.apellido && <div className="text-danger">{errors.apellido}</div>}
       </CRow>
-      <CRow>
+      <CRow className="mb-3">
         <CFormLabel htmlFor="email">Email*</CFormLabel>
         <CFormInput
           type="email"

@@ -5,7 +5,7 @@ import { CCard, CCardTitle, CCardBody, CCardText, CButton } from "@coreui/react"
 export function CardContacto() {
   return (
     <CCard className= "p-3 w-100 bg-light">
-      <CCardTitle className= "p-3 justify-content-center align-items-center">
+      <CCardTitle className= "mb-2 justify-content-center align-items-center">
         Datos de contacto
       </CCardTitle>
       <CCardBody>
@@ -23,7 +23,7 @@ export function CardContacto() {
           </p>
       </CCardBody>
 
-      <CCardTitle className= "p-3 justify-content-center align-items-center">
+      <CCardTitle className= "mt-2 mb-2 justify-content-center align-items-center">
         Horarios de atención
       </CCardTitle>
       <CCardBody>
@@ -41,8 +41,7 @@ export function CardContacto() {
         </CCardText>
       </CCardBody>
 
-      <CCardBody>
-        <CCardText>
+      <CCardTitle className="mt-2 mb-2 justify-content-center align-items-center">
           <CButton>
             <CIcon size={'xl'} icon={cibInstagram} className="me-2"/>
           </CButton>
@@ -52,8 +51,7 @@ export function CardContacto() {
           <CButton>
             <CIcon size={'xl'} icon={cibTwitter} className="me-2" />
           </CButton>
-        </CCardText>
-      </CCardBody>
+      </CCardTitle>
 
     </CCard>
   );
