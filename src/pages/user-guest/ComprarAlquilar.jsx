@@ -5,6 +5,7 @@ import { useState } from 'react';
 import CardssComprarAlquilar from '../../components/cards/CardssComprarAlquilar.jsx';
 import useInmuebles from '../admin/inmueble/getInmuebles.jsx';
 import { useLocalidades } from '../../hooks/localidades.hooks.js';
+import { Paginacion } from '../../components/Paginacion.jsx';
 
 const opcionesInmueble = [
   { value: 'departamento', label: 'Departamento' },
@@ -21,19 +22,21 @@ const opcionesPrecio = [
 ];
 
 export function ComprarAlquilar({tipoServicio}) {
-  console.log('ComprarAlquilar: tipoServicio recibido:', tipoServicio);
   const [tipoInmueble, setTipoInmueble] = useState('');
   const [precioDolar, setPrecio] = useState('');
   const [localidad, setLocalidad] = useState('');
   const [search, setCalleFiltro] = useState('');
   const [query, setQuery] = useState('');
+  const [paginaActual, setPaginaActual] = useState(1);
+  const inmueblesPorPagina = 6;
+
   
   const searcher = (e) => setCalleFiltro(e.target.value);
   const handleSearchClick = () => setQuery(search);
   const onChangeEstado = (e) => setTipoInmueble(e.target.value);
   const onChangePrecio = (e) => setPrecio(e.target.value);
   const onChangeLocalidad = (e) => setLocalidad(e.target.value);
-
+  
   const { inmuebles, isLoading, isError, error } = useInmuebles({
     tipoInmueble,      
     localidad,
@@ -43,16 +46,30 @@ export function ComprarAlquilar({tipoServicio}) {
   });
   
   const { localidades } = useLocalidades();
-
+  
   const opcionesLocalidades = localidades
-    ? localidades
-        .map((loc) => ({
-          value: loc.id,
-          label: loc.nombre,
-        }))
-        .sort((a, b) => a.label.localeCompare(b.label))
-    : [];
+  ? localidades
+  .map((loc) => ({
+    value: loc.id,
+    label: loc.nombre,
+  }))
+  .sort((a, b) => a.label.localeCompare(b.label))
+  : [];
+  
+  // Filtrá los inmuebles para la página actual
+ const inicio = (paginaActual - 1) * inmueblesPorPagina;
+ const fin = inicio + inmueblesPorPagina;
+ const inmueblesPagina = inmuebles.slice(inicio, fin);
 
+ // Calculá el total de páginas
+ const totalPaginas = Math.ceil(inmuebles.length / inmueblesPorPagina);
+
+ // Handler para cambiar de página
+ const handleCambiarPagina = (nuevaPagina) => {
+   setPaginaActual(nuevaPagina);
+ };
+
+ // Mostrar estados de carga y error
   if (isLoading) {
     return <p>Cargando Inmuebles...</p>;
   }
@@ -99,12 +116,18 @@ export function ComprarAlquilar({tipoServicio}) {
           </CCol>
         </CRow>
       </CContainer>
+
+      {/* Aca van las cards de los inmuebles */}
        <CContainer fluid className="d-flex flex-column justify-content-center align-items-center mt-3">
-      <CardssComprarAlquilar inmuebles={inmuebles} />
+      <CardssComprarAlquilar inmuebles={inmueblesPagina} />
        </CContainer>
       
-      <CContainer>
-        {/* acá falta que terminemos lo de paginación lo saqué */}
+      <CContainer className='mb-4'>
+        <Paginacion 
+          paginaActual={paginaActual}
+          totalPaginas={totalPaginas}
+          onCambiarPagina={handleCambiarPagina}
+          />
       </CContainer>
     </>
   );

@@ -79,7 +79,7 @@ const Home = () => {
         >
           <CRow className="justify-content-center">
             <CCol lg={9} sm={9}>
-              <h2 className="mt-2 text-center">¿Quiénes somos?</h2>
+              <h2 className="mt-3 text-center">¿Quiénes somos?</h2>
               <div>
                 <p className="text-center">
                   Somos <span className="text-primary"><b>Hogar Urbano Servicios Inmobiliarios</b></span> y hace 5 años 

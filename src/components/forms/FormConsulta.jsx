@@ -11,8 +11,14 @@ import {
   CCard,
   CCardTitle,
   CCardBody,
+  CModal,
+  CModalHeader,
+  CModalTitle,
+  CModalBody,
+  CModalFooter,
 } from "@coreui/react";
 import axios from 'axios';
+import { ModalNecesitaLogueo } from "../modals/ModalNecesitaLogueo.jsx";
 
 export function FormConsulta({idInmueble}) {
   const [formData, setFormData] = useState({
@@ -20,7 +26,8 @@ export function FormConsulta({idInmueble}) {
   });
   const [errors, setErrors] = useState({});
   const [submitSuccess, setSubmitSuccess] = useState(false);
-  
+  const [showModal, setShowModal] = useState(false);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -37,10 +44,16 @@ export function FormConsulta({idInmueble}) {
   };
   
   const handleSubmit = async (e) => {
+    e.preventDefault();
+
     const PATH = 'http://localhost:3000/api/consultas';
     const idUsuario =  localStorage.getItem('userId');
     
-    e.preventDefault();
+    if (!idUsuario) {
+      setShowModal(true);
+      return;
+    }
+    //validacion solo si esta logueado
     const tempErrors = validateForm();
     if (Object.keys(tempErrors).length === 0) {
       try {
@@ -69,7 +82,7 @@ export function FormConsulta({idInmueble}) {
       <CRow >
       </CRow>
       <CRow className="mb-3">
-        <CFormLabel htmlFor="descripcion">Opinion*</CFormLabel>
+        <p>Dejanos tu opinión o dudas sobre este inmueble</p>
         <CFormTextarea
           id="descripcion"
           name="descripcion"
@@ -93,9 +106,13 @@ export function FormConsulta({idInmueble}) {
           ¡Mensaje enviado con éxito!
         </CAlert>
       )}
+      
+    {/*Modal por si no inicio sesion*/}
+    <ModalNecesitaLogueo  showModal={showModal} setShowModal={setShowModal}/>
     </CForm>
     </CCardBody>
     </CCard>
+
 
   );
 }
