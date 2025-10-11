@@ -1,36 +1,29 @@
 import { CButton, CCol, CContainer, CRow } from '@coreui/react';
 import { Buscador } from '../../../components/Buscador.jsx';
 import Lista from '../../../components/partsLists/Lista.jsx';
-import { useState, useEffect } from 'react';
-import axios from 'axios';
+import { useState } from 'react';
 import { EncabezadoLista } from '../../../components/partsLists/EncabezadoLista.jsx';
 import { useNavigate } from 'react-router-dom';
+import { useTipoServicios, useDeleteTipoServicio } from '../../../hooks/tipoServicio.hooks.js';
+import { toast, ToastContainer } from 'react-toastify';
+import ModalEliminar from '../../../components/ModalEliminar.jsx';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 export function TipoServicio() {
-  const PATH = 'http://localhost:3000/api/tipoServicios';
-  const [tipoServicios, setTipoServicios] = useState([]);
 
-  useEffect(() => {
-    const getTipoServicios = async () => {
-      try {
-        const response = await axios.get(PATH);
-        setTipoServicios(response.data.data);
-      } catch (error) {
-        console.error('Error fetching tipoServicios:', error);
-      }
-    };
-    getTipoServicios();
-  }, []);
-
-  const deleteTipoServicio = async (id) => {
-    try {
-      await axios.delete(`${PATH}/${id}`);
-      setTipoServicios((prev) => prev.filter((item) => item.id !== id));
-    } catch (error) {
-      console.error('Error deleting tipoServicio:', error);
-    }
-  };
+  const [visibleEliminar, setVisibleEliminar] = useState(false);
+  const [idTipo, setIdTipo] = useState(null);
+  const { tiposervicios, isLoading, isError, error } = useTipoServicios();
+  const {mutate: deleteTipoServicio} = useDeleteTipoServicio();
   const navigate = useNavigate();
+
+  if (isLoading) return <div>Cargando...</div>;
+  if (isError) {
+    console.log(error);
+    return <div>Error al cargar los tipos de servicios.</div>;
+  }
+
   const updateTipoServicio = (id) => {
     console.log('por modificar tiposervicio');
     navigate(`/updatetiposervicio/${id}`);
@@ -41,6 +34,23 @@ export function TipoServicio() {
     navigate('/addtiposervicio');
   };
 
+  const handleDelete = (idTipo) => {
+    setVisibleEliminar(true);
+    setIdTipo(idTipo);
+  }
+
+  const handleConfirm = () => {
+    deleteTipoServicio(idTipo, {
+      onSuccess: () => {
+        setVisibleEliminar(false);
+      },
+      onError: (error) => {
+        console.error('Error al eliminar el tipo de servicio:', error);
+        toast.error('No se pudo eliminar el tipo de servicio');
+      },
+    });
+  };
+  
   return (
     <>
       <CContainer>
@@ -65,8 +75,8 @@ export function TipoServicio() {
           ]}
         />
         <Lista
-          items={tipoServicios}
-          onDelete={deleteTipoServicio}
+          items={tiposervicios}
+          onDelete={handleDelete}
           onEdit={updateTipoServicio}
           columns={[
             { key: 'id', size: 1 },
@@ -75,6 +85,20 @@ export function TipoServicio() {
           ]}
         />
       </CContainer>
+      <ModalEliminar
+        visibleEliminar={visibleEliminar}
+        setVisibleEliminar={setVisibleEliminar}
+        handleConfirm={handleConfirm}
+        titulo = "tipo de servicio"
+      />
+      <ToastContainer
+        position="top-right"
+        autoClose={3000} 
+        hideProgressBar={false}
+        newestOnTop={true}
+        closeOnClick
+        pauseOnHover
+      />
     </>
   );
 }
