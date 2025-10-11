@@ -1,183 +1,61 @@
-import {
-  CButton,
-  CFormLabel,
-  CFormInput,
-  CModalTitle,
-  CCol,
-  CContainer,
-  CForm,
-  CModal,
-  CModalBody,
-  CModalHeader,
-  CRow,
-} from '@coreui/react';
-import { useForm } from 'react-hook-form';
-import { useEffect } from 'react';
-import {
-  useCreateLocalidad,
-  useUpdateLocalidad,
-} from '../../hooks/localidades.hooks';
+import { CButton, CCard, CCardTitle, CCardBody, CCol, CForm, CFormInput, CFormLabel, CRow, CModal, CModalHeader, CModalBody, CModalTitle, CModalFooter } from '@coreui/react';
 
-export default function FormLocalidad({
-  initialData,
 
-  visible,
-  setVisible,
-}) {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors, isSubmitting, isValid },
-    reset,
-  } = useForm({
-    mode: 'onChange',
-    defaultValues: {
-      codPostal: '',
-      nombre: '',
-    },
-  });
-  const { mutate: createLocalidad } = useCreateLocalidad();
-  const { mutate: updateLocalidad } = useUpdateLocalidad();
-
-  const onSubmit = (data) => {
-    if (initialData?.id) {
-      updateLocalidad(
-        { id: initialData.id, ...data },
-        {
-          onSuccess: () => {
-            setVisible(false);
-          },
-          onError: (err) => {
-            console.error(
-              'Error al actualizar:',
-              err.response?.data || err.message
-            );
-          },
-        }
-      );
-    } else {
-      createLocalidad(data, {
-        onSuccess: () => {
-          setVisible(false);
-        },
-        onError: (err) => {
-          console.error('Error al crear:', err.response?.data || err.message);
-        },
-      });
-    }
-  };
-  useEffect(() => {
-    if (initialData) {
-      reset({
-        nombre: initialData.nombre || '',
-        codPostal: initialData.codPostal || '',
-      });
-    } else {
-      reset({
-        nombre: '',
-        codPostal: '',
-      });
-    }
-  }, [initialData, reset, visible]);
-  const handleCancel = () => {
-    setVisible(false);
-    reset({ codPostal: '', nombre: '' });
+export default function FormLocalidad({ onSubmit, onCancel, isSubmitting, error, setError, formData, setFormData , titulo}) {
+  
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+    setError(''); //limpia el error
   };
 
   return (
-    <CModal alignment="center" visible={visible} onClose={handleCancel}>
-      <CModalHeader>
-        <CModalTitle>
-          {initialData?.id ? 'Actualizar localidad' : 'Agregar localidad'}
-        </CModalTitle>
-      </CModalHeader>
-      <CModalBody>
-        <CForm
-          className="p-4 border rounded shadow"
-          onSubmit={handleSubmit(onSubmit)}
-        >
-          <CFormLabel htmlFor="nombre">Nombre</CFormLabel>
+    <CCard className= "p-3 w-100 bg-light">
+      <CCardBody>
+      <CCardTitle>
+        {titulo}
+      </CCardTitle>
+        <CForm onSubmit={(e) => { e.preventDefault(); onSubmit(formData); }} className= "mt-3">
+        <CRow>
+          <CFormLabel>
+            Nombre*
+          </CFormLabel>
           <CFormInput
-            {...register('nombre', {
-              required: 'El nombre de la localidad es requerido',
-              minLength: {
-                value: 3,
-                message: 'El nombre debe tener al menos 4 caracteres',
-              },
-              maxLength: {
-                value: 20,
-                message: 'El nombre debe tener como maximo 20 caracteres',
-              },
-            })}
-            style={{
-              border: errors.nombre ? '1px solid red' : '1px solid #ddd',
-            }}
-            type="text"
-            id="nombreLocalidad"
-          ></CFormInput>
-          {errors.nombre && (
-            <p
-              style={{
-                color: 'red',
-                fontSize: '0.8em',
-                marginTop: '5px',
-              }}
-            >
-              {errors.nombre.message}
-            </p>
-          )}
-          <br />
-          <CFormLabel htmlFor="codPostal">Codigo postal</CFormLabel>
+            name="nombre"
+            placeholder="Nombre de la localidad"
+            value={formData.nombre}
+            onChange={handleChange}
+            className="mb-3"
+            required
+          />
+        </CRow>
+        <CRow>
+          <CFormLabel>
+            Código Postal*
+          </CFormLabel>
           <CFormInput
-            {...register('codPostal', {
-              required: 'El código postal es obligatorio',
-              pattern: {
-                value: /^\d{4}$/,
-                message: 'Debe tener exactamente 4 dígitos',
-              },
-            })}
-            style={{
-              border: errors.codPostal ? '1px solid red' : '1px solid #ddd',
-            }}
-            type="text"
-            id="codPostal"
-          ></CFormInput>
-
-          {errors.codPostal && (
-            <p
-              style={{
-                color: 'red',
-                fontSize: '0.8em',
-                marginTop: '5px',
-              }}
-            >
-              {errors.codPostal.message}
-            </p>
-          )}
-          <br />
-          <CRow className="mt-3 justify-content-center">
-            <CCol lg={6}>
-              <CButton
-                onClick={handleCancel}
-                color="secondary"
-                className="w-100"
-              >
-                Cancelar
-              </CButton>
-            </CCol>
-            <CCol lg={6}>
-              <CButton
-                disabled={isSubmitting || !isValid}
-                color="primary"
-                className="w-100"
-                type="submit"
-              >
-                {initialData?.id ? 'Actualizar' : 'Agregar'}
-              </CButton>
-            </CCol>
-          </CRow>
+            name="codPostal"
+            placeholder="Código Postal de la localidad"
+            value={formData.codPostal}
+            onChange={handleChange}
+            className="mb-3"
+            pattern="\d{4}"
+            title="El codigo postal debe tener 4 digitos"
+            required
+          />
+        </CRow>
+        {error && <div className="text-danger mb-3">{error}</div>}
+        <CRow className='justify-content-end'>
+          <CCol lg={1}>
+          <CButton type='button' color='secondary' className='mt-3 mx-3' onClick={onCancel}>Cancelar</CButton>
+          </CCol>
+          <CCol lg={1}>
+          <CButton type='submit' color='primary'className='mt-3 mx-3' disabled={isSubmitting}>{isSubmitting ? 'Guardando...' : 'Guardar'}</CButton>
+          </CCol>
+        </CRow>
         </CForm>
-      </CModalBody>
-    </CModal>
+        
+      </CCardBody>
+    </CCard>
+
   );
 }

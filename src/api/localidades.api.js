@@ -7,6 +7,11 @@ export const getLocalidades = async () => {
   return res.data.data;
 };
 
+export const getOneLocalidad = async (id) => {
+  const res = await axios.get(`${PATH}/${id}`);
+  return res.data.data;
+};
+
 export const createLocalidad = async (data) => {
   return await axios.post(PATH, data);
 };

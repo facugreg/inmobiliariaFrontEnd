@@ -28,6 +28,8 @@ import AddPropietario from './pages/admin/propietario/addPropietario.jsx';
 import Localidades from './pages/admin/localidad/Localidades.jsx';
 import Perfil from './pages/Perfil.jsx';
 import Visitas from './pages/admin/visita/Visitas.jsx';
+import { AddLocalidad } from './pages/admin/localidad/AddLocalidad.jsx';
+import { UpdateLocalidad } from './pages/admin/localidad/UpdateLocalidad.jsx';
 
 function App() {
   const [userType, setUserType] = useState('guest'); // Estado global para userType
@@ -151,6 +153,11 @@ function App() {
               userType === 'admin' ? <Localidades /> : <Navigate to="/" />
             }
           />
+          <Route path="/addLocalidad" element={userType === 'admin' ? <AddLocalidad /> : <Navigate to="/" />} />
+          <Route
+            path="updateLocalidad/:id"
+            element={userType === 'admin' ? <UpdateLocalidad /> : <Navigate to="/" />}
+          />
           <Route
             path="/propietarios"
             element={
@@ -182,11 +189,10 @@ function App() {
               userType === 'admin' ? <TipoServicio /> : <Navigate to="/" />
             }
           />
-
-          <Route path="/addtiposervicio" element={<AddTipoServicio />} />
+          <Route path="/addtiposervicio" element={userType === 'admin' ? <AddTipoServicio /> : <Navigate to="/" />} />
           <Route
             path="updatetiposervicio/:id"
-            element={<UpdateTipoServicio />}
+            element={userType === 'admin' ? <UpdateTipoServicio /> : <Navigate to="/" />}
           />
         </Route>
 
