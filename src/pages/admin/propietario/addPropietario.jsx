@@ -59,7 +59,7 @@ export default function AddPropietario(){
         </CButton>
         </CCol>
       </CRow>
-      <CRow>
+      <CRow className="pb-4">
       <FormPropietario onSubmit={onSubmit} onCancel={handleVolver} isSubmitting={isSubmitting} errorMail={errorMail} setErrorMail={setErrorMail} nombrePropietario='' apellidoPropietario='' mailPropietario='' telefonoPropietario='' titulo="Nuevo propietario" />
       </CRow>
     </CContainer>

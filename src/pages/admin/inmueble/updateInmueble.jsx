@@ -17,7 +17,7 @@ export default function UpdateInmueble(){
         </CButton>
         </CCol>
       </CRow>
-      <CRow>
+      <CRow className="pb-4">
      <FormUpdateInmueble id={id} />
       </CRow>
     </CContainer>

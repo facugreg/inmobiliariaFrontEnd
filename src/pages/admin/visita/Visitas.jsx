@@ -27,7 +27,7 @@ export default function Visitas() {
     });
   };
   return (
-    <CContainer>
+    <CContainer className='pb-4'>
       <CRow className="mt-3 d-flex justify-content-center align-items-center">
         <h2>Solicitudes de visitas</h2>
       </CRow>

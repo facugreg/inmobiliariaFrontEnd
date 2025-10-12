@@ -16,7 +16,7 @@ export default function AddInmueble(){
         </CButton>
         </CCol>
       </CRow>
-      <CRow>
+      <CRow className="pb-4">
       <FormCrearInmueble />
       </CRow>
     </CContainer>

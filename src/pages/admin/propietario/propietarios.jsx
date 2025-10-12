@@ -52,7 +52,7 @@ export default function Propietarios() {
 
   return (
   <>
-    <CContainer>
+    <CContainer className='pb-4'>
       <CRow className="mt-3 d-flex justify-content-center align-items-center">
         <h2>Propietarios</h2>
       </CRow>

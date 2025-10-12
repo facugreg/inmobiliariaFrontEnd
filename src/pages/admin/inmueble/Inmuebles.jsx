@@ -63,7 +63,7 @@ export default function Inmuebles() {
 
   return (
     <>
-      <CContainer>
+      <CContainer className='pb-4'>
         <CRow className="mt-3 d-flex justify-content-center align-items-center">
           <h2>Inmuebles</h2>
         </CRow>

@@ -67,7 +67,7 @@ export function UpdatePropietario(){
         </CButton>
         </CCol>
       </CRow>
-      <CRow>
+      <CRow className="pb-4">
       <FormPropietario onSubmit={handleUpdate} onCancel={handleVolver} isSubmitting={isSubmitting} errorMail={errorMail} setErrorMail={setErrorMail} nombrePropietario={propietario.nombrePropietario} apellidoPropietario={propietario.apellidoPropietario} mailPropietario={propietario.mailPropietario} telefonoPropietario={propietario.telefonoPropietario} titulo="Modificar propietario" />
       </CRow>
     </CContainer>
