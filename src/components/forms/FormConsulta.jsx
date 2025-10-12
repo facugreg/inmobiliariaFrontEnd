@@ -23,6 +23,7 @@ import { ModalNecesitaLogueo } from "../modals/ModalNecesitaLogueo.jsx";
 export function FormConsulta({idInmueble}) {
   const [formData, setFormData] = useState({
     descripcion: "",  
+    respuesta: "",
   });
   const [errors, setErrors] = useState({});
   const [submitSuccess, setSubmitSuccess] = useState(false);
@@ -48,7 +49,7 @@ export function FormConsulta({idInmueble}) {
 
     const PATH = 'http://localhost:3000/api/consultas';
     const idUsuario =  localStorage.getItem('userId');
-    
+
     if (!idUsuario) {
       setShowModal(true);
       return;
@@ -61,7 +62,9 @@ export function FormConsulta({idInmueble}) {
           descripcion: formData.descripcion,
           inmueble: Number(idInmueble),
           usuario:Number(idUsuario),
+          respuesta: "",
         };
+        console.log('Payload a enviar:', payload);
         await axios.post(PATH, payload);
         setSubmitSuccess(true);
         setFormData({descripcion: "" });
