@@ -45,7 +45,7 @@ export default function Lista({
               <CCol lg={1} className="ms-auto">
                 <CButton
                   onClick={() => onDelete(item.id)}
-                  color="secondary"
+                  color="danger"
                   disabled={
                     item.estado === 'Aceptada' || item.estado === 'Rechazada'
                   }

@@ -39,7 +39,7 @@ export default function FormLocalidad({ onSubmit, onCancel, isSubmitting, error,
             onChange={handleChange}
             className="mb-3"
             pattern="\d{4}"
-            title="El codigo postal debe tener 4 digitos"
+            title="El codigo postal debe tener 4 dígitos"
             required
           />
         </CRow>

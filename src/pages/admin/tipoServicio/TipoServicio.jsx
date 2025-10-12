@@ -6,7 +6,7 @@ import { EncabezadoLista } from '../../../components/partsLists/EncabezadoLista.
 import { useNavigate } from 'react-router-dom';
 import { useTipoServicios, useDeleteTipoServicio } from '../../../hooks/tipoServicio.hooks.js';
 import { toast, ToastContainer } from 'react-toastify';
-import ModalEliminar from '../../../components/ModalEliminar.jsx';
+import ModalEliminar from '../../../components/modals/ModalEliminar.jsx';
 import 'react-toastify/dist/ReactToastify.css';
 
 

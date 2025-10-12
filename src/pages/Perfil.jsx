@@ -4,7 +4,7 @@ import { useOneUsuario, useUpdateUsuario, useDeleteUsuario } from '../hooks/usua
 import FormPerfil from '../components/forms/FormPerfil.jsx';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import ModalEliminar from '../components/ModalEliminar.jsx';
+import ModalEliminar from '../components/modals/ModalEliminar.jsx';
 
 export default function Perfil({ userId, handleLogout }) {
 
