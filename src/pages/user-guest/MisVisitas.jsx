@@ -5,7 +5,7 @@ import Lista from '../../components/partsLists/Lista.jsx';
 import { EncabezadoLista } from '../../components/partsLists/EncabezadoLista.jsx';
 import { useState } from 'react';
 import { useDeleteVisita, useVisitas } from '../../hooks/visita.hooks.js';
-import ModalEliminar from '../../components/ModalEliminar.jsx';
+import ModalEliminar from '../../components/modals/ModalEliminar.jsx';
 import FormSolicitudVisita from '../../components/forms/FormSolicitudVisita.jsx';
 
 const opcionesEstado = [
