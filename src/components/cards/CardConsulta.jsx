@@ -3,15 +3,24 @@ import { cilOptions, cilUser } from '@coreui/icons';
 import { CButton, CCard, CCardBody, CDropdown, CDropdownItem, CDropdownMenu, CDropdownToggle, CForm, CFormTextarea, CInputGroup } from '@coreui/react';
 import React, { useState } from 'react';
 import { FormRtaConsulta } from '../forms/FormRtaConsulta.jsx';
+import axios from 'axios';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+
+
 export function CardConsulta ( {props} ){
+  const queryClient = useQueryClient();
     // const { nombreUsuario, descripcionResena, ResenaOConsulta= "Reseña" } = props;
     // agregué resenaOConsulta para que en cada resena haya que indicar si es una resena o una consulta general
     console.log('Props en CardConsulta:', props);
     const [isEditing, setIsEditing] = useState(false);
     const [editedDescripcion, setEditedDescripcion] = useState(props.descripcion);
+    const idUserConsulta= props.usuario.id;
+    const idConsulta = props.id;
+    const userType = localStorage.getItem('userType');
+    const idUserActual = localStorage.getItem('userId');
+    console.log ("los usersss",idUserConsulta, idUserActual)
     // const [respuesta, setRespuesta] = useState('');
     // const [respuestaError, setRespuestaError] = useState('');
-
     const handleEditToggle = () => {
     setIsEditing(!isEditing);
     setEditedDescripcion(props.descripcion); // Resetear al valor original al cancelar
@@ -26,26 +35,31 @@ export function CardConsulta ( {props} ){
       alert('La descripción no puede estar vacía.');
       return;
     }
-    // Aquí iría la lógica para guardar la edición (ej: axios.patch)
-    console.log('Guardando edición:', editedDescripcion);
+    mutate({ idConsulta, editedDescripcion }); 
     setIsEditing(false);
   };
 
-//   const handleRespuestaChange = (e) => {
-//     setRespuesta(e.target.value);
-//     if (respuestaError) setRespuestaError(''); // Limpiar error al escribir
-//   };
+const updateConsultaApi = async ({ idConsulta, editedDescripcion }) => {
+  const consultaActualizada = {
+    descripcion: editedDescripcion,
+    usuario: props.usuario?.id,  
+    inmueble: props.inmueble?.id,  
+    respuesta: props.respuesta || "",
+  };
+    const response = await axios.put(`http://localhost:3000/api/consultas/${idConsulta}`, consultaActualizada);
+    return response.data?.data ?? response.data;
+  };
 
-//   const handleRespuestaSubmit = (e) => {
-//     e.preventDefault();
-//     if (!respuesta.trim()) {
-//       setRespuestaError('La respuesta no puede estar vacía.');
-//       return;
-//     }
-//     // Aquí iría la lógica para enviar la respuesta (ej: axios.post)
-//     console.log('Enviando respuesta:', respuesta);
-//     setRespuesta('');
-//   };
+  const { mutate, isError, error } = useMutation({
+    mutationFn: updateConsultaApi,
+    onSuccess: () => {
+      queryClient.invalidateQueries(['consultas']);
+    },
+    onError: (err) => {
+      console.error('Error completo:', err);
+      console.error('Respuesta del servidor:', err.response?.data);
+    }
+  });
 
     return(
     <>
@@ -56,7 +70,8 @@ export function CardConsulta ( {props} ){
             <CIcon size={'lg'} icon={cilUser} className="me-2 text-primary" />
             <strong>{props.usuario.nombre} {props.usuario.apellido}</strong>
           </div>
-          <CDropdown>
+            {idUserActual == idUserConsulta && props.respuesta === '' && 
+            <CDropdown>
             <CDropdownToggle color="light" size="sm" className="border-0 bg-transparent">
               <CIcon icon={cilOptions} />
             </CDropdownToggle>
@@ -65,7 +80,8 @@ export function CardConsulta ( {props} ){
                 {isEditing ? 'Cancelar' : 'Editar'}
               </CDropdownItem>
             </CDropdownMenu>
-          </CDropdown>
+            </CDropdown>
+            }
         </div>
         {isEditing ? (
           <div>
@@ -89,8 +105,13 @@ export function CardConsulta ( {props} ){
                 <p className="mb-0">{props.respuesta}</p>
             </div>
         )}
-            {/* Formulario para responder la consulta */}
-        <FormRtaConsulta props={props}/>
+        {isError && (
+            <div className="alert alert-danger mb-3">
+              Error al actualizar: {error?.response?.data?.message || error.message}
+            </div>
+          )}
+            {/* Formulario para responder la consulta pero solo si es admin */}
+        {userType === 'admin' && <FormRtaConsulta props={props} />}
         </CCardBody>
     </CCard>
     </>

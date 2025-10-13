@@ -19,6 +19,7 @@ export const adminItems = [
   { direccion: '/tiposervicios', nombre: 'Tipos servicios' },
   { direccion: '/localidades', nombre: 'Localidades' },
   { direccion: '/propietarios', nombre: 'Propietarios' },
+  { direccion: '/consultas', nombre: 'consultas' },
 ];
 
 // obtener la navegación según el tipo de usuario

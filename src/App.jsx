@@ -29,6 +29,7 @@ import Perfil from './pages/Perfil.jsx';
 import Visitas from './pages/admin/visita/Visitas.jsx';
 import { AddLocalidad } from './pages/admin/localidad/AddLocalidad.jsx';
 import { UpdateLocalidad } from './pages/admin/localidad/UpdateLocalidad.jsx';
+import Consultas from './pages/admin/consulta/consultas.jsx';
 
 function App() {
   const [userType, setUserType] = useState('guest'); // Estado global para userType
@@ -145,6 +146,10 @@ function App() {
             element={
               userType === 'admin' ? <UpdateInmueble /> : <Navigate to="/" />
             }
+          />
+          <Route
+            path="/consultas"
+            element={userType === 'admin' ? <Consultas /> : <Navigate to="/" />}
           />
           <Route
             path="/localidades"
