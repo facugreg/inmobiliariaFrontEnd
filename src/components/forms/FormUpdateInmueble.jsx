@@ -1,9 +1,11 @@
-import { CButton, CCard, CCardTitle, CCardBody, CCol, CForm, CFormInput, CFormLabel, CRow, CModal, CModalHeader, CModalTitle, CModalFooter } from '@coreui/react';
+import { CFormSelect, CButton, CCard, CCardTitle, CCardBody, CCol, CForm, CFormInput, CFormLabel, CRow, CModal, CModalHeader, CModalTitle, CModalFooter } from '@coreui/react';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import useInmueble from '../../pages/admin/inmueble/getInmueble';
+import { usePropietarios } from '../../hooks/propietarios.hooks';
+import { useTipoServicios } from '../../hooks/tipoServicio.hooks';
 
 
 const updateInmuebleApi = async ({ id, formData }) => {
@@ -42,6 +44,20 @@ export function FormUpdateInmueble({ id }) {
   const [showModal, setShowModal] = useState(false);
   const { inmueble, isLoading } = useInmueble(id);
   const [tipo, setTipo] = useState('');
+  const { propietarios } = usePropietarios();
+  const { tiposervicios} = useTipoServicios();
+  const opcionesPropietarios = propietarios
+  ?.map((pro) => ({
+    value: pro.id,
+    label: `${pro.nombrePropietario} ${pro.apellidoPropietario}`,
+  }))
+  .sort((a, b) => a.label.localeCompare(b.label))|| [];
+
+  const opcionesTipoServicio = tiposervicios?.map((tipoS) => ({
+  value: tipoS.id,
+  label: tipoS.nombreTipoServicio,
+})).sort((a, b) => a.label.localeCompare(b.label)) || [];
+
 
   useEffect(() => {
     if (inmueble) {
@@ -237,31 +253,39 @@ export function FormUpdateInmueble({ id }) {
           </CRow>
 
           <CRow>
-            <CCol md={6}>
-              <CFormLabel htmlFor='propietario'>ID del Propietario*</CFormLabel>
-              <CFormInput
-                type="number"
+            <CCol md={6}>              
+              <CFormLabel htmlFor="propietario">Propietario</CFormLabel>
+              <CFormSelect
+                id="propietario"
                 name="propietario"
-                id='propietario'
-                placeholder="ID del propietario del inmueble"
                 value={formData.propietario}
                 onChange={handleChange}
-                className="mb-3"
                 required
-              />
+              >
+                <option value="">Seleccioná un propietario</option>
+                {opcionesPropietarios.map((opcion) => (
+                  <option key={opcion.value} value={opcion.value}>
+                    {opcion.label}
+                  </option>
+                ))}
+              </CFormSelect>                      
             </CCol>
             <CCol md={6}>
-              <CFormLabel htmlFor='tipoServicio'>ID del Tipo de Servicio*</CFormLabel> 
-              <CFormInput
-                type="number"
+              <CFormLabel htmlFor="tipoServicio">Tipo de servicio</CFormLabel>
+              <CFormSelect
+                id="tipoServicio"
                 name="tipoServicio"
-                id='tipoServicio'
-                placeholder="ID del tipo de servicio del inmueble"
                 value={formData.tipoServicio}
                 onChange={handleChange}
-                className="mb-3"
                 required
-              />
+              >
+                <option value="">Seleccioná un tipo de servicio</option>
+                {opcionesTipoServicio.map((opcion) => (
+                  <option key={opcion.value} value={opcion.value}>
+                    {opcion.label}
+                  </option>
+                ))}
+              </CFormSelect>
             </CCol>
           </CRow>
 

@@ -24,13 +24,13 @@ export default function Inmuebles() {
     query,
   });
   const { localidades } = useLocalidades();
-
   const opcionesLocalidades = localidades
     .map((loc) => ({
       value: loc.id,
       label: loc.nombre,
     }))
     .sort((a, b) => a.label.localeCompare(b.label));
+
   
     const opcionesTipoInmueble = [
     { value: 'casa', label: 'Casa' },
