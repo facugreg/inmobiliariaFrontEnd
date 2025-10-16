@@ -31,14 +31,13 @@ export default function Inmuebles() {
     }))
     .sort((a, b) => a.label.localeCompare(b.label));
 
-  
-    const opcionesTipoInmueble = [
+  const opcionesTipoInmueble = [
     { value: 'casa', label: 'Casa' },
     { value: 'cochera', label: 'Cochera' },
     { value: 'departamento', label: 'Departamento' },
     { value: 'terreno', label: 'Terreno' },
   ];
-  
+
   const handleAgregar = () => {
     console.log('por agregar nuevo inmueble');
     navigate('/addInmueble');
@@ -63,7 +62,7 @@ export default function Inmuebles() {
 
   return (
     <>
-      <CContainer className='pb-4'>
+      <CContainer className="pb-4">
         <CRow className="mt-3 d-flex justify-content-center align-items-center">
           <h2>Inmuebles</h2>
         </CRow>
@@ -105,6 +104,7 @@ export default function Inmuebles() {
             { key: 'Calle', size: '2' },
             { key: 'Número', size: '2' },
             { key: 'localidad', size: '3' },
+            { key: 'Acciones', size: '2' },
           ]}
         />
 

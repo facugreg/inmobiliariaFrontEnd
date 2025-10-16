@@ -1,9 +1,5 @@
-import React from "react";
-import {
-  CFormSelect,
-  CRow
-
-} from "@coreui/react";
+import React from 'react';
+import { CFormSelect, CRow } from '@coreui/react';
 
 export function Filtro({ label, opciones, value, onChange, className }) {
   return (

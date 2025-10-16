@@ -27,18 +27,18 @@ export default function Visitas() {
     });
   };
   return (
-    <CContainer className='pb-4'>
+    <CContainer className="pb-4">
       <CRow className="mt-3 d-flex justify-content-center align-items-center">
         <h2>Solicitudes de visitas</h2>
       </CRow>
       <EncabezadoLista
         columns={[
-          { key: 'id', size: '1' },
-          { key: 'Direccion', size: '1' },
-          { key: 'Fecha', size: '1' },
-          { key: 'Descripcion', size: '2' },
+          { key: 'Direc', size: '2' },
+          { key: 'Fecha', size: '2' },
+          { key: 'Desc', size: '1' },
           { key: 'Nombre', size: '2' },
           { key: 'Estado', size: '1' },
+          { key: 'Acciones', size: '2' },
         ]}
       />
       <Lista
@@ -46,10 +46,9 @@ export default function Visitas() {
         onEdit={handleAccept}
         onDelete={handleReject}
         columns={[
-          { key: 'id', size: '1' },
-          { key: 'direccion', size: '1' },
-          { key: 'datevisita', size: '1' },
-          { key: 'descriptionvisita', size: '2' },
+          { key: 'direccion', size: '2' },
+          { key: 'datevisita', size: '2' },
+          { key: 'descriptionvisita', size: '1' },
           { key: 'nombreUsuario', size: '2' },
           { key: 'estado', size: '1' },
         ]}

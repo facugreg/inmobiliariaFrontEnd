@@ -4,18 +4,19 @@ import Lista from '../../../components/partsLists/Lista.jsx';
 import { useState } from 'react';
 import { EncabezadoLista } from '../../../components/partsLists/EncabezadoLista.jsx';
 import { useNavigate } from 'react-router-dom';
-import { useTipoServicios, useDeleteTipoServicio } from '../../../hooks/tipoServicio.hooks.js';
+import {
+  useTipoServicios,
+  useDeleteTipoServicio,
+} from '../../../hooks/tipoServicio.hooks.js';
 import { toast, ToastContainer } from 'react-toastify';
 import ModalEliminar from '../../../components/modals/ModalEliminar.jsx';
 import 'react-toastify/dist/ReactToastify.css';
 
-
 export function TipoServicio() {
-
   const [visibleEliminar, setVisibleEliminar] = useState(false);
   const [idTipo, setIdTipo] = useState(null);
   const { tiposervicios, isLoading, isError, error } = useTipoServicios();
-  const {mutate: deleteTipoServicio} = useDeleteTipoServicio();
+  const { mutate: deleteTipoServicio } = useDeleteTipoServicio();
   const navigate = useNavigate();
 
   if (isLoading) return <div>Cargando...</div>;
@@ -37,7 +38,7 @@ export function TipoServicio() {
   const handleDelete = (idTipo) => {
     setVisibleEliminar(true);
     setIdTipo(idTipo);
-  }
+  };
 
   const handleConfirm = () => {
     deleteTipoServicio(idTipo, {
@@ -50,10 +51,10 @@ export function TipoServicio() {
       },
     });
   };
-  
+
   return (
     <>
-      <CContainer className='pb-4'>
+      <CContainer className="pb-4">
         <CRow className="mt-3  d-flex justify-content-center align-items-center">
           <h2>Tipos de servicios</h2>
         </CRow>
@@ -72,6 +73,7 @@ export function TipoServicio() {
             { key: 'id', size: 1 },
             { key: 'nombre', size: 3 },
             { key: 'descripcion', size: 4 },
+            { key: 'Acciones', size: 2 },
           ]}
         />
         <Lista
@@ -89,11 +91,11 @@ export function TipoServicio() {
         visibleEliminar={visibleEliminar}
         setVisibleEliminar={setVisibleEliminar}
         handleConfirm={handleConfirm}
-        titulo = "tipo de servicio"
+        titulo="tipo de servicio"
       />
       <ToastContainer
         position="top-right"
-        autoClose={3000} 
+        autoClose={3000}
         hideProgressBar={false}
         newestOnTop={true}
         closeOnClick

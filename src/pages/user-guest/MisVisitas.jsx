@@ -45,7 +45,7 @@ export function MisVisitas() {
 
   return (
     <>
-      <CContainer className='pb-4'>
+      <CContainer className="pb-4">
         <CRow className="mt-3  d-flex align-items-center">
           <CCol lg={6} md={12}>
             <Buscador onSearch={() => alert('Buscar inmueble')} />
@@ -66,6 +66,7 @@ export function MisVisitas() {
             { key: 'Fecha visita', size: '2' },
             { key: 'Descripcion', size: '2' },
             { key: 'Estado', size: '2' },
+            { key: 'Acciones', size: '2' },
           ]}
         />
         <Lista
