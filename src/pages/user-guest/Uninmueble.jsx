@@ -12,7 +12,7 @@ import {
 } from '@coreui/react';
 import { DetalleInmueble } from '../../components/detalleInmueble.jsx';
 import { CardConsulta } from '../../components/cards/CardConsulta.jsx';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import agente from '../../assets/agente.png';
 import  casa  from '../../assets/casa.jpg';
@@ -26,9 +26,14 @@ export const Uninmueble = () => {
   const { inmueble, loading, error} = useInmueble(id); // Uso del hook personalizado para obtener los datos del inmueble
   console.log(inmueble);
   const [mostrarTodas, setMostrarTodas] = useState(false);
+  const navigate = useNavigate();
 
   const imagenesCarrusel = [
   agente, casa, agente, casa];
+
+    const handleVolver = () => {
+    navigate(-1); 
+  };
 
 if (loading) {
     return <div>Cargando...</div>;
@@ -50,6 +55,13 @@ if (loading) {
   return (
     <>
     `<CContainer> 
+      <CRow className="mt-3 mb-3 mx-5">
+        <CCol lg={3}>
+        <CButton onClick={handleVolver} color='primary' >
+          Volver
+        </CButton>
+        </CCol>
+      </CRow>
         {/*Carrusel imagenes del inmueble*/}
         <CRow className="justify-content-center">
           <CCol lg={11} md={11} sm={12}>
