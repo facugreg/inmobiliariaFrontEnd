@@ -12,6 +12,7 @@ const opcionesInmueble = [
   { value: 'casa', label: 'Casa' },
   { value: 'cochera', label: 'Cochera' },
   { value: 'terreno', label: 'Terreno' },
+  { value: '', label: 'Todos' },
 ];
 
 const opcionesPrecio = [
@@ -19,6 +20,7 @@ const opcionesPrecio = [
   { value: '50000-100000', label: '$50,000 - $100,000' },
   { value: '100000-200000', label: '$100,000 - $200,000' },
   { value: '200000+', label: 'Más de $200,000' },
+  { value: '', label: 'Todos' },
 ];
 
 export function ComprarAlquilar({tipoServicio}) {
@@ -48,14 +50,17 @@ export function ComprarAlquilar({tipoServicio}) {
   const { localidades } = useLocalidades();
   
   const opcionesLocalidades = localidades
-  ? localidades
-  .map((loc) => ({
-    value: loc.id,
-    label: loc.nombre,
-  }))
-  .sort((a, b) => a.label.localeCompare(b.label))
+  ? [
+      { value: '', label: 'Todas' },
+      ...localidades
+        .map((loc) => ({
+          value: loc.id,
+          label: loc.nombre,
+        }))
+        .sort((a, b) => a.label.localeCompare(b.label)),
+    ]
   : [];
-  
+
   // Filtrá los inmuebles para la página actual
  const inicio = (paginaActual - 1) * inmueblesPorPagina;
  const fin = inicio + inmueblesPorPagina;

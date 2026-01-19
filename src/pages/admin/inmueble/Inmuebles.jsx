@@ -24,18 +24,25 @@ export default function Inmuebles() {
     query,
   });
   const { localidades } = useLocalidades();
+
   const opcionesLocalidades = localidades
-    .map((loc) => ({
-      value: loc.id,
-      label: loc.nombre,
-    }))
-    .sort((a, b) => a.label.localeCompare(b.label));
+    ? [
+      { value: '', label: 'Todas' },
+      ...localidades
+        .map((loc) => ({
+          value: loc.id,
+          label: loc.nombre,
+        }))
+        .sort((a, b) => a.label.localeCompare(b.label)),
+    ]
+  : [];
 
   const opcionesTipoInmueble = [
     { value: 'casa', label: 'Casa' },
     { value: 'cochera', label: 'Cochera' },
     { value: 'departamento', label: 'Departamento' },
     { value: 'terreno', label: 'Terreno' },
+    { value: '', label: 'Todos' },
   ];
 
   const handleAgregar = () => {

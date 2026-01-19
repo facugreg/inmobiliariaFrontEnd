@@ -10,8 +10,9 @@ import FormSolicitudVisita from '../../components/forms/FormSolicitudVisita.jsx'
 
 const opcionesEstado = [
   { value: 'Pendiente', label: 'Pendiente' },
-  { value: 'Confirmada', label: 'Confirmada' },
-  { value: 'Cancelada', label: 'Cancelada' },
+  { value: 'Aceptada', label: 'Aceptada' },
+  { value: 'Rechazada', label: 'Rechazada' },
+  { value: '', label: 'Todos' },
 ];
 
 export function MisVisitas() {
@@ -43,6 +44,10 @@ export function MisVisitas() {
     setModalVisible(true);
   };
 
+  const visitasFiltradas = valorEstado
+  ? visitas.filter((visita) => visita.estado === valorEstado)
+  : visitas;
+
   return (
     <>
       <CContainer className="pb-4">
@@ -70,7 +75,7 @@ export function MisVisitas() {
           ]}
         />
         <Lista
-          items={visitas}
+          items={visitasFiltradas}
           onDelete={handleDelete}
           onEdit={handleEdit}
           columns={[
