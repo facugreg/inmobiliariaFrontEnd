@@ -65,7 +65,7 @@ export function FormConsulta({idInmueble}) {
           respuesta: "",
         };
         console.log('Payload a enviar:', payload);
-        await axios.post(PATH, payload);
+        await axios.post(PATH, payload, {withCredentials: true});
         setSubmitSuccess(true);
         setFormData({descripcion: "" });
         setTimeout(() => setSubmitSuccess(false), 3000);

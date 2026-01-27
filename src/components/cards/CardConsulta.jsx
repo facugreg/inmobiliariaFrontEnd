@@ -46,7 +46,7 @@ const updateConsultaApi = async ({ idConsulta, editedDescripcion }) => {
     inmueble: props.inmueble?.id,  
     respuesta: props.respuesta || "",
   };
-    const response = await axios.put(`http://localhost:3000/api/consultas/${idConsulta}`, consultaActualizada);
+    const response = await axios.put(`http://localhost:3000/api/consultas/${idConsulta}`, consultaActualizada, {withCredentials: true});
     return response.data?.data ?? response.data;
   };
 

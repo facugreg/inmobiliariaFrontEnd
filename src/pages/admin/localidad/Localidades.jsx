@@ -74,7 +74,6 @@ export default function Localidades() {
         </CRow>
         <EncabezadoLista
           columns={[
-            { key: 'id', size: '2' },
             { key: 'Nombre', size: '3' },
             { key: 'Codigo postal', size: '3' },
             { key: 'Acciones', size: '2' },
@@ -85,7 +84,6 @@ export default function Localidades() {
           onDelete={handleDelete}
           onEdit={updateLocalidad}
           columns={[
-            { key: 'id', size: '2' },
             { key: 'nombre', size: '3' },
             { key: 'codPostal', size: '3' },
           ]}

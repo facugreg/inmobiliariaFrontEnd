@@ -25,7 +25,7 @@ export default function FormSolicitudVisita({
   const {
     register,
     handleSubmit,
-    formState: { errors, isValid },
+    formState: { errors },
     reset,
   } = useForm({
     mode: 'onChange',
@@ -152,7 +152,7 @@ export default function FormSolicitudVisita({
           Cancelar
         </CButton>
         <CButton
-          disabled={!isValid}
+          //disabled={!isValid}
           color="primary"
           type="submit"
           form="visita-form"

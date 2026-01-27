@@ -74,7 +74,6 @@ export default function Propietarios() {
         </CRow>
         <EncabezadoLista
           columns={[
-            { key: 'id', size: '1' },
             { key: 'Nombre', size: '2' },
             { key: 'Apellido', size: '2' },
             { key: 'Mail', size: '3' },
@@ -87,7 +86,6 @@ export default function Propietarios() {
           onDelete={handleDelete}
           onEdit={updatePropietario}
           columns={[
-            { key: 'id', size: '1' },
             { key: 'nombrePropietario', size: '2' },
             { key: 'apellidoPropietario', size: '2' },
             { key: 'mailPropietario', size: '3' },

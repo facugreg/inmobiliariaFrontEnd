@@ -70,9 +70,8 @@ export function TipoServicio() {
         </CRow>
         <EncabezadoLista
           columns={[
-            { key: 'id', size: 1 },
             { key: 'nombre', size: 3 },
-            { key: 'descripcion', size: 4 },
+            { key: 'descripcion', size: 5 },
             { key: 'Acciones', size: 2 },
           ]}
         />
@@ -81,9 +80,8 @@ export function TipoServicio() {
           onDelete={handleDelete}
           onEdit={updateTipoServicio}
           columns={[
-            { key: 'id', size: 1 },
             { key: 'nombreTipoServicio', size: 3 },
-            { key: 'descripcionTipoServicio', size: 4 },
+            { key: 'descripcionTipoServicio', size: 5 },
           ]}
         />
       </CContainer>

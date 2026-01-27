@@ -107,7 +107,6 @@ export default function Inmuebles() {
 
         <EncabezadoLista
           columns={[
-            { key: 'id', size: '1' },
             { key: 'Calle', size: '2' },
             { key: 'Número', size: '2' },
             { key: 'localidad', size: '3' },
@@ -120,7 +119,6 @@ export default function Inmuebles() {
           onDelete={deleteInmueble}
           onEdit={updateInmueble}
           columns={[
-            { key: 'id', size: '1' },
             { key: 'direccionCalle', size: '2' },
             { key: 'direccionNumero', size: '2' },
             { key: 'localidad', size: '3' },

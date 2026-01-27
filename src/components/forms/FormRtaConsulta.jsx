@@ -51,7 +51,7 @@ export function FormRtaConsulta({props}) {
             respuesta: formData.respuesta,
           };
           console.log('Payload a enviar:', payload);
-          await axios.put(PATH, payload);
+          await axios.put(PATH, payload, {withCredentials: true});
           setSubmitSuccess(true);
           setFormData({respuesta: "" });
           setTimeout(() => setSubmitSuccess(false), 3000);
