@@ -13,13 +13,13 @@ export const getOnePropietario = async (id) => {
 };
 
 export const createPropietario = async (data) => {
-  return await axios.post(PATH, data);
+  return await axios.post(PATH, data, {withCredentials: true});
 };
 
 export const updatePropietario = async ({ id, ...data }) => {
-  return await axios.put(`${PATH}/${id}`, data);
+  return await axios.put(`${PATH}/${id}`, data, {withCredentials: true});
 };
 
 export const deletePropietario = async (id) => {
-  return await axios.delete(`${PATH}/${id}`);
+  return await axios.delete(`${PATH}/${id}`, {withCredentials: true});
 };

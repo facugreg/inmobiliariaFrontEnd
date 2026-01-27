@@ -25,6 +25,8 @@ export const deleteUsuario = async (id) => {
 };
 
 export const loginUsuario = async (data) => {
-  const res = await axios.post(`${PATH}/login`, data, { headers: { 'Content-Type': 'application/json' } });
+  const res = await axios.post(`${PATH}/login`, data, {
+    withCredentials: true,
+    headers: { 'Content-Type': 'application/json' } });
   return res.data.data;
 };
