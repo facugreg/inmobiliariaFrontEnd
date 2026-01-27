@@ -9,7 +9,7 @@ import { useTipoServicios } from '../../hooks/tipoServicio.hooks';
 
 
 const updateInmuebleApi = async ({ id, formData }) => {
-  const response = await axios.put(`http://localhost:3000/api/inmuebles/${id}`, formData);
+  const response = await axios.put(`http://localhost:3000/api/inmuebles/${id}`, formData, {withCredentials: true});
   return response.data?.data ?? response.data;
 };
 

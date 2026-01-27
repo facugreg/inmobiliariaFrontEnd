@@ -24,7 +24,7 @@ import { useTipoServicios } from '../../hooks/tipoServicio.hooks';
 import { useLocalidades } from '../../hooks/localidades.hooks';
 const addInmuebleApi = async ({ formData }) => {
   const PATH = 'http://localhost:3000/api/inmuebles';
-  const response = await axios.post(PATH, formData);
+  const response = await axios.post(PATH, formData, {withCredentials: true});
   return response.data.data;
 };
 

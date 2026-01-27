@@ -13,13 +13,13 @@ export const getOneTipoServicio = async (id) => {
 };
 
 export const createTipoServicio = async (data) => {
-  return await axios.post(PATH, data);
+  return await axios.post(PATH, data, {withCredentials: true});
 };
 
 export const updateTipoServicio = async ({ id, ...data }) => {
-  return await axios.put(`${PATH}/${id}`, data);
+  return await axios.put(`${PATH}/${id}`, data, {withCredentials: true});
 };
 
 export const deleteTipoServicio = async (id) => {
-  return await axios.delete(`${PATH}/${id}`);
+  return await axios.delete(`${PATH}/${id}`, {withCredentials: true});
 };

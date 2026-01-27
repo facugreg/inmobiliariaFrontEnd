@@ -5,7 +5,7 @@ import { CButton, CContainer } from '@coreui/react';
 
 const deleteInmuebleApi = async (id) => {
   const PATH= 'http://localhost:3000/api/inmuebles';
-  const response = await axios.delete(`${PATH}/${id}`);
+  const response = await axios.delete(`${PATH}/${id}`, {withCredentials: true});
   return response.data.data;
 };
 
