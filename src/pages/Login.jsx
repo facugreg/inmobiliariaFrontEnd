@@ -1,12 +1,16 @@
 import { useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
-import { useLoginUsuario } from '../hooks/usuarios.hooks';
+import { useAuth } from '../hooks/usuarios.hooks';
 import FormLogin from '../components/forms/FormLogin';
+import { useState } from 'react';
 
-function Login({ handleLogin }) {
+function Login() {
   const navigate = useNavigate();
   const location = useLocation();
+  const {login} = useAuth();
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
   const onCancel = () => {
     navigate('/');
   };
@@ -18,15 +22,24 @@ function Login({ handleLogin }) {
     }
   }, [location, navigate]);
 
-  const loginMutation = useLoginUsuario();
+  //const loginMutation = useLoginUsuario();
 
-  const onSubmit = (data) => {
-    loginMutation.mutate(data, {
-      onSuccess: (user) => {
-        handleLogin(user.rol || 'guest', user.id || null);
-        navigate('/');
-      },
-    });
+  const onSubmit = async (data) => {
+    // loginMutation.mutate(data, {
+    //   onSuccess: (user) => {
+    //     handleLogin(user.rol || 'guest', user.id || null);
+    //     navigate('/');
+    //   },
+    // });
+    setLoading(true);
+    setError(false);
+    try {
+      await login(data.email, data.password); // esto setea user adentro
+      navigate('/');
+    } catch {
+      toast.error("Credenciales incorrectas");
+      setError(true);
+    }
   };
 
   return (
@@ -34,7 +47,9 @@ function Login({ handleLogin }) {
       <FormLogin
         onSubmit={onSubmit}
         onCancel={onCancel}
-        loginMutation={loginMutation}
+        loading={loading}
+        error={error}
+        //loginMutation={loginMutation}
       />
       <ToastContainer position="top-right" autoClose={3000} closeOnClick />
     </>

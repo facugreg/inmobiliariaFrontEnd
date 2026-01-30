@@ -10,8 +10,7 @@ const loginSchema = z.object({
   password: z.string("Contraseña Requerida").min(1, "Contraseña Requerida"),
 });
 
-
-function FormLogin({ onSubmit, onCancel, loginMutation }) {
+function FormLogin({ onSubmit, onCancel, loading, error }) {
     const { register, handleSubmit, formState: { errors } } = useForm({
     resolver: zodResolver(loginSchema),
   });
@@ -80,14 +79,14 @@ function FormLogin({ onSubmit, onCancel, loginMutation }) {
                   type="submit"
                   color="primary"
                   className="w-100"
-                  disabled={loginMutation.isPending}
+                  disabled={loading}
                 >
-                  {loginMutation.isPending ? "Ingresando..." : "Iniciar sesión"}
+                  {loading ? "Ingresando..." : "Iniciar sesión"}
                 </CButton>
               </CCol>
             </CRow>
 
-            {loginMutation.isError && (
+            {error && (
               <p className="text-danger text-center mt-3">
                 Usuario o contraseña incorrectos
               </p>

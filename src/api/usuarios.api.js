@@ -17,11 +17,11 @@ export const createUsuario = async (data) => {
 };
 
 export const updateUsuario = async ({ id, ...data }) => {
-  return await axios.put(`${PATH}/${id}`, data);
+  return await axios.put(`${PATH}/${id}`, data, {withCredentials: true});
 };
 
 export const deleteUsuario = async (id) => {
-  return await axios.delete(`${PATH}/${id}`);
+  return await axios.delete(`${PATH}/${id}`, {withCredentials: true});
 };
 
 export const loginUsuario = async (data) => {
@@ -29,4 +29,14 @@ export const loginUsuario = async (data) => {
     withCredentials: true,
     headers: { 'Content-Type': 'application/json' } });
   return res.data.data;
+};
+
+export const getAuthUsuario = async () => {
+  const res = await axios.get(`${PATH}/me`, { withCredentials: true });
+  return res.data.user;
+}
+
+export const logoutUsuario = async () => {
+  const res = await axios.post(`${PATH}/logout`,{}, { withCredentials: true });
+  return res.data.message;
 };

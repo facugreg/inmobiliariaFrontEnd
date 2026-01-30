@@ -7,6 +7,8 @@ import {
   deleteUsuario,
   loginUsuario,
 } from '../api/usuarios.api.js';
+import { useContext } from 'react';
+import { AuthContext } from '../context/authContext.js';
 
 export const useUsuarios = () => {
   const { data, isLoading, error } = useQuery({
@@ -60,3 +62,6 @@ export const useLoginUsuario = () => {
     mutationFn: loginUsuario,
   });
 };
+
+// Hook para acceder al contexto de autenticación, obtener el usuario actual
+export const useAuth = () => useContext(AuthContext);
