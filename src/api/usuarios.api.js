@@ -13,7 +13,7 @@ export const getOneUsuario = async (id) => {
 };
 
 export const createUsuario = async (data) => {
-  return await axios.post(PATH, data);
+  return await axios.post(PATH, data, {withCredentials: true});
 };
 
 export const updateUsuario = async ({ id, ...data }) => {
