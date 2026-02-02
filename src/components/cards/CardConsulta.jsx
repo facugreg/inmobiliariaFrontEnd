@@ -1,10 +1,11 @@
 import { CIcon } from '@coreui/icons-react';
 import { cilOptions, cilUser } from '@coreui/icons';
-import { CButton, CCard, CCardBody, CDropdown, CDropdownItem, CDropdownMenu, CDropdownToggle, CForm, CFormTextarea, CInputGroup } from '@coreui/react';
+import { CButton, CCard, CCardBody, CDropdown, CDropdownItem, CDropdownMenu, CDropdownToggle, CFormTextarea } from '@coreui/react';
 import React, { useState } from 'react';
 import { FormRtaConsulta } from '../forms/FormRtaConsulta.jsx';
-import axios from 'axios';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useAuth } from '../../hooks/usuarios.hooks.js';
+import { updateConsulta } from '../../api/consultas.api.js';
 
 
 export function CardConsulta ( {props} ){
@@ -16,11 +17,8 @@ export function CardConsulta ( {props} ){
     const [editedDescripcion, setEditedDescripcion] = useState(props.descripcion);
     const idUserConsulta= props.usuario.id;
     const idConsulta = props.id;
-    const userType = localStorage.getItem('userType');
-    const idUserActual = localStorage.getItem('userId');
-    console.log ("los usersss",idUserConsulta, idUserActual)
-    // const [respuesta, setRespuesta] = useState('');
-    // const [respuestaError, setRespuestaError] = useState('');
+    const {user} = useAuth();
+
     const handleEditToggle = () => {
     setIsEditing(!isEditing);
     setEditedDescripcion(props.descripcion); // Resetear al valor original al cancelar
@@ -46,8 +44,8 @@ const updateConsultaApi = async ({ idConsulta, editedDescripcion }) => {
     inmueble: props.inmueble?.id,  
     respuesta: props.respuesta || "",
   };
-    const response = await axios.put(`http://localhost:3000/api/consultas/${idConsulta}`, consultaActualizada, {withCredentials: true});
-    return response.data?.data ?? response.data;
+  const response = await updateConsulta({ id: idConsulta, ...consultaActualizada });
+  return response.data?.data ?? response.data;
   };
 
   const { mutate, isError, error } = useMutation({
@@ -70,7 +68,7 @@ const updateConsultaApi = async ({ idConsulta, editedDescripcion }) => {
             <CIcon size={'lg'} icon={cilUser} className="me-2 text-primary" />
             <strong>{props.usuario.nombre} {props.usuario.apellido}</strong>
           </div>
-            {idUserActual == idUserConsulta && props.respuesta === '' && 
+            {user?.id == idUserConsulta && props.respuesta === '' && 
             <CDropdown>
             <CDropdownToggle color="light" size="sm" className="border-0 bg-transparent">
               <CIcon icon={cilOptions} />
@@ -111,7 +109,7 @@ const updateConsultaApi = async ({ idConsulta, editedDescripcion }) => {
             </div>
           )}
             {/* Formulario para responder la consulta pero solo si es admin */}
-        {userType === 'admin' && <FormRtaConsulta props={props} />}
+        {user?.rol === 'admin' && <FormRtaConsulta props={props} user = {user} />}
         </CCardBody>
     </CCard>
     </>

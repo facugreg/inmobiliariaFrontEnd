@@ -12,6 +12,7 @@ import {
   CButton,
   CFormLabel,
 } from '@coreui/react';
+import { useAuth } from '../../hooks/usuarios.hooks.js';
 import { useCreateVisita, useUpdateVisita } from '../../hooks/visita.hooks';
 export default function FormSolicitudVisita({
   modalVisible,
@@ -19,7 +20,7 @@ export default function FormSolicitudVisita({
   idInmueble,
   initialData,
 }) {
-  const idUsuario = localStorage.getItem('userId');
+  const {user} = useAuth();
   const { mutate: createVisita } = useCreateVisita();
   const { mutate: updateVisita } = useUpdateVisita();
   const {
@@ -32,7 +33,7 @@ export default function FormSolicitudVisita({
     defaultValues: {
       datevisita: '',
       descriptionvisita: '',
-      usuario: idUsuario,
+      usuario: user?.id,
       inmueble: idInmueble,
       telefonoContacto: '',
       estado: 'Pendiente',
@@ -43,7 +44,7 @@ export default function FormSolicitudVisita({
       reset({
         datevisita: initialData.datevisita,
         descriptionvisita: initialData.descriptionvisita,
-        usuario: idUsuario,
+        usuario: user?.id,
         inmueble: idInmueble,
         telefonoContacto: initialData.telefonoContacto,
       });
@@ -51,19 +52,19 @@ export default function FormSolicitudVisita({
       reset({
         datevisita: '',
         descriptionvisita: '',
-        usuario: idUsuario,
+        usuario: user?.id,
         inmueble: idInmueble,
         telefonoContacto: '',
       });
     }
-  }, [initialData, idUsuario, idInmueble, reset]);
+  }, [initialData, user?.id, idInmueble, reset]);
   //Handlers
   const onSubmit = async (data) => {
     if (initialData && initialData.id) {
-      data.usuario = Number(idUsuario);
+      data.usuario = Number(user?.id);
       await updateVisita({ id: initialData.id, ...data });
     } else {
-      data.usuario = Number(idUsuario);
+      data.usuario = Number(user?.id);
       data.inmueble = Number(idInmueble);
       data.estado = 'Pendiente';
       console.log('Enviando visita:', data);

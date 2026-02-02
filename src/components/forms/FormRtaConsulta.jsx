@@ -1,12 +1,12 @@
 import { CAlert, CButton, CForm, CFormTextarea, CInputGroup } from "@coreui/react";
 import React, { useState } from "react";
-import axios from 'axios';
 import CIcon from "@coreui/icons-react";
 import { cilSend } from "@coreui/icons";
 import { ModalNecesitaLogueo } from "../modals/ModalNecesitaLogueo.jsx";
+import { updateConsulta } from "../../api/consultas.api.js";
 
 
-export function FormRtaConsulta({props}) {
+export function FormRtaConsulta({props, user}) {
   const [formData, setFormData] = useState({
     respuesta: "",
   });
@@ -34,9 +34,8 @@ export function FormRtaConsulta({props}) {
       const PATH = `http://localhost:3000/api/consultas/${props.id}`;
 
       // {/*Esto es para cuando veamos bien como hacerlo*/}
-      const idUsuario =  localStorage.getItem('userId');
   
-      if (!idUsuario) {
+      if (!(user?.id)) {
         setShowModal(true);
         return;
       }
@@ -51,7 +50,7 @@ export function FormRtaConsulta({props}) {
             respuesta: formData.respuesta,
           };
           console.log('Payload a enviar:', payload);
-          await axios.put(PATH, payload, {withCredentials: true});
+          await updateConsulta({ id: props.id, ...payload });
           setSubmitSuccess(true);
           setFormData({respuesta: "" });
           setTimeout(() => setSubmitSuccess(false), 3000);

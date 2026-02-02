@@ -1,6 +1,6 @@
 import { CCol, CButton, CContainer, CRow, CCard, CCardBody } from '@coreui/react';
 import { CardConsulta } from '../../../components/cards/CardConsulta';
-import useConsultas from './getConsultas';
+import { useConsultas } from '../../../hooks/consultas.hooks.js';
 import { useNavigate } from 'react-router-dom';
 
 export default function Consultas() {

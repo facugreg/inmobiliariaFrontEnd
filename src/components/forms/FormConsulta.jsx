@@ -17,8 +17,9 @@ import {
   CModalBody,
   CModalFooter,
 } from "@coreui/react";
-import axios from 'axios';
 import { ModalNecesitaLogueo } from "../modals/ModalNecesitaLogueo.jsx";
+import { useAuth } from "../../hooks/usuarios.hooks.js";
+import { createConsulta } from "../../api/consultas.api.js";
 
 export function FormConsulta({idInmueble}) {
   const [formData, setFormData] = useState({
@@ -28,6 +29,7 @@ export function FormConsulta({idInmueble}) {
   const [errors, setErrors] = useState({});
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const {user} = useAuth();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -47,10 +49,7 @@ export function FormConsulta({idInmueble}) {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const PATH = 'http://localhost:3000/api/consultas';
-    const idUsuario =  localStorage.getItem('userId');
-
-    if (!idUsuario) {
+    if (!user?.id) {
       setShowModal(true);
       return;
     }
@@ -61,11 +60,11 @@ export function FormConsulta({idInmueble}) {
         const payload = {
           descripcion: formData.descripcion,
           inmueble: Number(idInmueble),
-          usuario:Number(idUsuario),
+          usuario:Number(user?.id),
           respuesta: "",
         };
         console.log('Payload a enviar:', payload);
-        await axios.post(PATH, payload, {withCredentials: true});
+        await createConsulta(payload);
         setSubmitSuccess(true);
         setFormData({descripcion: "" });
         setTimeout(() => setSubmitSuccess(false), 3000);
