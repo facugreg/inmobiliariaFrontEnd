@@ -7,7 +7,6 @@ import { useState } from 'react';
 import { useDeleteVisita, useVisitas } from '../../hooks/visita.hooks.js';
 import ModalEliminar from '../../components/modals/ModalEliminar.jsx';
 import FormSolicitudVisita from '../../components/forms/FormSolicitudVisita.jsx';
-import { useAuth } from '../../hooks/usuarios.hooks.js';
 
 const opcionesEstado = [
   { value: 'Pendiente', label: 'Pendiente' },
@@ -22,8 +21,8 @@ export function MisVisitas() {
   const [selectedVisita, setSelectedVisita] = useState(null);
   const [valorEstado, setValorEstado] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
-  const {user} = useAuth();
-  const { visitas } = useVisitas(user);
+  const { visitas } = useVisitas();
+
   const handleEstadoChange = (e) => {
     setValorEstado(e.target.value);
     console.log('Filtro estado:', e.target.value);

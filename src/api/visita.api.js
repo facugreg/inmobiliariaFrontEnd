@@ -1,10 +1,8 @@
 import axios from 'axios';
 const PATH = 'http://localhost:3000/api/visitas';
-export const getVisitas = async ({user}) => {
-  const userId = user?.id;
-  const userRol = user?.rol;
+export const getVisitas = async () => {
 
-  const res = await axios.get(PATH, {withCredentials: true, params: { userId, userRol } });
+  const res = await axios.get(PATH, {withCredentials: true});
   return res.data.data;
 };
 

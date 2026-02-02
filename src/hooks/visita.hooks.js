@@ -7,10 +7,10 @@ import {
 import { useQuery } from '@tanstack/react-query';
 import { useQueryClient } from '@tanstack/react-query';
 import { useMutation } from '@tanstack/react-query';
-export const useVisitas = ({user}) => {
+export const useVisitas = () => {
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ['visitas'],
-    queryFn: getVisitas(user),
+    queryFn: getVisitas,
     refetchOnWindowFocus: false,
   });
   const visitasParaListar = data
