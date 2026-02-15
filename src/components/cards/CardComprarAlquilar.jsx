@@ -54,7 +54,7 @@ return (
                     fontFamily: 'Poppins, sans-serif',
                     fontSize: '24px',
                   }}
-                  >
+                  >$
                   {inmueble.precioDolar}
                 </h3>
                 <p
